@@ -2,4 +2,6 @@ build/
 default
 .gradle/
 test.sh
+gradle-2.4/
+*.zip
 
