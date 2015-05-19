@@ -112,7 +112,7 @@ $(function(){
     loginData['username'] = $("#username")[0].value;
     loginData['password'] = $("#password")[0].value;
 
-     $.post('http://192.168.31.110/api/login', loginData, function(data) {
+     $.post('/api/login', loginData, function(data) {
        /*optional stuff to do after success */
        var abc = "'";
        var re = new RegExp(abc, 'g');
