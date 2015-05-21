@@ -4,4 +4,5 @@ default
 test.sh
 gradle-2.4/
 *.zip
-
+.idea/
+LMS.iml

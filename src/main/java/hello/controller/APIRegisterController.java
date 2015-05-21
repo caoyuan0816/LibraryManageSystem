@@ -1,11 +1,12 @@
 /**
  * Created by yuan on 15/5/17.
  */
-package hello;
+package hello.controller;
 
+import hello.model.Account;
+import hello.model.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
 /***
  * Class used to record register result

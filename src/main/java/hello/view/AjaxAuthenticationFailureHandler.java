@@ -1,4 +1,4 @@
-package hello;
+package hello.view;
 
 import java.io.IOException;
 import java.io.Writer;

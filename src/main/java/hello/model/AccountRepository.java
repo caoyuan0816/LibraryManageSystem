@@ -1,6 +1,4 @@
-package hello;
-
-import java.util.List;
+package hello.model;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
