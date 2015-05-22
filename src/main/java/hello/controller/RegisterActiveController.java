@@ -33,11 +33,9 @@ public class RegisterActiveController {
                       @RequestParam("code") String validatecode,
                       Model model){
         user_account = accountRepository.findByUsername(username);
-        String toCheck = user_account.getValidateCode();
-        if(validatecode==toCheck){
+        if(validatecode.equals(user_account.getValidateCode())){
             user_account.passValidate();
             accountRepository.save(user_account);
-            model.addAttribute("message","validate success");
         }else{
             model.addAttribute("message","validate failed");
         }

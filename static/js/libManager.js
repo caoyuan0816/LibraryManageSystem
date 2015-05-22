@@ -100,7 +100,7 @@ function modifyPassCheck() {
         required: "Password couldn't be null",
         minlength: "The minimum length of password is 6",
         maxlength: "The maximum length of password is 20"
-      }
+      },
       newPassword: {
         required: "Password couldn't be null",
         minlength: "The minimum length of password is 6",

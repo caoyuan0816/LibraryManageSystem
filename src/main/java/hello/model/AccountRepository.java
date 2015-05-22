@@ -19,4 +19,6 @@ public interface AccountRepository extends MongoRepository<Account, String> {
     //db.account.find({"email": email})
     public Account findByEmail(String email);
 
+    public Account findByUsernameAndValidated(String username, Boolean validated);
+
 }

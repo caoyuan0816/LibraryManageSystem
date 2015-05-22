@@ -82,15 +82,16 @@ public class APIRegisterController {
             return new RegisterStatus(false, "Email already used.");
         } else {
             //Try to sent a email to user
+            String code = RandomGenerator.next();
             try {
-                EmailSender.sendTo(email, "<h2>Hello, there is a link to validate your email</h2><a href=\"http://192.168.195.164/active/?username="+ username +"&code="+ RandomGenerator.next() +"\"></a>");
+                EmailSender.sendTo(email, "<h1>Hello,"+username+"</h1><a href=\"http://192.168.195.164/activate/?username="+ username +"&code="+ code +"\"><h2>there is a link to validate your email</h2></a>");
             } catch (Exception e) {
                 //Email sent failed
                 return new RegisterStatus(false, "Can not sent email.");
             }
 
             //save the new account into database
-            accountRepository.save(new Account(username, password, email));
+            accountRepository.save(new Account(username, password, email, code));
         }
 
         //Register success

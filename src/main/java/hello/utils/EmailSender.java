@@ -21,19 +21,6 @@ public class EmailSender {
 //    private static final String PASSWORD = "asd123";
     private static final String PASSWORD = "Caoyuan7758521";
 
-<<<<<<< HEAD
-    // public static void main(String[] args) throws Throwable {
-
-    //     EmailSender emailSender = new EmailSender();
-    //     if(emailSender.sendTo("562683864@qq.com")){
-    //         System.out.println("Sent success");
-    //     }else{
-    //         System.out.println("Sent failed");
-    //     }
-    // }
-
-    public boolean sendTo(final String recipient){
-=======
     /***
      * Method sendTo : sent a email with specific content to user's email address
      * If there are any problem during sending, it will throw a exception out
@@ -42,7 +29,6 @@ public class EmailSender {
      * @throws Exception
      */
     public static void sendTo(final String recipient, final String content) throws Exception{
->>>>>>> 6032fc268a3d9d0c4f0c91cafa03ad2670e06cc5
 
         //Construct the message
         String to = recipient;

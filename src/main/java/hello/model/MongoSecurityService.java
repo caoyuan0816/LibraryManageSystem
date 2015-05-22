@@ -27,7 +27,7 @@ public class MongoSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-            this.user_account = accountRepository.findByUsername(username);
+            this.user_account = accountRepository.findByUsernameAndValidated(username, true);
 
             if (user_account != null) {
                 boolean enabled = true;
