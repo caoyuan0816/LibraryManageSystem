@@ -40,6 +40,9 @@ public class Account {
         return password;
     }
 
+    public String getValidateCode(){
+        return validateCode;
+    }
     public String getEmail(){
         return email;
     }
