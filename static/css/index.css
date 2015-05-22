@@ -32,7 +32,7 @@ a:hover {
 }
 .navbar-left {
   padding-left: 80px;
-  padding-right: 80px;
+  /*padding-right: 80px;*/
 }
 .navbar-left input[type=text] {
   width: 300px;
