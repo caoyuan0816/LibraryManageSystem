@@ -244,7 +244,11 @@ $(function () {
         console.log(Data);
         $.post('/api/forget-password/', Data, function (data) {
             if (data.status) {
-
+                alertFun("Sent success! Please check your email:)");
+                setTimeout(function () {
+                    $('#alertModal').modal("hide");
+                }, 1200);
+                window.location.href='http://test.yuan25.com';
             } else {
                 $('.forget-inf').css({
                     display: 'block'

@@ -43,7 +43,7 @@ public class APIForgetPasswordController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    Status post(@RequestParam(value = "email", defaultValue = "") String email) throws Exception {
+    Status post(@RequestParam(value = "email", defaultValue = "") String email){
 
         if (email.equals("")) {
             return new Status(false, "Invalid paras.");
@@ -61,12 +61,16 @@ public class APIForgetPasswordController {
         accountRepository.save(account);
         RandomGenerator.setLen(20);
 
-        EmailSender.sendTo(email, "<h1>Hello," + account.getUsername() + "</h1>" +
-                "<p>We heard that you lost your password. Sorry about that!</p>" +
-                "<p>But don't worry! We've already changed your password to <b>" + newpassword + "</b></p>" +
-                "<p>This is a temporary password, we suggest you change your password ASAP</p>" +
-                "<p>Thanks,</p>" +
-                "<p>Your friends at BayMax</p>");
+        try{
+            EmailSender.sendTo(email, "<h1>Hello," + account.getUsername() + "</h1>" +
+                    "<p>We heard that you lost your password. Sorry about that!</p>" +
+                    "<p>But don't worry! We've already changed your password to <b style='font-size: 18px;'>" + newpassword + "</b></p>" +
+                    "<p>This is a temporary password, we suggest you change your password ASAP</p>" +
+                    "<p>Thanks,</p>" +
+                    "<p>Your friends at BayMax</p>");
+        }catch (Exception e){
+            return new Status(false, "Can not sent mail to this address.");
+        }
 
         return new Status(true, "");
     }

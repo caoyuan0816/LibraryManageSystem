@@ -18,9 +18,7 @@ import javax.mail.internet.*;
 public class EmailSender {
 
         private static final String USER_NAME = "validate@yuan25.com";
-//    private static final String USER_NAME = "562683864@qq.com";
         private static final String PASSWORD = "asd123";
-//    private static final String PASSWORD = "Caoyuan7758521";
 
     /**
      * Method sendTo : sent a email with specific content to user's email address
