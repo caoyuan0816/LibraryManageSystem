@@ -36,13 +36,13 @@ public class Account {
     }
 
     public String getPassword() {
-
         return password;
     }
 
-    public String getValidateCode(){
+    public String getValidateCode() {
         return validateCode;
     }
+
     public String getEmail(){
         return email;
     }

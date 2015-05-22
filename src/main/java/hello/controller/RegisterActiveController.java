@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/activate")
+@RequestMapping("/activate/")
 public class RegisterActiveController {
     /**
      * this method is used to get the username and validatecode sent to the user's email
@@ -27,16 +27,16 @@ public class RegisterActiveController {
     //New a AccountRepository to check if the email validation link is correct
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
     private Account user_account;
     @RequestMapping(method = RequestMethod.GET)
     public String get(@RequestParam("username") String username,
-                      @RequestParam("validatecode") String validatecode,
+                      @RequestParam("code") String validatecode,
                       Model model){
         user_account = accountRepository.findByUsername(username);
         String toCheck = user_account.getValidateCode();
         if(validatecode==toCheck){
             user_account.passValidate();
+            accountRepository.save(user_account);
             model.addAttribute("message","validate success");
         }else{
             model.addAttribute("message","validate failed");

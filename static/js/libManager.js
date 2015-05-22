@@ -136,7 +136,7 @@ $(function(){
     if(!registCheck().form()) return;
     var registData = {};
     //registData['schoolId'] = $("#schoolId")[0].value;
-    //registData['email'] = $("#email")[0].value;
+    registData['email'] = $("#email")[0].value;
     //registData['registPassword'] = $("#registPassword")[0].value;
     registData['username'] = $("#registUsername")[0].value;
     registData['password'] = $("#conPassword")[0].value;

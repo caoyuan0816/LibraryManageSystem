@@ -30,6 +30,13 @@ class RegisterStatus {
         this.message = message;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
 }
 
 /**
@@ -76,7 +83,7 @@ public class APIRegisterController {
         } else {
             //Try to sent a email to user
             try {
-                EmailSender.sendTo(email, "<h2>Hello, there is a link to validate your email</h2><a href=\"http://192.168.195.164/register/?username="+ username +"&code="+ RandomGenerator.next() +"\"></a>");
+                EmailSender.sendTo(email, "<h2>Hello, there is a link to validate your email</h2><a href=\"http://192.168.195.164/active/?username="+ username +"&code="+ RandomGenerator.next() +"\"></a>");
             } catch (Exception e) {
                 //Email sent failed
                 return new RegisterStatus(false, "Can not sent email.");
