@@ -25,7 +25,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="lib-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="main.html" class="logo">logo</a></li>
+                <li><a href="/" class="logo">logo</a></li>
             </ul>
             <form action="" method="GET" class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -45,7 +45,7 @@
                 </li>
 
                 <li th:if="${#httpServletRequest.remoteUser}">
-                    <a href="#" th:inline="text"> [[${#httpServletRequest.remoteUser}]] </a>
+                    <a th:href="@{'/user?username='+${#httpServletRequest.remoteUser}}" th:inline="text"> [[${#httpServletRequest.remoteUser}]] </a>
                 </li>
 
                 <li><span>|</span></li>

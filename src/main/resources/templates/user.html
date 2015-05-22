@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+        >
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -25,7 +25,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="lib-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="main.html" class="logo">logo</a></li>
+                <li><a href="/" class="logo">logo</a></li>
             </ul>
             <form action="" method="GET" class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -83,7 +83,7 @@
                                placeholder="Username"/>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password <a href="#">(forget password)</a></label>
+                        <label for="password">Password <a href="/forget-password/">(forget password)</a></label>
                         <input type="password" class="form-control validate[required]" id="password" name="password"
                                placeholder="Password"/>
                     </div>
@@ -146,11 +146,6 @@
         </div>
     </div>
 </div>
-<section id="main-content">
-    <div style="text-align: center; padding-top: 30px; margin: 70px 0 500px 0;">
-        <button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">Modify Password</button>
-    </div>
-</section>
 <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -183,6 +178,11 @@
         </div>
     </div>
 </div>
+<section id="main-content">
+    <div style="text-align: center; padding-top: 30px; margin: 70px 0 500px 0;">
+        <button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">Modify Password</button>
+    </div>
+</section>
 <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -208,3 +208,5 @@
 <script type="text/javascript" src="/static/js/libManager.js"></script>
 </body>
 </html>
+
+
