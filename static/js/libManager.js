@@ -222,6 +222,7 @@ $(function () {
         modifyData['oldPassword'] = $('#oldPassword')[0].value;
         modifyData['newPassword'] = $('#newPassword')[0].value;
         modifyData['conNewPassword'] = $('#conNewPassword')[0].value;
+        console.log(modifyData);
         $.post('/api/reset-password/', modifyData, function (data) {
             if (data.status) {
                 $('#modifyModal').modal("hide");

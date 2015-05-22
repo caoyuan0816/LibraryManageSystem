@@ -6,28 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import hello.model.Account;
 import hello.model.AccountRepository;
 
-class ResetPasswordStatus {
-
-    //true or false
-    private final boolean status;
-
-    //The reason text of status
-    private final String message;
-
-    ResetPasswordStatus(boolean status, String message) {
-        this.status = status;
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-}
-
 /**
  * Class ResetPasswordController
  * This class is used to reset password
@@ -48,13 +26,13 @@ public class ResetPasswordController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    ResetPasswordStatus post(@RequestParam(value = "username", defaultValue = "") String username,
+    Status post(@RequestParam(value = "username", defaultValue = "") String username,
                              @RequestParam(value = "password", defaultValue = "") String password,
                              @RequestParam(value = "newpassword", defaultValue = "") String newpassword) {
 
         //Check paras
         if (username.equals("") || password.equals("") || newpassword.equals("")) {
-            return new ResetPasswordStatus(false, "Invalid data");
+            return new Status(false, "Invalid data");
         }
 
         //check the username is match with the password or not;
@@ -63,6 +41,6 @@ public class ResetPasswordController {
             account.setPassword(newpassword);
             accountRepository.save(account);
         }
-        return new ResetPasswordStatus(true, "success!");
+        return new Status(true, "success!");
     }
 }
