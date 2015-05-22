@@ -92,7 +92,7 @@ function modifyPassCheck() {
                 required: true,
                 minlength: 6,
                 maxlength: 20,
-                equalTo: "#registPassword"
+                equalTo: "#newPassword"
             }
         },
         messages: {
