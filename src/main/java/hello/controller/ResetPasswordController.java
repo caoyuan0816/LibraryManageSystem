@@ -55,7 +55,7 @@ class ResetPasswordStatus {
 
         //check the username is match with the password or not;
         Account account = accountRepository.findByUsername(username);
-            if(account.getPassword() == password){
+            if(account.getPassword().equals(password)){
                 account.setPassword(newpassword);
                 accountRepository.save(account);
             }
