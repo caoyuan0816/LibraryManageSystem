@@ -237,6 +237,20 @@ $(function(){
       }
     }); 
   });
+  $('#forgetBtn').on('click', function(event) {
+    var Data = {};
+    Data['email'] = = $('email')[0].value;
+    $.post('   ', Data, function(data){
+      if (data.status) {
+        
+      } else {
+        $('.forget-inf').css({
+          display: 'block'
+        });
+        $('.forget-inf').text(data.message);
+      }
+    });
+  })
 });
 
 function OnclickLogout(){

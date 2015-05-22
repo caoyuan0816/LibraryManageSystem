@@ -57,9 +57,6 @@ a:hover {
   padding-bottom: 25px;
   padding-top: 25px;
 }
-#main-content {
-  margin-top:  70px;
-}
 .modal-content {
   border-radius: 0px;
 }
@@ -240,4 +237,41 @@ a:hover {
   padding-top: 10px;
   color: #a4a4a4;
   margin: 0px;
+}
+
+/*forgetPassword css*/
+.forget-form {
+  margin:  20px auto;
+  width: 400px;
+  border: 1px solid #ddd;
+}
+.forget-form h3 {
+  font-size: 20px;
+  margin: 0px;
+  background-color: #30363e;
+  color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0px;
+  text-align: center;
+}
+#forgetForm {
+  /*padding: 10px 20px;*/
+  width: 400px;
+}
+#forgetForm .form-group {
+  margin: 0px;
+  padding: 20px 15px;
+}
+#forgetForm .forget-btn {
+  /*text-align: center;*/
+  padding:  0  0 20px 15px;
+}
+#forgetForm .forget-inf {
+  display: none;
+  background-color: #FCDEDE;
+  display: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #911;
+  margin-bottom: 10px;
 }
