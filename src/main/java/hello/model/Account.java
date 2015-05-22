@@ -1,9 +1,13 @@
+/**
+ * Created by yuan on 15/5/17.
+ */
 package hello.model;
 
 import org.springframework.data.annotation.Id;
 
-/**
- * Created by yuan on 15/5/17.
+/***
+ * @author yuan
+ * @modify 15/5/22
  */
 public class Account {
     @Id
@@ -11,10 +15,14 @@ public class Account {
 
     private String username;
     private String password;
+    private String email;
+    private boolean validated;
 
-    public Account(String username, String password){
+    public Account(String username, String password, String email){
         this.username = username;
         this.password = password;
+        this.email = email;
+        validated = false;
     }
 
     public String getUsername() {
@@ -26,10 +34,22 @@ public class Account {
         return password;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
+    public void passValidate(){
+        validated = true;
+    }
+
+    public boolean isValidated() {
+        return validated;
+    }
+
     @Override
     public String toString() {
         return String.format(
-                "Account[id=%s, name='%s', password='%s']",
+                "Account[id=%s, name='%s', password='%s', email='']",
                 id, username, password);
     }
 }

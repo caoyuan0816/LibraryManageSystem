@@ -1,6 +1,3 @@
-/**
- * Created by yuan on 15/5/22.
- */
 package hello.utils;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,6 +7,13 @@ import java.util.concurrent.TransferQueue;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/***
+ * Class EmailSender : using javax.mail library
+ * Sent a email to specific email address
+ * @author yuan
+ * @modify 2015-05-22 19:28:09
+ * @version 0.0.2
+ */
 public class EmailSender {
 
 //    private static final String USER_NAME = "validate@yuan25.com";
@@ -17,17 +21,14 @@ public class EmailSender {
 //    private static final String PASSWORD = "asd123";
     private static final String PASSWORD = "Caoyuan7758521";
 
-//    public static void main(String[] args) throws Throwable {
-//
-//        EmailSender emailSender = new EmailSender();
-//        if(emailSender.sendTo("562683864@qq.com")){
-//            System.out.println("Sent success");
-//        }else{
-//            System.out.println("Sent failed");
-//        }
-//    }
-
-    public boolean sendTo(final String recipient){
+    /***
+     * Method sendTo : sent a email with specific content to user's email address
+     * If there are any problem during sending, it will throw a exception out
+     * @param recipient the reciever's email address
+     * @param content the content of email : with HTML format
+     * @throws Exception
+     */
+    public static void sendTo(final String recipient, final String content) throws Exception{
 
         //Construct the message
         String to = recipient;
@@ -45,11 +46,17 @@ public class EmailSender {
         Session session = Session.getDefaultInstance(props);
         MimeMessage message = new MimeMessage(session);
 
-        try {
+//        try {
+            //Set up message
             message.setFrom(new InternetAddress(USER_NAME));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
-            message.setText("This email is send from java!");
+            message.setSentDate(new Date());
+            Multipart multipart = new MimeMultipart();
+            BodyPart bodyPart = new MimeBodyPart();
+            bodyPart.setContent(content,"text/html; charset=utf-8");
+            multipart.addBodyPart(bodyPart);
+            message.setContent(multipart);
 
             //Send the message
             Transport transport = session.getTransport("smtp");
@@ -57,19 +64,15 @@ public class EmailSender {
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
 
-            System.out.println("3");
-
-        }catch (AddressException ae) {
-            ae.printStackTrace();
-            return false;
-        }
-        catch (MessagingException me) {
-            me.printStackTrace();
-            return false;
-        }
-        return true;
+//        }catch (AddressException ae) {
+//            ae.printStackTrace();
+//            return false;
+//        }
+//        catch (MessagingException me) {
+//            me.printStackTrace();
+//            return false;
+//        }
     }
-
 }
 
 
