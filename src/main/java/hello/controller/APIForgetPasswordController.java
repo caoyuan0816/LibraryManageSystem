@@ -58,6 +58,7 @@ public class APIForgetPasswordController {
         RandomGenerator.setLen(10);
         String newpassword = RandomGenerator.next();
         account.setPassword(newpassword);
+        accountRepository.save(account);
         RandomGenerator.setLen(20);
 
         EmailSender.sendTo(email, "<h1>Hello," + account.getUsername() + "</h1>" +
