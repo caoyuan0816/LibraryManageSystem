@@ -17,10 +17,10 @@ import javax.mail.internet.*;
  */
 public class EmailSender {
 
-    //    private static final String USER_NAME = "validate@yuan25.com";
-    private static final String USER_NAME = "562683864@qq.com";
-    //    private static final String PASSWORD = "asd123";
-    private static final String PASSWORD = "Caoyuan7758521";
+        private static final String USER_NAME = "validate@yuan25.com";
+//    private static final String USER_NAME = "562683864@qq.com";
+        private static final String PASSWORD = "asd123";
+//    private static final String PASSWORD = "Caoyuan7758521";
 
     /**
      * Method sendTo : sent a email with specific content to user's email address
@@ -39,7 +39,8 @@ public class EmailSender {
         //Set up the SMTP server
         Properties props = System.getProperties();
 //        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.qq.com");
+//        props.put("mail.smtp.host", "smtp.qq.com");
+        props.put("mail.smtp.host", "smtp.exmail.qq.com");
         props.put("mail.smtp.user", USER_NAME);
         props.put("mail.smtp.password", PASSWORD);
 //        props.put("mail.smtp.port", "456");
