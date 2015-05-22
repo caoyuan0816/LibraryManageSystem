@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 
 /**
  * Class Account : the user class in this system
+ *
  * @author yuan
  * @modify 2015-05-22 19:56:29
  */
@@ -23,7 +24,7 @@ public class Account {
     private boolean validated;
     private String validateCode;
 
-    public Account(String username, String password, String email, String validateCode){
+    public Account(String username, String password, String email, String validateCode) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -43,7 +44,7 @@ public class Account {
         return validateCode;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -51,7 +52,7 @@ public class Account {
         this.password = password;
     }
 
-    public void passValidate(){
+    public void passValidate() {
         validated = true;
     }
 

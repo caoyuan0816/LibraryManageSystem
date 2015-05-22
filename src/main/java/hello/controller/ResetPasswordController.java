@@ -32,33 +32,37 @@ class ResetPasswordStatus {
  * Class ResetPasswordController
  * This class is used to reset password
  * Mapping URL: /api/reset-password/
+ *
  * @author wei
  * @version 0.0.1
  */
 @RestController
 @RequestMapping("/api/reset-password/")
-    public class ResetPasswordController {
+public class ResetPasswordController {
     @Autowired
     private AccountRepository accountRepository;
+
     /*
      *Mapping post method
      */
-    @RequestMapping(method= RequestMethod.POST)
-    public @ResponseBody ResetPasswordStatus post(@RequestParam(value="username",defaultValue = "")String username,
-                       @RequestParam(value="password",defaultValue="")String password,
-                       @RequestParam(value="newpassword",defaultValue="")String newpassword ){
+    @RequestMapping(method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResetPasswordStatus post(@RequestParam(value = "username", defaultValue = "") String username,
+                             @RequestParam(value = "password", defaultValue = "") String password,
+                             @RequestParam(value = "newpassword", defaultValue = "") String newpassword) {
 
         //Check paras
-        if (username.equals("") || password.equals("") || newpassword.equals("")){
+        if (username.equals("") || password.equals("") || newpassword.equals("")) {
             return new ResetPasswordStatus(false, "Invalid data");
         }
 
         //check the username is match with the password or not;
         Account account = accountRepository.findByUsername(username);
-            if(account.getPassword().equals(password)){
-                account.setPassword(newpassword);
-                accountRepository.save(account);
-            }
+        if (account.getPassword().equals(password)) {
+            account.setPassword(newpassword);
+            accountRepository.save(account);
+        }
         return new ResetPasswordStatus(true, "success!");
     }
 }

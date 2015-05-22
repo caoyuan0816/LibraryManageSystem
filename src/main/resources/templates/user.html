@@ -83,7 +83,7 @@
                                placeholder="Username"/>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password <a href="#" >(forget password)</a></label>
+                        <label for="password">Password <a href="#">(forget password)</a></label>
                         <input type="password" class="form-control validate[required]" id="password" name="password"
                                placeholder="Password"/>
                     </div>
@@ -148,7 +148,7 @@
 </div>
 <section id="main-content">
     <div style="text-align: center; padding-top: 30px; margin: 70px 0 500px 0;">
-    	<button class="btn btn-default" data-toggle="modal" data-target="#modifyModal" >Modify Password</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">Modify Password</button>
     </div>
 </section>
 <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
@@ -159,13 +159,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h5 class="modal-title" id="myModalLabel">Modify Password</h5>
-                <h5 th:inline="text"> [[${a}]] </h5>
             </div>
             <div class="modal-body">
-            	   <div class="modify-error"></div>
+                <div class="modify-error"></div>
                 <form class="form-horizontal" id="modifyForm">
-             	       <div class="form-group">
-                        	<label for="oldPassword">Old Password</label>
+                    <div class="form-group">
+                        <label for="oldPassword">Old Password</label>
                         <input type="password" class="form-control" name="oldPassword" id="oldPassword"/>
                     </div>
                     <div class="form-group">
