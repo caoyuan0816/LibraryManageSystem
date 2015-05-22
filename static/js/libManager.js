@@ -75,6 +75,46 @@ function registCheck() {
     }
   });
 }
+function modifyPassCheck() {
+  return $('#modifyForm').validate({
+    rules: {
+      oldPassword: {
+        required: true,
+        minlength: 6,
+        maxlength: 20
+      },
+      newPassword: {
+        required: true,
+        minlength: 6,
+        maxlength: 20
+      },
+      conNewPassword: {
+        required: true,
+        minlength: 6,
+        maxlength: 20,
+        equalTo: "#registPassword"
+      }
+    },
+    messages: {
+      oldPassword: {
+        required: "Password couldn't be null",
+        minlength: "The minimum length of password is 6",
+        maxlength: "The maximum length of password is 20"
+      }
+      newPassword: {
+        required: "Password couldn't be null",
+        minlength: "The minimum length of password is 6",
+        maxlength: "The maximum length of password is 20"
+      },
+      conNewPassword: {
+        required: "Password couldn't be null",
+        minlength: "The minimum length of password is 6",
+        maxlength: "The maximum length of password is 20",
+        equalTo: "Please input the same password twice"
+      }
+    }
+  });
+}
 //保存用户名和密码
 function saveUserInf () {
   if ($('#rmbUser').get(0).checked) {
@@ -92,6 +132,20 @@ function saveUserInf () {
   console.log($.cookie('username'));
   console.log($.cookie('password'));
 }
+
+//alert function
+function alertFun(msg) {
+      $('#alertMsg').text(msg);
+      // make the modal in the center area
+      $('#alertModal').on('show.bs.modal', function () {
+        console.log("alertModal");
+        var $this = $(this);
+        var $modalDialog = $this.find('.modal-dialog');
+        var mTop = ( $(window).height() - $modalDialog.height() )/2;
+        $modalDialog.css({'margin': mTop + 'px auto'});
+      });
+      $('#alertModal').modal('show');
+} 
 $(function(){
 
   // 判断用户的登陆信息是否存在cookie中
@@ -122,11 +176,14 @@ $(function(){
        var res = JSON.parse(data);
 
        if(res.status == "true"){
-         setTimeout("javascript:location.reload()",700);
+          $('#loginModal').modal("hide");
+          alertFun("Login Success!")
+         setTimeout("javascript:location.reload()",1200);
        }else{
          $('.login-error').css({
            display: 'block'
          });
+         $('.login-error').text(res.message);
        }
      });
   });
@@ -145,15 +202,40 @@ $(function(){
     $.post('/api/register/', registData, function(data){
        console.log(data);
         if(data.status){
-          alert("Register success!");
           $("#registModal").modal("hide");
+          alertFun("Regist Success!");
+          setTimeout(function(){
+            $('#alertModal').modal("hide");
+          }, 1200);
+          // setTimeout("javascript:location.reload()", 1000);          
         }else{
           $('.regist-error').css({
             display: 'block'
           });
+         $('.regist-error').text(data.message);
         }
     });
-
+  });
+  $('#modify').on('click', function(){
+    if (!modifyPassCheck().form()) return;
+    var modifyData = {};
+    modifyData['oldPassword'] = $('#oldPassword')[0].value;
+    modifyData['newPassword'] = $('#newPassword')[0].value;
+    modifyData['conNewPassword'] = $('#conNewPassword')[0].value;
+    $.post('    ', modifyData, function(data){
+      if(data.status) {
+        $('#modifyModal').modal("hide");
+          alertFun("Modify  Password Successfully!");
+          setTimeout(function(){
+            $('#alertModal').modal("hide");
+          }, 1200);
+      } else {
+        $('.modify-error').css({
+          display: 'block'
+        });
+        $('.modify-error').text(data.message);
+      }
+    }); 
   });
 });
 
@@ -168,8 +250,8 @@ function OnclickLogout(){
     var res = JSON.parse(data);
 
     if(res.status == "true"){
-      alert("Logout success!");
-      setTimeout("javascript:location.reload()",700);
+      alertFun("Logout Success!");
+      setTimeout("javascript:location.reload()",1200);
     }else{
 
     }

@@ -78,7 +78,27 @@ a:hover {
   color: #911;
   margin-bottom: 10px;
 }
+#loginModal label a {
+  color: #4183c4;
+}
 #registModal .regist-error {
+  background-color: #FCDEDE;
+  display: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #911;
+  margin-bottom: 10px;
+}
+#alertModal .modal-content{
+  border-radius:  8px;
+}
+#alertModal #alertMsg {
+  text-align: center;
+}
+#modifyModal .modify-btn {
+  text-align: center;
+}
+#modifyModal .modify-error {
   background-color: #FCDEDE;
   display: none;
   padding: 5px 10px;
