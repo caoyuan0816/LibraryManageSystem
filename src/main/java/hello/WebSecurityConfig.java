@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new MyLogoutSuccessHandler())
                 .permitAll();
         http
+                //Disable csrf
                 .csrf().disable();
     }
 

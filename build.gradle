@@ -28,6 +28,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("javax.mail:javax.mail-api:1.5.3")
+    compile("com.sun.mail:javax.mail:1.5.3")
     testCompile("junit:junit")
 }
 
