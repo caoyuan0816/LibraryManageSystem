@@ -239,6 +239,7 @@ $(function () {
         });
     });
     $('#forgetBtn').on('click', function (event) {
+        $('#forgetBtn').attr("disabled", "disabled");
         var Data = {};
         Data['email'] = $('#email-input')[0].value;
         console.log(Data);
@@ -247,8 +248,9 @@ $(function () {
                 alertFun("Sent success! Please check your email:)");
                 setTimeout(function () {
                     $('#alertModal').modal("hide");
+                    window.location.href='http://test.yuan25.com';
                 }, 1200);
-                window.location.href='http://test.yuan25.com';
+
             } else {
                 $('.forget-inf').css({
                     display: 'block'
