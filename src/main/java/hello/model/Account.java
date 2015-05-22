@@ -47,6 +47,10 @@ public class Account {
         return email;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void passValidate(){
         validated = true;
     }

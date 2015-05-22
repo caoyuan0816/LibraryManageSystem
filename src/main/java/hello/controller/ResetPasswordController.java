@@ -2,23 +2,41 @@ package hello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import hello.model.Account;
 import hello.model.AccountRepository;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+class ResetPasswordStatus {
 
-/***
+    //true or false
+    private final boolean status;
+
+    //The reason text of status
+    private final String message;
+
+    ResetPasswordStatus(boolean status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+}
+
+/**
  * Class ResetPasswordController
  * This class is used to reset password
- * Mapping URL: /
+ * Mapping URL: /api/reset-password/
  * @author wei
  * @version 0.0.1
  */
-@Controller
-@RequestMapping("/resetpassword")
+@RestController
+@RequestMapping("/api/reset-password/")
     public class ResetPasswordController {
     @Autowired
     private AccountRepository accountRepository;
@@ -26,18 +44,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
      *Mapping post method
      */
     @RequestMapping(method= RequestMethod.POST)
-    public String post(@RequestParam(value="username",defaultValue = "")String username,
-                                                  @RequestParam(value="password",defaultValue="")String password,
-                                                  @RequestParam(value="newpassword",defaultValue="")String newpassword ){
-           //check the username is match with the password or not;
-        Account account;
-        account=accountRepository.findByUsername(username);
-            if(account.getPassword()==password){
-                //accountRepository.delete(Account(username,password));
-                accountRepository.save(new Account(username,newpassword,account.getEmail()));
+    public @ResponseBody ResetPasswordStatus post(@RequestParam(value="username",defaultValue = "")String username,
+                       @RequestParam(value="password",defaultValue="")String password,
+                       @RequestParam(value="newpassword",defaultValue="")String newpassword ){
 
+        //Check paras
+        if (username.equals("") || password.equals("") || newpassword.equals("")){
+            return new ResetPasswordStatus(false, "Invalid data");
+        }
+
+        //check the username is match with the password or not;
+        Account account = accountRepository.findByUsername(username);
+            if(account.getPassword() == password){
+                account.setPassword(newpassword);
+                accountRepository.save(account);
             }
-        return "resetPassword";
+        return new ResetPasswordStatus(true, "success!");
     }
-
 }

@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/api/reset-password/").authenticated()
 //                .anyRequest().authenticated()
                 .and()
                 .formLogin()
