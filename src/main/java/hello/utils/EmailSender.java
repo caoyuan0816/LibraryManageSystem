@@ -17,15 +17,15 @@ public class EmailSender {
 //    private static final String PASSWORD = "asd123";
     private static final String PASSWORD = "Caoyuan7758521";
 
-    public static void main(String[] args) throws Throwable {
-
-        EmailSender emailSender = new EmailSender();
-        if(emailSender.sendTo("562683864@qq.com")){
-            System.out.println("Sent success");
-        }else{
-            System.out.println("Sent failed");
-        }
-    }
+//    public static void main(String[] args) throws Throwable {
+//
+//        EmailSender emailSender = new EmailSender();
+//        if(emailSender.sendTo("562683864@qq.com")){
+//            System.out.println("Sent success");
+//        }else{
+//            System.out.println("Sent failed");
+//        }
+//    }
 
     public boolean sendTo(final String recipient){
 
