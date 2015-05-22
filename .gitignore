@@ -6,3 +6,5 @@ gradle-2.4/
 *.zip
 .idea/
 LMS.*
+.build_run.sh.swp
+src/main/java/META-INF/

@@ -56,6 +56,7 @@ public class APIVersionController {
      */
     @RequestMapping(method= RequestMethod.GET)
     public @ResponseBody Version get() {
+
         return new Version();
     }
 }
