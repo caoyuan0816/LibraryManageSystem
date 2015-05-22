@@ -239,7 +239,7 @@ $(function () {
     });
     $('#forgetBtn').on('click', function (event) {
         var Data = {};
-        Data['email'] = $('#email')[0].value;
+        Data['email'] = $('#email-input')[0].value;
         console.log(Data);
         $.post('/api/forget-password/', Data, function (data) {
             if (data.status) {
