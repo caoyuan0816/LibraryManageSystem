@@ -19,8 +19,7 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
             throws IOException, ServletException {
         HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response);
         Writer out = responseWrapper.getWriter();
-        out.write("{'status':'false', 'message': 'Login failed. Try again.'}");
+        out.write("{'status':'false', 'message': ' :( Login failed. Try again. Maybe you should check your email to pass account validate!'}");
         out.close();
     }
-
 }

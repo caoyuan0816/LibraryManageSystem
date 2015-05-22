@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 
-/***
+/**
  * Class IndexController
  * Use to handle the requests of index page
  * Mapping URL: /
+ *
  * @author yuan
  * @version 0.0.1
  */
@@ -22,12 +23,13 @@ import org.springframework.ui.Model;
 @RequestMapping("/")
 public class IndexController {
 
-    /***
+    /**
      * Mapping GET method
      * Add attributes into model and return a view name to render
+     *
      * @return the view's name
      */
-    @RequestMapping(method= RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
 
         return "index";

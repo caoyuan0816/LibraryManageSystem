@@ -27,19 +27,19 @@ public class MongoSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-            this.user_account = accountRepository.findByUsernameAndValidated(username, true);
+        this.user_account = accountRepository.findByUsernameAndValidated(username, true);
 
-            if (user_account != null) {
-                boolean enabled = true;
-                boolean accountNonExpired = true;
-                boolean credentialsNonExpired = true;
-                boolean accountNonLocked = true;
+        if (user_account != null) {
+            boolean enabled = true;
+            boolean accountNonExpired = true;
+            boolean credentialsNonExpired = true;
+            boolean accountNonLocked = true;
 
-                return new User(this.user_account.getUsername(), this.user_account.getPassword(), true, true, true, true,
-                        getGrantedAuthorities());
-            }
+            return new User(this.user_account.getUsername(), this.user_account.getPassword(), true, true, true, true,
+                    getGrantedAuthorities());
+        }
 
-        return new User("","",true,true,true,true,getGrantedAuthorities());
+        return new User("", "", true, true, true, true, getGrantedAuthorities());
     }
 
     public List getGrantedAuthorities() {
