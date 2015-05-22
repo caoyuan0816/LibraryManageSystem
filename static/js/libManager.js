@@ -219,8 +219,8 @@ $(function () {
     $('#modify').on('click', function () {
         if (!modifyPassCheck().form()) return;
         var modifyData = {};
-        modifyData['oldPassword'] = $('#oldPassword')[0].value;
-        modifyData['newPassword'] = $('#newPassword')[0].value;
+        modifyData['password'] = $('#oldPassword')[0].value;
+        modifyData['newpassword'] = $('#newPassword')[0].value;
         modifyData['username'] = __username;
         console.log(modifyData);
         $.post('/api/reset-password/', modifyData, function (data) {
