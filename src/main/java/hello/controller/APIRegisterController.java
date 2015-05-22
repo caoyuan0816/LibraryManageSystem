@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
  * Class used to record register result
  *
  * @author yuan
- * @version 0.0.1
- * @modify 2015-05-22 19:19:30
+ * @version 0.0.2
+ * @modify 2015-05-22 19:54:30
  */
 class RegisterStatus {
 
@@ -37,7 +37,7 @@ class RegisterStatus {
  * Mapping URL: /api/register/
  *
  * @author yuan
- * @version 0.0.1
+ * @version 0.0.2
  * @modify 2015-05-22 19:17:20
  */
 @RestController
@@ -49,8 +49,10 @@ public class APIRegisterController {
 
     /**
      * Mapping POST method
-     *
-     * @return a object will be render to JSON format
+     * @param username from URL
+     * @param password from URL
+     * @param email from URL
+     * @return the object render to JSON format
      */
     @RequestMapping(method = RequestMethod.POST)
     public
@@ -73,10 +75,10 @@ public class APIRegisterController {
         } else {
             //Try to sent a email to user
             try {
-                EmailSender.sendTo(email);
+                EmailSender.sendTo(email, "");
             } catch (Exception e) {
                 //Email sent failed
-                return new RegisterStatus(false, "Can not sent a email.");
+                return new RegisterStatus(false, "Can not sent email.");
             }
 
             //save the new account into database

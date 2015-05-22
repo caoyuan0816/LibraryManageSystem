@@ -5,24 +5,30 @@ package hello.model;
 
 import org.springframework.data.annotation.Id;
 
-/***
+/**
+ * Class Account : the user class in this system
  * @author yuan
- * @modify 15/5/22
+ * @modify 2015-05-22 19:56:29
  */
 public class Account {
+
+    //Auto yield
     @Id
     private String id;
 
+    //properties
     private String username;
     private String password;
     private String email;
     private boolean validated;
+    private String validateCode;
 
     public Account(String username, String password, String email){
         this.username = username;
         this.password = password;
         this.email = email;
         validated = false;
+        validateCode = "";
     }
 
     public String getUsername() {
