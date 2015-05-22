@@ -60,7 +60,7 @@ public class APIRegisterController {
                 EmailSender.sendTo(email, "<h1>Hello," + username + "</h1>" +
                         "<p>We congratuate you to join us as a member!</p>" +
                         "<p>what you need to do is validating your email! You can use the following link within the next day to validate your email:</p>" +
-                        "<p><a href=http://192.168.195.164/activate/?username=" + username + "&code=" + code + "><h2>click this link to validate your email</h2></a></p>" +
+                        "<p><a href=http://test.yuan25.com/activate/?username=" + username + "&code=" + code + "><h2>click this link to validate your email</h2></a></p>" +
                         "<p>Thanks,</p>" +
                         "<p>Your friends at BayMax</p>");
             } catch (Exception e) {

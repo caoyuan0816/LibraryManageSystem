@@ -236,45 +236,38 @@ $(function () {
                 $('.modify-error').text(data.message);
             }
         });
-<<<<<<< HEAD
-        $('.modify-error').text(data.message);
-      }
-    }); 
-  });
-  $('#forgetBtn').on('click', function(event) {
-    var Data = {};
-    Data['email'] = = $('email')[0].value;
-    $.post('   ', Data, function(data){
-      if (data.status) {
-        
-      } else {
-        $('.forget-inf').css({
-          display: 'block'
+    });
+    $('#forgetBtn').on('click', function (event) {
+        var Data = {};
+        Data['email'] = $('email')[0].value;
+        $.post('/api/forget-password/', Data, function (data) {
+            if (data.status) {
+
+            } else {
+                $('.forget-inf').css({
+                    display: 'block'
+                });
+                $('.forget-inf').text(data.message);
+            }
         });
-        $('.forget-inf').text(data.message);
-      }
     });
-  })
-=======
-    });
->>>>>>> 10b976ee9a7dffb95c263993eece493b55c31755
+
+    function OnclickLogout() {
+
+        $.post('/api/logout', function (data) {
+            var abc = "'";
+            var re = new RegExp(abc, 'g');
+            data = data.replace(re, '"');
+            //var data2 = '{"status":true,"message":"loginsuccess!"}';
+            console.log(JSON.parse(data));
+            var res = JSON.parse(data);
+
+            if (res.status == "true") {
+                alertFun("Logout Success!");
+                setTimeout("javascript:location.reload()", 1200);
+            } else {
+
+            }
+        });
+    }
 });
-
-function OnclickLogout() {
-
-    $.post('/api/logout', function (data) {
-        var abc = "'";
-        var re = new RegExp(abc, 'g');
-        data = data.replace(re, '"');
-        //var data2 = '{"status":true,"message":"loginsuccess!"}';
-        console.log(JSON.parse(data));
-        var res = JSON.parse(data);
-
-        if (res.status == "true") {
-            alertFun("Logout Success!");
-            setTimeout("javascript:location.reload()", 1200);
-        } else {
-
-        }
-    });
-}

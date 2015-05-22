@@ -69,14 +69,7 @@ a:hover {
     padding-bottom: 25px;
     padding-top: 25px;
 }
-<<<<<<< HEAD
-=======
 
-#main-content {
-    margin-top: 70px;
-}
-
->>>>>>> 10b976ee9a7dffb95c263993eece493b55c31755
 .modal-content {
     border-radius: 0px;
 }
@@ -292,7 +285,6 @@ a:hover {
 }
 
 .cpy-right p {
-<<<<<<< HEAD
   text-align: center;
   padding-top: 10px;
   color: #a4a4a4;
@@ -334,10 +326,4 @@ a:hover {
   border-radius: 5px;
   color: #911;
   margin-bottom: 10px;
-=======
-    text-align: center;
-    padding-top: 10px;
-    color: #a4a4a4;
-    margin: 0px;
->>>>>>> 10b976ee9a7dffb95c263993eece493b55c31755
 }
