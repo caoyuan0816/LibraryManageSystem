@@ -63,7 +63,7 @@ public class APIForgetPasswordController {
 
         EmailSender.sendTo(email, "<h1>Hello," + account.getUsername() + "</h1>" +
                 "<p>We heard that you lost your password. Sorry about that!</p>" +
-                "<p>But don't worry! We've already changed your password to " + newpassword + ".</p>" +
+                "<p>But don't worry! We've already changed your password to <b>" + newpassword + "</b></p>" +
                 "<p>This is a temporary password, we suggest you change your password ASAP</p>" +
                 "<p>Thanks,</p>" +
                 "<p>Your friends at BayMax</p>");
