@@ -252,22 +252,23 @@ $(function () {
         });
     });
 
-    function OnclickLogout() {
-
-        $.post('/api/logout', function (data) {
-            var abc = "'";
-            var re = new RegExp(abc, 'g');
-            data = data.replace(re, '"');
-            //var data2 = '{"status":true,"message":"loginsuccess!"}';
-            console.log(JSON.parse(data));
-            var res = JSON.parse(data);
-
-            if (res.status == "true") {
-                alertFun("Logout Success!");
-                setTimeout("javascript:location.reload()", 1200);
-            } else {
-
-            }
-        });
-    }
 });
+
+function OnclickLogout() {
+
+    $.post('/api/logout', function (data) {
+        var abc = "'";
+        var re = new RegExp(abc, 'g');
+        data = data.replace(re, '"');
+        //var data2 = '{"status":true,"message":"loginsuccess!"}';
+        console.log(JSON.parse(data));
+        var res = JSON.parse(data);
+
+        if (res.status == "true") {
+            alertFun("Logout Success!");
+            setTimeout("javascript:location.reload()", 1200);
+        } else {
+
+        }
+    });
+}
