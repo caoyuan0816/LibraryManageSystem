@@ -167,6 +167,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -190,5 +192,15 @@
 <script src="/static/js/additional-methods.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/jquery.cookie.js" type="text/javascript"></script>
 <script type="text/javascript" src="/static/js/libManager.js"></script>
+//If register_active_message is not null, show the messages
+<script th:if="${register_active_message}" type="text/javascript" th:inline="text">
+    $(document).ready(function () {
+        alertFun("[[${register_active_message}]]");
+        setTimeout(function () {
+            $('#alertModal').modal("hide");
+            window.location.href='/';
+        }, 2400);
+    });
+</script>
 </body>
 </html>

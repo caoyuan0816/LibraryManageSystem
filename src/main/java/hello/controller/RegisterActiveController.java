@@ -38,16 +38,16 @@ public class RegisterActiveController {
         user_account = accountRepository.findByUsername(username);
         if (validatecode.equals(user_account.getValidateCode())) {
             if (user_account.isValidated()) {
-                model.addAttribute("message", ":) You already has been authenticated. Don't repeat.");
+                model.addAttribute("register_active_message", ":) You already has been authenticated. Don't repeat.");
             }
             user_account.passValidate();
             accountRepository.save(user_account);
 
-            model.addAttribute("message", ":) Your account can use now, Please login!");
+            model.addAttribute("register_active_message", ":) Your account can use now, Please login!");
 
         } else {
-            model.addAttribute("message", " :( Something bad, maybe you should resent validate email..");
+            model.addAttribute("register_active_message", " :( Something bad, maybe you should resent validate email..");
         }
-        return "activation-page";
+        return "index";
     }
 }
