@@ -36,7 +36,6 @@ public class EmailSender {
 
         //Set up the SMTP server
         Properties props = System.getProperties();
-//        props.put("mail.smtp.starttls.enable", "true");
 //        props.put("mail.smtp.host", "smtp.qq.com");
         props.put("mail.smtp.host", "smtp.exmail.qq.com");
         props.put("mail.smtp.user", USER_NAME);
