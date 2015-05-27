@@ -1,22 +1,19 @@
 body {
     font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif, "宋体";
 }
-
 ul, li {
     padding: 0px;
     margin: 0px;
     list-style: none;
 }
-
 a {
     color: #14191c;
 }
-
 a:hover {
     /*text-decoration: none;*/
     color: #14191c;
 }
-
+/**************************index page *******************************/
 .navbar {
     margin-bottom: 0px;
 }
@@ -108,8 +105,10 @@ a:hover {
     color: #911;
     margin-bottom: 10px;
 }
-
 #alertModal .modal-content {
+    height: 70px;
+    padding-top: 5px;
+    font-size: 18px;
     border-radius: 8px;
 }
 
@@ -133,10 +132,12 @@ a:hover {
 .regist-modal .regist-btn {
     text-align: center;
 }
+.modal .error {
+    border-radius: 5px;
+    color: #911;
+}
 
 #lib-carousel {
-
-    /*width: 1000px;*/
     margin: 0px auto;
 }
 
@@ -160,7 +161,7 @@ a:hover {
     /*display: block;*/
     text-align: center;
 }
-
+/*************************book search page *******************************/
 #main-content {
     margin-top: 70px;
     padding: 20px 100px;
@@ -177,19 +178,9 @@ a:hover {
     background-color: #fff;
     padding: 0px;
     position: fixed;
-    /*top: 0px;
-    left: 0px;
-  */
 }
-
-#main-content .cate-sidebar ul {
-    /*background-color: #fff;*/
-}
-
 #main-content .cate-sidebar li {
-    padding: 15px 15px;
     border-bottom: 1px solid #ddd;
-
 }
 
 #main-content .cate-sidebar li:first-child {
@@ -211,6 +202,7 @@ a:hover {
 
 #main-content .cate-sidebar li a {
     text-decoration: none;
+    padding: 15px 15px;
 }
 
 #main-content .book-list {
@@ -254,6 +246,7 @@ a:hover {
     float: right;
 }
 
+/*************************book detail page *******************************/
 #main-content .book-content {
     background-color: #fff;
     padding: 20px 0px;
@@ -291,7 +284,7 @@ a:hover {
   margin: 0px;
 }
 
-/*forgetPassword css*/
+/*************************forgetPassword page*************************/
 .forget-form {
   margin:  20px auto;
   width: 400px;
@@ -326,4 +319,16 @@ a:hover {
   border-radius: 5px;
   color: #911;
   margin-bottom: 10px;
+}
+
+/****************************upload book page********************/
+#upload-content {
+    width: 600px;
+    padding: 20px;
+    background: #fff;
+    border: 1px  dashed #ddd;
+    margin: 0 auto;
+}
+#upload-content footer {
+    text-align: center;
 }

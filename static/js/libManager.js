@@ -1,3 +1,6 @@
+/**
+ * Created by superpig on 15/5/17.
+ */
 //校验登陆字段是否正确
 function loginCheck() {
     // 返回的是一个validate对象，这个对象有一个form方法，返回的是是否通过验证
@@ -154,13 +157,17 @@ $(function () {
         $("#username").val($.cookie("username"));
         $("#password").val($.cookie("password"));
     }
-
+    // don't save username and password
+    if (!$('#rmbUser').get(0).checked) {
+      $.cookie('rmbUserFlag', 'false', {expires: -1});
+      $.cookie('username', "", {expires: -1});
+      $.cookie('password', "", {expires: -1});
+    }
     // 点击登录按钮，开始表单验证，如果数据无误，向服务器提交数据
     $("#login").click(function () {
         // console.log($('#rmbUser').get(0).checked);
-        if ($('#rmbUser').get(0).checked == true) {
-            saveUserInf();
-        }
+        // if ($('#rmbUser').get(0).checked == true) {
+        saveUserInf();
         if (!loginCheck().form()) return;
         var loginData = {};
         loginData['username'] = $("#username")[0].value;
