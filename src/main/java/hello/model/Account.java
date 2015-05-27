@@ -64,6 +64,6 @@ public class Account {
     public String toString() {
         return String.format(
                 "Account[id=%s, name='%s', password='%s', email='']",
-                id, username, password);
+                id, username, password, email);
     }
 }

@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/activate/")
 public class RegisterActiveController {
+
+    //New a AccountRepository to check if the email validation link is correct
+    @Autowired
+    private AccountRepository accountRepository;
+    private Account user_account;
+
     /**
      * this method is used to get the username and validatecode sent to the user's email
      * and check if it is the user itself who do the register action
@@ -26,11 +32,6 @@ public class RegisterActiveController {
      * @param validatecode
      * @return
      */
-    //New a AccountRepository to check if the email validation link is correct
-    @Autowired
-    private AccountRepository accountRepository;
-    private Account user_account;
-
     @RequestMapping(method = RequestMethod.GET)
     public String get(@RequestParam("username") String username,
                       @RequestParam("code") String validatecode,
