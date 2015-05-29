@@ -36,6 +36,7 @@ public class Account {
         this.validateCode = validateCode;
         roles = new ArrayList<String>();
         roles.add("ROLE_USER");
+        roles.add("ROLE_ADMIN");
     }
 
     public String getUsername() {
