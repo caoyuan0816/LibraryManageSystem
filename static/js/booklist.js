@@ -20,7 +20,7 @@ function freshBookList(pageNumber) {
 	             	if (all_number % booksPerPage != 0) {
 	             		pages ++;
 	             	}
-	             	pages = 10;
+	             	// pages = 10;
 	             	$('.pagination').empty();
 	             	for (var i = 1; i <= pages; i++) {
 	             		var pgDom = '<li>'
