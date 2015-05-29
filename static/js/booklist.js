@@ -9,7 +9,7 @@ function freshBookList(pageNumber) {
 	              		var bookDom = '<li>'
 						               	+'<a href="/book-detail/bookid=' +data.book_list[i].id +'">'
 						               	+'<img src="' + data.book_list[i].photoURL +'" alt=""/>'
-						               	+'<p>' +data.book_list[i].booName+'</p>'
+						               	+'<p>' +data.book_list[i].bookName+'</p>'
 						                	+'</a>'
 					              		+ '</li>';
 				$('.book-dis').append(bookDom); 
