@@ -1,7 +1,7 @@
 // book search page script 
 $(function() {
 	$.post('/api/book-search/', {page: '1'}, function (data) {
-		// console.log('book-search');
+		console.log('book-search');
 		console.log(data);
             if (data.status) {
             	$('.book-dis').empty();
