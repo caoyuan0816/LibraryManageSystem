@@ -5,11 +5,11 @@ function freshBookList(pageNumber) {
 		console.log(data);
             	if (data.status) {
             		$('.book-dis').empty();
-	              	for (var i =0 ; i < data.length; i++) {
+	              	for (var i =0 ; i < data.book_list.length; i++) {
 	              		var bookDom = '<li>'
-						               	+'<a href="/book-detail/bookid=' +data[i].id +'">'
-						               	+'<img src="' + data[i].photoURL +'" alt=""/>'
-						               	+'<p>' +data[i].booName+'</p>'
+						               	+'<a href="/book-detail/bookid=' +data.book_list[i].id +'">'
+						               	+'<img src="' + data.book_list[i].photoURL +'" alt=""/>'
+						               	+'<p>' +data.book_list[i].booName+'</p>'
 						                	+'</a>'
 					              		+ '</li>';
 				$('.book-dis').append(bookDom); 
