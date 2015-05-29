@@ -295,9 +295,7 @@ $(function () {
                 }, 1200);
             }
         })
-
     });
-
 });
 
 function OnclickLogout() {
