@@ -267,6 +267,37 @@ $(function () {
         });
     });
 
+    $('#book-upload-button').on('click', function(event){
+        var paras = {};
+        paras['bookname']=$('#bookName').val();
+        paras['author']=$('#author').val();
+        paras['publisher']=$('#publisher').val();
+        paras['publishtime']=$('#publishTime').val();
+        paras['isbn']=$('#ISBN').val();
+        paras['currentstorage']=$('#currentStorage').val();
+        paras['translator']=$('#translator').val();
+        paras['photoURL']=$('#photoUrl').val();
+        paras['authorintro']=$('#authorIntroduction').val();
+        paras['bookintro']=$('#bookIntroduction').val();
+
+        $.post('/api/book-upload/', paras, function (data) {
+            if (data.status) {
+                alertFun(data.message);
+                setTimeout(function () {
+                    $('#alertModal').modal("hide");
+                    location.reload();
+                }, 1200);
+
+            } else {
+                alertFun(data.message);
+                setTimeout(function () {
+                    $('#alertModal').modal("hide");
+                }, 1200);
+            }
+        })
+
+    });
+
 });
 
 function OnclickLogout() {

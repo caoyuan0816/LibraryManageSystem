@@ -5,6 +5,8 @@ package hello.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
+
 /**
  * Class Account : the user class in this system
  *
@@ -24,12 +26,16 @@ public class Account {
     private boolean validated;
     private String validateCode;
 
+    private ArrayList<String> roles;
+
     public Account(String username, String password, String email, String validateCode) {
         this.username = username;
         this.password = password;
         this.email = email;
         validated = false;
         this.validateCode = validateCode;
+        roles = new ArrayList<String>();
+        roles.add("ROLE_USER");
     }
 
     public String getUsername() {
@@ -58,6 +64,14 @@ public class Account {
 
     public boolean isValidated() {
         return validated;
+    }
+
+    public void addRole(String role){
+        roles.add(role);
+    }
+
+    public ArrayList<String> getRoles() {
+        return roles;
     }
 
     @Override

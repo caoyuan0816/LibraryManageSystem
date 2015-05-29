@@ -29,7 +29,7 @@ public class UserInfoPageController {
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!username.equals(userDetails.getUsername())) {
-            return "error";
+            return "redirect:/";
         }
 
         return "user";

@@ -1,110 +1,139 @@
 package hello.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * Created by yuan on 15/5/27.
  */
 public class Book {
 
-    private String bookID;
-    private String ISBN;
+    @Id
+    private String id;
+
     private String bookName;
-    private Author author;
+    private String author;
+    private String publisher;
+    private String publishTime;
+    private String ISBN;
+    private int currentStorage;
     private String translator;
-    private String press;
-    private double price;
-    private String money;
-    private int number;
-    public boolean equals(Book book){
-        if(book.bookID==this.getBookID()){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    public int getNumber() {
-        return number;
+    private String photoURL;
+    private String authorIntroduction;
+    private String bookIntroduction;
+
+    public Book(String bookName, String author, String publisher, String publishTime, String ISBN, int currentStorage, String translator, String photoURL, String authorIntroduction, String bookIntroduction) {
+        this.bookName = bookName;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishTime = publishTime;
+        this.ISBN = ISBN;
+        this.currentStorage = currentStorage;
+        this.translator = translator;
+        this.photoURL = photoURL;
+        this.authorIntroduction = authorIntroduction;
+        this.bookIntroduction = bookIntroduction;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public boolean equals(Book book) {
+        return book.getId().equals(id);
     }
 
-    public String getBookID() {
-        return bookID;
+    public String getId() {
+        return id;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getBookName() {
         return bookName;
     }
 
-    public Author getAuthor() {
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public String getAuthor() {
         return author;
     }
 
-    public String getTranslator() {
-        return translator;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getPress() {
-        return press;
+    public String getPublisher() {
+        return publisher;
     }
 
-    public double getPrice() {
-        return price;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
-    public String getMoney() {
-        return money;
+    public String getPublishTime() {
+        return publishTime;
     }
 
-    public void setBookID(String bookID) {
-        this.bookID = bookID;
+    public void setPublishTime(String publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public String getISBN() {
+        return ISBN;
     }
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public int getCurrentStorage() {
+        return currentStorage;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setCurrentStorage(int currentStorage) {
+        this.currentStorage = currentStorage;
+    }
+
+    public String getTranslator() {
+        return translator;
     }
 
     public void setTranslator(String translator) {
         this.translator = translator;
     }
 
-    public void setPress(String press) {
-        this.press = press;
+    public String getPhotoURL() {
+        return photoURL;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 
-    public void setMoney(String money) {
-        this.money = money;
+    public String getAuthorIntroduction() {
+        return authorIntroduction;
+    }
+
+    public void setAuthorIntroduction(String authorIntroduction) {
+        this.authorIntroduction = authorIntroduction;
+    }
+
+    public String getBookIntroduction() {
+        return bookIntroduction;
+    }
+
+    public void setBookIntroduction(String bookIntroduction) {
+        this.bookIntroduction = bookIntroduction;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "bookID='" + bookID + '\'' +
+                "bookID='" + id + '\'' +
                 ", ISBN='" + ISBN + '\'' +
                 ", bookName='" + bookName + '\'' +
                 ", author=" + author +
                 ", translator='" + translator + '\'' +
-                ", press='" + press + '\'' +
-                ", price=" + price +
-                ", money='" + money + '\'' +
-                ", number=" + number +
                 '}';
     }
 }

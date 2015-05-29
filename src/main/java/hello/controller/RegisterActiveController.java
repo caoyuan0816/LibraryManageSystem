@@ -40,6 +40,7 @@ public class RegisterActiveController {
         if (validatecode.equals(user_account.getValidateCode())) {
             if (user_account.isValidated()) {
                 model.addAttribute("register_active_message", ":) You already has been authenticated. Don't repeat.");
+                return "index";
             }
             user_account.passValidate();
             accountRepository.save(user_account);

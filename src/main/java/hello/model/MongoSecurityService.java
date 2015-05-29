@@ -45,7 +45,9 @@ public class MongoSecurityService implements UserDetailsService {
     public List getGrantedAuthorities() {
 
         List authorities = new ArrayList();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        for (String role : user_account.getRoles()){
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
 
         return authorities;
     }
