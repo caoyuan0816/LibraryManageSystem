@@ -40,7 +40,7 @@ $(function() {
 		event.preventDefault();
 		/* Act on the event */
 		alert( $( this ).text() );
-		var page = parseInt($(this).val());
+		var page = parseInt($(this).text());
 		freshBookList(page);
 	});
 });
