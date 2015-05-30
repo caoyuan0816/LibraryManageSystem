@@ -1,9 +1,9 @@
 // book search page script 
 function freshBookList(pageNumber) {
-	console.log(pageNumber);
+	//console.log(pageNumber);
 	$.post('/api/book-search/', {page: pageNumber}, function (data) {
-		console.log('book-search');
-		console.log(data);
+		//console.log('book-search');
+		//console.log(data);
             	if (data.status) {
             		$('.book-dis').empty();
 	              	for (var i =0 ; i < data.book_list.length; i++) {
@@ -39,7 +39,7 @@ $(function() {
 	$('.pagination').on('click', 'span', function(event) {
 		event.preventDefault();
 		/* Act on the event */
-		alert( $( this ).text() );
+		//alert( $( this ).text() );
 		var page = parseInt($(this).text());
 		freshBookList(page);
 	});
