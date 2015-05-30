@@ -222,7 +222,7 @@ a:hover {
 
 #main-content .book-dis img {
     width: 100%;
-    height: 240px;
+    height: 220px;
 }
 
 #main-content .book-dis li a {
@@ -235,6 +235,7 @@ a:hover {
     margin: 0px;
     padding: 10px 5px;
     text-align: center;
+    height: 60px; 
 }
 
 #main-content .lib-pg {
