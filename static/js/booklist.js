@@ -1,5 +1,6 @@
 // book search page script 
 function freshBookList(pageNumber) {
+	console.log(pageNumber);
 	$.post('/api/book-search/', {page: pageNumber}, function (data) {
 		console.log('book-search');
 		console.log(data);
@@ -7,7 +8,7 @@ function freshBookList(pageNumber) {
             		$('.book-dis').empty();
 	              	for (var i =0 ; i < data.book_list.length; i++) {
 	              		var bookDom = '<li>'
-						               	+'<a href="/book-detail/bookid=' +data.book_list[i].id +'">'
+						               	+'<a href="/book-detail/?bookid=' +data.book_list[i].id +'">'
 						               	+'<img src="' + data.book_list[i].photoURL +'" alt=""/>'
 						               	+'<p>' +data.book_list[i].bookName+'</p>'
 						                	+'</a>'
