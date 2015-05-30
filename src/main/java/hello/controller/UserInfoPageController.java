@@ -1,6 +1,8 @@
 package hello.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,6 +32,12 @@ public class UserInfoPageController {
 
         if (!username.equals(userDetails.getUsername())) {
             return "redirect:/";
+        }
+
+        for(GrantedAuthority s : userDetails.getAuthorities()){
+            if (s.getAuthority().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin","yes");
+            }
         }
 
         return "user";
