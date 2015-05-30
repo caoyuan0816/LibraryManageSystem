@@ -235,7 +235,8 @@ a:hover {
     margin: 0px;
     padding: 10px 5px;
     text-align: center;
-    height: 60px; 
+    height: 60px;
+    line-height: 30px;
 }
 
 #main-content .lib-pg {
