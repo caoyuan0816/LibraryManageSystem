@@ -47,7 +47,7 @@ public class APIBookSearchController {
     private BookRepository bookRepository;
 
     //Default page len 10
-    private final static int len = 10;
+    private final static int len = 8;
 
     @RequestMapping(method = RequestMethod.POST)
     public

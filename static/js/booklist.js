@@ -15,7 +15,7 @@ function freshBookList(pageNumber) {
 					              		+ '</li>';
 				$('.book-dis').append(bookDom); 
              		}
-	             	var booksPerPage = 10;
+	             	var booksPerPage = 8;
 	             	var all_number = data.all_number;
 	             	var pages = all_number / booksPerPage;
 	             	if (all_number % booksPerPage != 0) {
