@@ -21,7 +21,17 @@ public class Book {
     private String authorIntroduction;
     private String bookIntroduction;
 
-    public Book(String bookName, String author, String publisher, String publishTime, String ISBN, int currentStorage, String translator, String photoURL, String authorIntroduction, String bookIntroduction) {
+    private int classify;
+
+    public int getClassify() {
+        return classify;
+    }
+
+    public void setClassify(int classify) {
+        this.classify = classify;
+    }
+
+    public Book(String bookName, String author, String publisher, String publishTime, String ISBN, int currentStorage, String translator, String photoURL, String authorIntroduction, String bookIntroduction, int classify) {
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
@@ -32,6 +42,7 @@ public class Book {
         this.photoURL = photoURL;
         this.authorIntroduction = authorIntroduction;
         this.bookIntroduction = bookIntroduction;
+        this.classify = classify;
     }
 
     public boolean equals(Book book) {

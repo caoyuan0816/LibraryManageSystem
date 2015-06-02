@@ -52,7 +52,7 @@ public class APIBookSearchController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    Booklist post(@RequestParam(value = "page", defaultValue = "") String page){
+    Booklist post(@RequestParam(value = "classify", defaultValue = "") String cls,@RequestParam(value = "page", defaultValue = "") String page){
 
         if (page.equals("")){
             return new Booklist(false,-1,new ArrayList<Book>());
@@ -60,7 +60,14 @@ public class APIBookSearchController {
 
         int page_num = Integer.parseInt(page);
 
-        List<Book> books = bookRepository.findAll();
+        List<Book> books;
+        //classify is not null
+        if (!cls.equals("")){
+            books = bookRepository.findByClassify(Integer.parseInt(cls));
+        }else{
+            books = bookRepository.findAll();
+        }
+
         ArrayList<Book> result = new ArrayList<Book>();
 
         for (int i = 1; i <= books.size(); i++){

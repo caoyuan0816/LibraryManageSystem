@@ -27,12 +27,13 @@ public class APIUploadBookController {
                 @RequestParam(value = "translator", defaultValue = "") String translator,
                 @RequestParam(value = "photoURL", defaultValue = "") String photoURL,
                 @RequestParam(value = "authorintro", defaultValue = "") String authorintro,
-                @RequestParam(value = "bookintro", defaultValue = "") String bookintro){
+                @RequestParam(value = "bookintro", defaultValue = "") String bookintro,
+                @RequestParam(value = "classify", defaultValue = "") String classify){
 
-        if (bookname.equals("") || authord.equals("") || publisher.equals("") || isbn.equals("") || currentstorage.equals("") || translator.equals("") || photoURL.equals("") || authorintro.equals("") || bookintro.equals("")){
+        if (bookname.equals("") || authord.equals("") || publisher.equals("") || isbn.equals("") || currentstorage.equals("") || translator.equals("") || photoURL.equals("") || authorintro.equals("") || bookintro.equals("") || classify.equals("")){
             return new Status(false, "Book upload failed!");
         }else{
-            Book book = new Book(bookname,authord,publisher,publisher,isbn, Integer.parseInt(currentstorage),translator,photoURL,authorintro,bookintro);
+            Book book = new Book(bookname,authord,publisher,publisher,isbn, Integer.parseInt(currentstorage),translator,photoURL,authorintro,bookintro,Integer.parseInt(classify));
             bookRepository.save(book);
             return new Status(true, "Book upload success!");
         }

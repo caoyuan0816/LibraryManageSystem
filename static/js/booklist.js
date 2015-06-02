@@ -1,7 +1,19 @@
-// book search page script 
+// book search page script
+function getUrlParam(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r!=null) return unescape(r[2]);
+	return null;
+}
+
 function freshBookList(pageNumber) {
 	//console.log(pageNumber);
-	$.post('/api/book-search/', {page: pageNumber}, function (data) {
+	var classify = getUrlParam('class');
+	var paras = {}
+	paras['page'] = pageNumber;
+	paras['classify'] = classify;
+
+	$.post('/api/book-search/', paras, function (data) {
 		//console.log('book-search');
 		//console.log(data);
             	if (data.status) {
