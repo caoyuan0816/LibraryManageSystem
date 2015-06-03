@@ -13,9 +13,10 @@ function freshBookList(pageNumber) {
 	paras['page'] = pageNumber;
 	paras['classify'] = classify;
 
+	console.log(paras);
 	$.post('/api/book-search/', paras, function (data) {
-		//console.log('book-search');
-		//console.log(data);
+		console.log('book-search');
+		console.log(data);
             	if (data.status) {
             		$('.book-dis').empty();
 	              	for (var i =0 ; i < data.book_list.length; i++) {

@@ -29,7 +29,7 @@ public class APIBorrowBookController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
     Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "isbn", defaultValue = "") String isbn) {
