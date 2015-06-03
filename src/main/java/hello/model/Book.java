@@ -14,7 +14,7 @@ public class Book {
     private String author;
     private String publisher;
     private String publishTime;
-    private String ISBN;
+    private String isbn;
     private int currentStorage;
     private String translator;
     private String photoURL;
@@ -31,12 +31,12 @@ public class Book {
         this.classify = classify;
     }
 
-    public Book(String bookName, String author, String publisher, String publishTime, String ISBN, int currentStorage, String translator, String photoURL, String authorIntroduction, String bookIntroduction, int classify) {
+    public Book(String bookName, String author, String publisher, String publishTime, String isbn, int currentStorage, String translator, String photoURL, String authorIntroduction, String bookIntroduction, int classify) {
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.publishTime = publishTime;
-        this.ISBN = ISBN;
+        this.isbn = isbn;
         this.currentStorage = currentStorage;
         this.translator = translator;
         this.photoURL = photoURL;
@@ -89,12 +89,12 @@ public class Book {
         this.publishTime = publishTime;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public int getCurrentStorage() {
@@ -141,7 +141,7 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "bookID='" + id + '\'' +
-                ", ISBN='" + ISBN + '\'' +
+                ", ISBN='" + isbn + '\'' +
                 ", bookName='" + bookName + '\'' +
                 ", author=" + author +
                 ", translator='" + translator + '\'' +

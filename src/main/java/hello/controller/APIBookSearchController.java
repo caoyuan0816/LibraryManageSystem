@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -52,7 +53,10 @@ public class APIBookSearchController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    Booklist post(@RequestParam(value = "classify", defaultValue = "") String cls,@RequestParam(value = "page", defaultValue = "") String page){
+    Booklist post(@RequestParam(value = "classify", defaultValue = "") String cls,
+                  @RequestParam(value = "page", defaultValue = "")String page,
+                  @RequestParam(value = "type", defaultValue = "")String type,
+                  @RequestParam(value = "value", defaultValue = "")String value){
 
         if (page.equals("")){
             return new Booklist(false,-1,new ArrayList<Book>());
@@ -66,6 +70,26 @@ public class APIBookSearchController {
             books = bookRepository.findByClassify(Integer.parseInt(cls));
         }else{
             books = bookRepository.findAll();
+        }
+
+        if (type.equals("bookname")){
+
+            Iterator<Book> it = books.iterator();
+            while(it.hasNext()){
+                Book book = it.next();
+                if (book.getBookName().indexOf(value) == -1){
+                    it.remove();
+                }
+            }
+
+        }else if(type.equals("author")){
+            Iterator<Book> it = books.iterator();
+            while(it.hasNext()){
+                Book book = it.next();
+                if (book.getAuthor().indexOf(value) == -1){
+                    it.remove();
+                }
+            }
         }
 
         ArrayList<Book> result = new ArrayList<Book>();
