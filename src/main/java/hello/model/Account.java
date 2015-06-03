@@ -23,6 +23,9 @@ public class Account {
     private String username;
     private String password;
     private String email;
+
+    private int borrownum;
+
     private boolean validated;
     private String validateCode;
 
@@ -36,6 +39,7 @@ public class Account {
         this.validateCode = validateCode;
         roles = new ArrayList<String>();
         roles.add("ROLE_USER");
+        borrownum = 0;
 //        roles.add("ROLE_ADMIN");
     }
 
@@ -75,10 +79,30 @@ public class Account {
         return roles;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getBorrownum() {
+        return borrownum;
+    }
+
+    public void setBorrownum(int borrownum) {
+        this.borrownum = borrownum;
+    }
+
     @Override
     public String toString() {
         return String.format(
                 "Account[id=%s, name='%s', password='%s', email='']",
                 id, username, password, email);
+    }
+
+    public boolean equals(Account account) {
+        return account.getId().equals(id);
     }
 }

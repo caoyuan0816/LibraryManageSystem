@@ -9,5 +9,7 @@ import java.util.List;
 public interface BookRepository extends MongoRepository<Book, String>{
 
     public List<Book> findByClassify(int classify);
+
+    public Book findByIsbn(String isbn);
 }
 
