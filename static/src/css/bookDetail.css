@@ -1,0 +1,29 @@
+/*************************book detail page *******************************/
+#main-content .book-content {
+  background-color: #fff;
+  padding: 20px 0px; }
+
+.book-content .book-pho {
+  padding: 10px; }
+
+.book-content .book-pho a {
+  display: block;
+  border: 1px solid #F5F5F5; }
+
+.book-content .book-pho img {
+  width: 100%; }
+
+.book-content .book-inf {
+  padding: 10px; }
+
+.book-content .book-intr {
+  padding: 10px; }
+
+.cpy-right {
+  border-top: 1px solid #ddd; }
+
+.cpy-right p {
+  text-align: center;
+  padding-top: 10px;
+  color: #a4a4a4;
+  margin: 0px; }

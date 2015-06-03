@@ -1,0 +1,10 @@
+/****************************upload book page********************/
+#upload-content {
+  width: 600px;
+  padding: 20px;
+  background: #fff;
+  border: 1px  dashed #ddd;
+  margin: 0 auto; }
+
+#upload-content footer {
+  text-align: center; }

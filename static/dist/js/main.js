@@ -47,14 +47,8 @@ function getUrlParam(name){
 	return null;
 }
 
-function freshBookList(pageNumber) {
-	//console.log(pageNumber);
-	var classify = getUrlParam('class');
-	var paras = {}
-	paras['page'] = pageNumber;
-	paras['classify'] = classify;
-
-	console.log(paras);
+// book search ajax
+function bookSearchAjax(paras) {
 	$.post('/api/book-search/', paras, function (data) {
 		console.log('book-search');
 		console.log(data);
@@ -84,10 +78,24 @@ function freshBookList(pageNumber) {
 	             		$('.pagination').append(pgDom);
 	             	}
             } else {
-               alert("hello");
+               alertFun("not found book!");
+               setTimeout(function () {
+                    $('#alertModal').modal("hide");
+                }, 1200);
             }
         });
+} 
+
+//fresh boolk list
+function freshBookList(pageNumber) {
+	var classify = getUrlParam('class');
+	var paras = {}
+	paras['page'] = pageNumber;
+	paras['classify'] = classify;
+	// console.log(paras);
+	bookSearchAjax(paras);
 }
+
 $(function() {
 	freshBookList(1);
 	$('.pagination').on('click', 'span', function(event) {
@@ -96,6 +104,15 @@ $(function() {
 		//alert( $( this ).text() );
 		var page = parseInt($(this).text());
 		freshBookList(page);
+	});
+	$('#searchBtn').on('click', function(event) {
+		event.preventDefault();
+		var paras = {};
+		paras["page"] = 1;
+		paras["type"] = 	$('#searchType').val();
+		paras["value"] = $('#searchValue')[0].value;
+		console.log(paras);
+		bookSearchAjax(paras);
 	});
 });
 /**

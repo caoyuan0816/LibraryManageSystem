@@ -1,0 +1,76 @@
+/*************************book search page *******************************/
+#main-content {
+  margin-top: 70px;
+  padding: 20px 100px;
+  background-color: #EDEFF0;
+  min-height: 512px; }
+
+#main-content .row {
+  margin-left: 0px;
+  margin-right: 0px; }
+
+#main-content .cate-sidebar {
+  background-color: #fff;
+  padding: 0px;
+  position: fixed; }
+
+#main-content .cate-sidebar li {
+  border-bottom: 1px solid #ddd; }
+
+#main-content .cate-sidebar li:first-child {
+  background-color: #487A6F;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff; }
+
+#main-content .cate-sidebar li:first-child a {
+  color: #fff; }
+
+#main-content .cate-sidebar li a {
+  color: #14191c;
+  display: block; }
+
+#main-content .cate-sidebar li a {
+  text-decoration: none;
+  padding: 15px 15px; }
+
+#main-content .book-list {
+  padding: 10px 0px;
+  background-color: #fff; }
+
+#main-content .book-list ul {
+  overflow: hidden; }
+
+#main-content .book-dis li {
+  float: left;
+  width: 25%;
+  padding: 10px 15px; }
+
+#main-content .book-dis img {
+  width: 100%;
+  height: 220px; }
+
+#main-content .book-dis li a {
+  display: block;
+  border: 1px solid #ddd;
+  padding: 5px; }
+
+#main-content .book-dis li p {
+  margin: 0px;
+  /*padding: 10px 5px;*/
+  padding-top: 10px;
+  text-align: center;
+  height: 60px;
+  line-height: 30px; }
+
+#main-content .lib-pg {
+  overflow: hidden;
+  padding-right: 10px;
+  padding-left: 10px; }
+
+#main-content .lib-pg ul {
+  float: right; }
+
+.pagination > li > span {
+  cursor: pointer; }
