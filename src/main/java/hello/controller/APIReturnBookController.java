@@ -16,8 +16,8 @@ import java.text.SimpleDateFormat;
  * Created by yuan on 15/6/3.
  */
 @RestController
-@RequestMapping("/api/borrow-book/")
-public class APIBorrowBookController {
+@RequestMapping("/api/return-book/")
+public class APIReturnBookController {
 
     //You can change this number
     private static final int MAX_BORROW_NUM = 5;
@@ -34,43 +34,35 @@ public class APIBorrowBookController {
     @ResponseBody
     Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "isbn", defaultValue = "") String isbn) {
 
-        if (username.equals("") || isbn.equals("")){
+        if (username.equals("") || isbn.equals("")) {
             return new Status(false, "Paras error!");
         }
 
         Account account = accountRepository.findByUsername(username);
         Book book = bookRepository.findByIsbn(isbn);
+        Record record = recordRepository.findByUseridAndBookid(account.getId(), book.getId());
 
         //Find username in database
         //Find isbn in database
-        if(account != null && book != null){
+        if (account != null && book != null && record != null && record.getActualreturntime() == -1) {
 
             //Check numbers
-            if (account.getBorrownum() < MAX_BORROW_NUM && book.getCurrentStorage() >= 1){
 
-                long current_time = System.currentTimeMillis();
-                //Default borrow 7 days, current_time + 604800000
-                Record record = new Record(account.getId(), book.getId(), current_time, current_time+604800000,-1);
-                recordRepository.save(record);
+            long current_time = System.currentTimeMillis();
 
-                account.setBorrownum(account.getBorrownum()+1);
-                accountRepository.save(account);
+            record.setActualreturntime(current_time);
+            recordRepository.save(record);
 
-                book.setCurrentStorage(book.getCurrentStorage()-1);
-                bookRepository.save(book);
+            account.setBorrownum(account.getBorrownum() + 1);
+            accountRepository.save(account);
 
-            }else{
-                if(account.getBorrownum() < MAX_BORROW_NUM) {
-                    return new Status(false, "You can not borrow more books!");
-                }else{
-                    return new Status(false, "No more this book can borrow!");
-                }
-            }
+            book.setCurrentStorage(book.getCurrentStorage() + 1);
+            bookRepository.save(book);
 
-        }else{
+        } else {
             return new Status(false, "username or isbn number error!");
 
         }
-        return new Status(true, "Borrow record add success!");
+        return new Status(true, "Return record add success!");
     }
 }
