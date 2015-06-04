@@ -1,16 +1,16 @@
 // book search page script
+// get para of url
 function getUrlParam(name){
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	var r = window.location.search.substr(1).match(reg);
 	if (r!=null) return unescape(r[2]);
 	return null;
 }
-
 // book search ajax
 function bookSearchAjax(paras) {
+	console.log(paras);
 	$.post('/api/book-search/', paras, function (data) {
-		console.log('book-search');
-		console.log(data);
+		// console.log(data);
             	if (data.status) {
             		$('.book-dis').empty();
 	              	for (var i =0 ; i < data.book_list.length; i++) {
@@ -28,7 +28,6 @@ function bookSearchAjax(paras) {
 	             	if (all_number % booksPerPage != 0) {
 	             		pages ++;
 	             	}
-	             	// pages = 10;
 	             	$('.pagination').empty();
 	             	for (var i = 1; i <= pages; i++) {
 	             		var pgDom = '<li>'
@@ -47,30 +46,52 @@ function bookSearchAjax(paras) {
 
 //fresh boolk list
 function freshBookList(pageNumber) {
-	var classify = getUrlParam('class');
 	var paras = {}
 	paras['page'] = pageNumber;
-	paras['classify'] = classify;
-	// console.log(paras);
+	paras['classify'] = "";
+	paras["type"] = 	$('#searchType').val();
+	paras["value"] = $('#searchValue')[0].value;
+	console.log(paras);
 	bookSearchAjax(paras);
 }
 
-$(function() {
+var globalParas = {}; //global param
+
+$(function() {	
 	freshBookList(1);
 	$('.pagination').on('click', 'span', function(event) {
 		event.preventDefault();
-		/* Act on the event */
-		//alert( $( this ).text() );
 		var page = parseInt($(this).text());
-		freshBookList(page);
+		paras = {};
+		globalParas["page"] = page;
+		bookSearchAjax(globalParas);
 	});
+	//click category list 
+	$('#categoryList').on('click', 'a', function(event) {
+		event.preventDefault();
+		// clear the search form data from globalParams
+		globalParas["type"] = "";
+		globalParas["value"] = "";
+		var paras = {};
+		paras["classify"] = $(this).data('class');
+		paras["page"] = 1;
+		globalParas["classify"] = paras["classify"];
+		// console.log(paras);
+		bookSearchAjax(paras);
+	});
+	
+	// click the search button
 	$('#searchBtn').on('click', function(event) {
 		event.preventDefault();
+		// clear the category of globalParas
+		globalParas["classify"] = "";
 		var paras = {};
 		paras["page"] = 1;
 		paras["type"] = 	$('#searchType').val();
 		paras["value"] = $('#searchValue')[0].value;
-		console.log(paras);
+		globalParas["type"] = paras["type"];
+		globalParas["value"] = paras["value"];
+		// console.log(paras);
 		bookSearchAjax(paras);
 	});
 });
