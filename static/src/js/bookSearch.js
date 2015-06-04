@@ -8,6 +8,7 @@ function getUrlParam(name){
 
 // book search ajax
 function bookSearchAjax(paras) {
+	//console.log(paras);
 	$.post('/api/book-search/', paras, function (data) {
 		console.log('book-search');
 		console.log(data);
