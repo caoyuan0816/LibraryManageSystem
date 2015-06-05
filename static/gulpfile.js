@@ -48,7 +48,7 @@ gulp.task('compress', function(){
 //watch files for changes
 gulp.task('watch', function(){
 	gulp.watch('./src/js/*.js',['lint','compress']);
-	gulp.watch('./src/*.scss',['sass','compress']);
+	gulp.watch('./src/scss/*.scss',['sass','compress']);
 });
 
 //default task

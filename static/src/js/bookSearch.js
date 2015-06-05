@@ -8,11 +8,6 @@ function getUrlParam(name){
 }
 // book search ajax
 function bookSearchAjax(paras) {
-<<<<<<< HEAD
-	console.log(paras);
-=======
-	//console.log(paras);
->>>>>>> 09919d398ab5478ef87e0f467c33ef14b42b3747
 	$.post('/api/book-search/', paras, function (data) {
 		// console.log(data);
             	if (data.status) {

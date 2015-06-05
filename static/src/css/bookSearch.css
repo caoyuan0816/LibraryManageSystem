@@ -29,14 +29,13 @@
 
 #main-content .cate-sidebar li a {
   color: #14191c;
-  display: block; }
-
-#main-content .cate-sidebar li a {
+  display: block;
   text-decoration: none;
   padding: 15px 15px; }
 
 #main-content .book-list {
   padding: 10px 0px;
+  min-height: 500px;
   background-color: #fff; }
 
 #main-content .book-list ul {

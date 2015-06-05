@@ -15,14 +15,211 @@
         <button class='btn btn-default' onclick="window.location.href='/upload-book/';" style='margin-left: 20px; visibility: hidden;' id="add-book-button">Add Book</button>
     </div> 
 </section> -->
-<section>
-	
+<section id="manage-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2" id="manageSidebar">
+				<ul class="nav nav-sidebar">
+					<li><a href="" class="index">My index</a></li>
+					<li><a href="" class="current">Current borrow</a></li>
+					<li><a href="" class="history">Borrow records</a></li>
+					<li><a href="" class="fine">Book fine</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
+				<div class="person-inf">
+					<h3>Personal information</h3>
+					<section>
+						<table  class="table table-bordered">
+							<tr>
+								<td rowspan="3" style="text-align: center;"><img src="/static/dist/images/head.png" alt=""/></td>
+								<td>Name: <span>baymax</span></td>
+								<td>Student id: <span>2012303497</span></td>
+								<td>Email: <span>940578704@qq.com</span></td>
+							</tr>
+							<tr>
+								<td>Reader category: <span>undergraduate</span></td>
+								<td>Academy: <span>software and microelectronics</span></td>
+								<td>Major: <span>software engineer</span></td>
+							</tr>
+							<tr>
+								<td>
+									<button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">modify password</button>
+								</td>
+								<td>
+									<button class="btn btn-default" >modify information</button>
+								</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+				<div class="read-intr">
+					<h3>Borrow Description</h3>
+					<section>
+						<ul>
+							<li><a href="" class="can-borrow">Can Borrow:10</a></li>
+							<li><a href="" class="borrowed">Borrrowed: 4</a></li>
+							<li><a href="" class="overdue">Overdue: 1</a></li>
+							<li><a href="" class="accumlated">Accumlated: 100</a></li>
+						</ul>
+					</section>
+				</div>
+				<div class="read-cate">
+					<h3>Borrow category</h3>
+					<section>
+						<div id="pie-chart">	</div>
+					</section>
+				</div>
+				<div class="read-tendency">
+					<h3>Borrow tendency</h3>
+					<section>
+						<div id="line-chart"></div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
-
+<script src="/static/dist/js/echarts.js" type="text/javascript" ></script>
+<!-- <script src="http://echarts.baidu.com/build/dist/echarts.js"></script> -->
 <div th:substituteby="main::footer-and-scripts"></div>
 <script th:if="${isAdmin}" type="text/javascript">
     document.getElementById("add-book-button").style.visibility="visible";
 </script>
-
+<script type="text/javascript">
+	// 路径配置
+    require.config({
+       paths: {
+           echarts: '/static/dist/js'
+       }
+   });
+    // use pie
+    require(
+        [
+        'echarts',
+        'echarts/chart/pie'
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var categoryChart = ec.init(document.getElementById('pie-chart')); 
+            option = {
+                title : {
+                    text: 'Book Category Distribution',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    data:['Literature','Culture','Life','Economic']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {
+                            show: true, 
+                            type: ['pie', 'funnel'],
+                            option: {
+                                funnel: {
+                                    x: '25%',
+                                    width: '50%',
+                                    funnelAlign: 'left',
+                                    max: 1548
+                                }
+                            }
+                        },
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                series : [
+                {
+                    name:'book category',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                    {value:20, name:'Literature'},
+                    {value:10, name:'Culture'},
+                    {value:5, name:'Life'},
+                    {value:1, name:'Economic'}
+                    ]
+                }
+                ]
+            };
+            // 为echarts对象加载数据 
+            categoryChart.setOption(option); 
+        }
+    );
+    // use line
+    require(
+        [
+        'echarts',
+        'echarts/chart/line'
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var tendencyChart = ec.init(document.getElementById('line-chart')); 
+            option = {
+                                title : {
+                                    text: 'borrow tendency'
+                                },
+                                tooltip : {
+                                    trigger: 'axis'
+                                },
+                                legend: {
+                                    data:['tendency']
+                                },
+                                toolbox: {
+                                    show : true,
+                                    feature : {
+                                        mark : {show: true},
+                                        dataView : {show: true, readOnly: false},
+                                        magicType : {show: true, type: ['line', 'bar']},
+                                        restore : {show: true},
+                                        saveAsImage : {show: true}
+                                    }
+                                },
+                                calculable : true,
+                                xAxis : [
+                                    {
+                                        type : 'category',
+                                        boundaryGap : false,
+                                        data : ['Jan','Feb','Mar','Apr','May','Jun']
+                                    }
+                                ],
+                                yAxis : [
+                                    {
+                                        type : 'value',
+                                        axisLabel : {
+                                            formatter: '{value} '
+                                        }
+                                    }
+                                ],
+                                series : [
+                                    {
+                                        name:'borrow tendency',
+                                        type:'line',
+                                        data:[1, 2, 15, 10, 12, 13],
+                                        markPoint : {
+                                            data : [
+                                                {type : 'max', name: '最大值'},
+                                                {type : 'min', name: '最小值'}
+                                            ]
+                                        }
+                                    }
+                                ]
+                            };
+            // 为echarts对象加载数据 
+            tendencyChart.setOption(option); 
+        }
+    );
+</script>
 </body>
 </html>

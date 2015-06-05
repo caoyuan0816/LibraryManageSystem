@@ -312,7 +312,8 @@ function OnclickLogout() {
             alertFun("Logout Success!");
             setTimeout("javascript:location.reload()", 1200);
         } else {
-
+            alertFun("Logout defeat!");
+            setTimeout("javascript:location.reload()", 1200);
         }
     });
 }
