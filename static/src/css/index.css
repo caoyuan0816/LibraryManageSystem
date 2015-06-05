@@ -135,5 +135,7 @@ a:hover {
 .lib-intr ul li {
   width: 25%;
   float: left;
-  /*display: block;*/
+  text-align: center; }
+
+.btn-center {
   text-align: center; }

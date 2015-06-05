@@ -149,6 +149,14 @@ function alertFun(msg) {
     });
     $('#alertModal').modal('show');
 }
+//auto close alert function
+function alertWithClose(msg) {
+    alertFun(msg);
+    setTimeout(function(){
+        $('#alertModal').modal('hide');
+    }, 1500);
+}
+
 $(function () {
 
     // 判断用户的登陆信息是否存在cookie中

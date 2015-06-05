@@ -19,8 +19,8 @@ import org.springframework.ui.Model;
  * @version 0.0.1
  */
 @Controller
-@RequestMapping("/add-book/")
-public class UploadBookController {
+@RequestMapping("/borrow-book/")
+public class BorrowBookController {
 
     /***
      * Mapping GET method
@@ -30,6 +30,6 @@ public class UploadBookController {
     @RequestMapping(method= RequestMethod.GET)
     public String get(Model model) {
 
-       return "adminAddBook";
+       return "staffBorrowBook";
     }
 }

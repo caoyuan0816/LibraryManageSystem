@@ -2,15 +2,15 @@
 @import "main";
 #manage-content {
 	margin-top: 70px;
-	position: relative;
+	// position: relative;
 	background-color: #fff;
 }
 #manage-content #manageSidebar {
-	position: absolute;
+	position: fixed;
 	background-color: $bgc-content;
 	padding-left: 0px;
 	padding-right: 0px;
-	top: 0px;
+	top: 70px;
 	left: 0px;
 	bottom: 0px;
 }
@@ -23,6 +23,9 @@
 	&:hover{
 		background-color: #fff;
 	}
+}
+#manage-content #manageSidebar .active {
+	background-color: #fff;
 }
 #manageSidebar .index{
 	background: url(../images/index.png) no-repeat;
@@ -44,6 +47,7 @@
 }
 #main-cnt .person-inf table {
 	width: 90%;
+	margin-bottom: 0px;
 }
 #main-cnt .person-inf img {
 	width: 120px;

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <div th:substituteby="main::head"></div>
 
 <body>
-
-<div th:substituteby="main::nav-and-modals"></div>
-
+    <div th:substituteby="main::nav-and-modals"></div>
 <!-- <section id="main-content">
     <div >
     	<h2 th:inline="text">username:[[${#httpServletRequest.remoteUser}]]</h2>
@@ -20,7 +18,7 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2" id="manageSidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="" class="index">My index</a></li>
+					<li><a href="" class="index active">My index</a></li>
 					<li><a href="" class="current">Current borrow</a></li>
 					<li><a href="" class="history">Borrow records</a></li>
 					<li><a href="" class="fine">Book fine</a></li>
@@ -48,13 +46,14 @@
 								</td>
 								<td>
 									<button class="btn btn-default" >modify information</button>
-								</td>
+								</td>	
+								<td></td>
 							</tr>
 						</table>
 					</section>
 				</div>
 				<div class="read-intr">
-					<h3>Borrow Description</h3>
+					<h3>Borrow description</h3>
 					<section>
 						<ul>
 							<li><a href="" class="can-borrow">Can Borrow:10</a></li>
@@ -80,8 +79,8 @@
 		</div>
 	</div>
 </section>
-<script src="/static/dist/js/echarts.js" type="text/javascript" ></script>
 <!-- <script src="http://echarts.baidu.com/build/dist/echarts.js"></script> -->
+<script type="text/javascript" src="/static/dist/js/echarts.js"></script>
 <div th:substituteby="main::footer-and-scripts"></div>
 <script th:if="${isAdmin}" type="text/javascript">
     document.getElementById("add-book-button").style.visibility="visible";
@@ -89,10 +88,10 @@
 <script type="text/javascript">
 	// 路径配置
     require.config({
-       paths: {
-           echarts: '/static/dist/js'
-       }
-   });
+     paths: {
+         echarts: '/static/dist/js'
+     }
+ });
     // use pie
     require(
         [
@@ -156,7 +155,7 @@
             // 为echarts对象加载数据 
             categoryChart.setOption(option); 
         }
-    );
+        );
     // use line
     require(
         [
@@ -167,59 +166,59 @@
             // 基于准备好的dom，初始化echarts图表
             var tendencyChart = ec.init(document.getElementById('line-chart')); 
             option = {
-                                title : {
-                                    text: 'borrow tendency'
-                                },
-                                tooltip : {
-                                    trigger: 'axis'
-                                },
-                                legend: {
-                                    data:['tendency']
-                                },
-                                toolbox: {
-                                    show : true,
-                                    feature : {
-                                        mark : {show: true},
-                                        dataView : {show: true, readOnly: false},
-                                        magicType : {show: true, type: ['line', 'bar']},
-                                        restore : {show: true},
-                                        saveAsImage : {show: true}
-                                    }
-                                },
-                                calculable : true,
-                                xAxis : [
-                                    {
-                                        type : 'category',
-                                        boundaryGap : false,
-                                        data : ['Jan','Feb','Mar','Apr','May','Jun']
-                                    }
-                                ],
-                                yAxis : [
-                                    {
-                                        type : 'value',
-                                        axisLabel : {
-                                            formatter: '{value} '
-                                        }
-                                    }
-                                ],
-                                series : [
-                                    {
-                                        name:'borrow tendency',
-                                        type:'line',
-                                        data:[1, 2, 15, 10, 12, 13],
-                                        markPoint : {
-                                            data : [
-                                                {type : 'max', name: '最大值'},
-                                                {type : 'min', name: '最小值'}
-                                            ]
-                                        }
-                                    }
-                                ]
-                            };
+                title : {
+                    text: 'borrow tendency'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['tendency']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : ['Jan','Feb','Mar','Apr','May','Jun']
+                }
+                ],
+                yAxis : [
+                {
+                    type : 'value',
+                    axisLabel : {
+                        formatter: '{value} '
+                    }
+                }
+                ],
+                series : [
+                {
+                    name:'borrow tendency',
+                    type:'line',
+                    data:[1, 2, 15, 10, 12, 13],
+                    markPoint : {
+                        data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                        ]
+                    }
+                }
+                ]
+            };
             // 为echarts对象加载数据 
             tendencyChart.setOption(option); 
         }
-    );
+        );
 </script>
 </body>
 </html>

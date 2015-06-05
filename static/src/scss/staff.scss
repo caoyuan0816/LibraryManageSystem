@@ -1,0 +1,13 @@
+/**************************************staff css***********************************/
+@import  "main";
+#main-cnt {
+	#borrowForm{
+		width: 400px;
+		padding: 20px;
+		margin: 50px auto;
+		border: 1px solid $bgc-border;
+	}
+	#returnForm{
+		@extend #borrowForm;
+	}
+}
