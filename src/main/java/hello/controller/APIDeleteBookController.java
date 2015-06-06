@@ -22,7 +22,7 @@ public class APIDeleteBookController {
         if(bookToDelete.getIsbn().equals("")){
             return new Status(false,"Can not find the book,delete failed!");
         }else{
-            if(bookToDelete.getIsbn().equals("")){
+            if(bookToDelete.getIsbn().equals(ISBN)){
                 bookRepository.delete(bookToDelete);
                 return new Status(true,"The book has been deleted!");
             }
