@@ -36,7 +36,10 @@ public class UserInfoPageController {
 
         for(GrantedAuthority s : userDetails.getAuthorities()){
             if (s.getAuthority().equals("ROLE_ADMIN")){
-                model.addAttribute("isAdmin","yes");
+                return "admin";
+            }
+            if (s.getAuthority().equals("ROLE_STAFF")){
+                return "staffBorrowBook";
             }
         }
 

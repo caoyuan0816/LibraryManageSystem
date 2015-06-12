@@ -41,6 +41,7 @@ public class Account {
         roles.add("ROLE_USER");
         borrownum = 0;
 //        roles.add("ROLE_ADMIN");
+        //roles.add("ROLE_STAFF");
     }
 
     public String getUsername() {
