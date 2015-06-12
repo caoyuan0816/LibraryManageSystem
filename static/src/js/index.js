@@ -172,9 +172,9 @@ $(function () {
       $.cookie('password', "", {expires: -1});
     }
     // 点击登录按钮，开始表单验证，如果数据无误，向服务器提交数据
-    $("#login").click(function () {
-        // console.log($('#rmbUser').get(0).checked);
-        // if ($('#rmbUser').get(0).checked == true) {
+    $("#login").on('click', function(event) {
+        event.preventDefault();
+        /* Act on the event */
         saveUserInf();
         if (!loginCheck().form()) return;
         var loginData = {};
@@ -193,7 +193,7 @@ $(function () {
             if (res.status == "true") {
                 $('#loginModal').modal("hide");
                 alertFun("Login Success!")
-                setTimeout("javascript:location.reload()", 1200);
+                setTimeout("javascript:location.reload()", 1500);
             } else {
                 $('.login-error').css({
                     display: 'block'
@@ -202,9 +202,16 @@ $(function () {
             }
         });
     });
+    $('#loginForm').keydown(function(event) {
+        console.log('keydown');
+        if (event.keyCode == 13) {
+            $('#login').click();
+        }
+    });
 
     // 点击注册按钮，开始表单验证，如果数据无误，向服务器提交数据
-    $("#regist").click(function () {
+    $("#regist").on('click', function(event) {
+        event.preventDefault();
         if (!registCheck().form()) return;
         var registData = {};
         //registData['schoolId'] = $("#schoolId")[0].value;
@@ -213,16 +220,11 @@ $(function () {
         registData['username'] = $("#registUsername")[0].value;
         registData['password'] = $("#conPassword")[0].value;
         console.log(registData);
-
         $.post('/api/register/', registData, function (data) {
             console.log(data);
             if (data.status) {
                 $("#registModal").modal("hide");
-                alertFun("Regist Success!");
-                setTimeout(function () {
-                    $('#alertModal').modal("hide");
-                }, 1200);
-                // setTimeout("javascript:location.reload()", 1000);
+                alertWithClose("Regist Success!");
             } else {
                 $('.regist-error').css({
                     display: 'block'
@@ -230,6 +232,11 @@ $(function () {
                 $('.regist-error').text(data.message);
             }
         });
+    });
+    $("#registForm").keydown(function(event) {
+        if(event.keyCode == 13) {
+            $("#regist").click();
+        }
     });
     $('#modify').on('click', function () {
         if (!modifyPassCheck().form()) return;
@@ -241,10 +248,7 @@ $(function () {
         $.post('/api/reset-password/', modifyData, function (data) {
             if (data.status) {
                 $('#modifyModal').modal("hide");
-                alertFun("Modify  Password Successfully!");
-                setTimeout(function () {
-                    $('#alertModal').modal("hide");
-                }, 1200);
+                alertWithClose("Modify password successfully!");
             } else {
                 $('.modify-error').css({
                     display: 'block'
@@ -265,7 +269,6 @@ $(function () {
                     $('#alertModal').modal("hide");
                     window.location.href='http://test.yuan25.com';
                 }, 1200);
-
             } else {
                 $('.forget-inf').css({
                     display: 'block'
@@ -295,19 +298,14 @@ $(function () {
                     $('#alertModal').modal("hide");
                     location.reload();
                 }, 1200);
-
             } else {
-                alertFun(data.message);
-                setTimeout(function () {
-                    $('#alertModal').modal("hide");
-                }, 1200);
+                alertWithClose(data.message);
             }
         })
     });
 });
 
 function OnclickLogout() {
-
     $.post('/api/logout', function (data) {
         var abc = "'";
         var re = new RegExp(abc, 'g');
@@ -315,13 +313,12 @@ function OnclickLogout() {
         //var data2 = '{"status":true,"message":"loginsuccess!"}';
         console.log(JSON.parse(data));
         var res = JSON.parse(data);
-
         if (res.status == "true") {
             alertFun("Logout Success!");
-            setTimeout("javascript:location.reload()", 1200);
+            setTimeout("javascript:location.reload()", 1500);
         } else {
             alertFun("Logout defeat!");
-            setTimeout("javascript:location.reload()", 1200);
+            setTimeout("javascript:location.reload()", 1500);
         }
     });
 }

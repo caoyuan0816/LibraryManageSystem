@@ -2,102 +2,121 @@
 @import "main";
 #manage-content {
 	margin-top: 70px;
-	// position: relative;
 	background-color: #fff;
-}
-#manage-content #manageSidebar {
-	position: fixed;
-	background-color: $bgc-content;
-	padding-left: 0px;
-	padding-right: 0px;
-	top: 70px;
-	left: 0px;
-	bottom: 0px;
-}
-#manage-content #manageSidebar li > a {
-	padding: 15px 40px;
-	font-size: 16px;
-	background-position: 15px center;
-	background-size: 20px 20px; 
-	border-bottom: 1px solid #fff;
-	&:hover{
-		background-color: #fff;
+	#manageSidebar {
+		position: fixed;
+		background-color: $bgc-content;
+		padding-left: 0px;
+		padding-right: 0px;
+		top: 70px;
+		left: 0px;
+		bottom: 0px;
+		li {
+			a {
+				padding: 15px 40px;
+				font-size: 16px;
+				border-bottom: 1px solid #fff;
+				// &:hover{
+				// 	background-color: #fff;
+				// }
+			}
+		}
+		// .common-bg {
+		// 	background-position: 15px center;
+		// 	background-size: 20px 20px; 
+		// }
+		.index{
+			background: url(../images/index.png) no-repeat;
+			background-position: 15px center;
+			background-size: 20px 20px; 
+		}
+		.current {
+			background: url(../images/current.png) no-repeat;
+			background-position: 15px center;
+			background-size: 20px 20px; 
+		}
+		.history {
+			background: url(../images/history.png) no-repeat;
+			background-position: 15px center;
+			background-size: 20px 20px; 
+		}
+		.fine {
+			background: url(../images/fine.png) no-repeat;
+			background-position: 15px center;
+			background-size: 20px 20px; 
+		}
+		.active {
+			background-color: #fff;
+		}
 	}
-}
-#manage-content #manageSidebar .active {
-	background-color: #fff;
-}
-#manageSidebar .index{
-	background: url(../images/index.png) no-repeat;
-}
-#manageSidebar .current {
-	background: url(../images/current.png) no-repeat;
-}
-#manageSidebar .history {
-	background: url(../images/history.png) no-repeat;
-}
-#manageSidebar .fine {
-	background: url(../images/fine.png) no-repeat;
-}
-#manage-content #main-cnt {
-	min-height: $min-height-content;
-}
-#manage-content #main-cnt section {
-	padding: 30px;
-}
-#main-cnt .person-inf table {
-	width: 90%;
-	margin-bottom: 0px;
-}
-#main-cnt .person-inf img {
-	width: 120px;
-}
-#main-cnt h3 {
-	font-size: 18px;
-	padding-bottom: 5px;
-	border-bottom: 1px dashed $bgc-border;
-}
-#main-cnt .read-intr  ul{
-	// padding: 10px 0px;
-	width: 100%;
-	overflow: hidden;
-}
-#main-cnt .read-intr  li{
-	width: 25%;
-	text-align: center;
-	float: left;
-}
-#main-cnt .read-intr  li a {
-	display: block;
-	line-height: 140px;
-	margin: 0 auto;
-	width: 140px;
-	height: 140px;
-	color: #fff;
-	font-size: 15px;
-	border-radius: 50%;
-	&:hover {
-		text-decoration: none;
-		color: #fff;
-		background-color: $bgc-nav;
-	} 
-}
-#main-cnt .read-intr  .can-borrow{
-	background-color: #11cd6e;
-}
-#main-cnt .read-intr .borrowed {
-	background-color: #56abe4;
-}
-#main-cnt .read-intr .overdue {
-	background-color: #ea8010;
-}
-#main-cnt .read-intr .accumlated {
-	background-color: #eb4f38;
-}
-#main-cnt  .read-cate #pie-chart {
-	height: 400px; 
-}
-#main-cnt .read-tendency #line-chart {
-	height: 400px;
+	#main-cnt {
+		min-height: $min-height-content;
+		section {
+			padding: 30px;
+		}
+		.person-inf {
+			table {
+				width: 90%;
+				margin-bottom: 0px;
+			}
+			img {
+				width: 120px;
+			}
+		}
+		h3 {
+			font-size: 18px;
+			padding-bottom: 5px;
+			border-bottom: 1px dashed $bgc-border;
+		}
+		.read-intr {
+			ul{
+				// padding: 10px 0px;
+				width: 100%;
+				overflow: hidden;
+			}
+			li{
+				width: 25%;
+				text-align: center;
+				float: left;
+				a {
+					display: block;
+					line-height: 140px;
+					margin: 0 auto;
+					width: 140px;
+					height: 140px;
+					color: #fff;
+					font-size: 15px;
+					border-radius: 50%;
+					&:hover {
+						text-decoration: none;
+						color: #fff;
+						background-color: $bgc-nav;
+					} 
+				}
+			}
+			.can-borrow{
+				background-color: #11cd6e;
+			}
+			.borrowed {
+				background-color: #56abe4;
+			}
+			.overdue {
+				background-color: #ea8010;
+			}
+			.accumlated {
+				background-color: #eb4f38;
+			}
+		}
+		.read-cate {
+			#pie-chart {
+				height: 400px; 
+			}
+		} 
+		.read-tendency {
+			#line-chart {
+				height: 400px;
+			}
+		} 
+	}
 }
 
