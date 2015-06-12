@@ -482,7 +482,7 @@ $(function() {
 	$('#borrowForm #borrowBtn').on('click', function(event) {
 		event.preventDefault();
 		var borrowData = {};
-		borrowData["username"] = $('#username')[0].value;
+		borrowData["username"] = $('#borrowUsername')[0].value;
 		borrowData["isbn"] = $("#isbn")[0].value;
 		console.log(borrowData);
 		$.post('/api/borrow-book/', borrowData, function(data) {
@@ -499,8 +499,9 @@ $(function() {
 		event.preventDefault();
 		/* Act on the event */
 		var returnData = {};
-		returnData["username"] = $('#username')[0].value;
+		returnData["username"] = $('#returnUsername')[0].value;
 		returnData["isbn"] = $("#isbn")[0].value;
+		console.log(returnData);
 		$.post('/api/borrow-book/', returnData, function(data) {
 			console.log(data);
 			alertWithClose(data.message);
