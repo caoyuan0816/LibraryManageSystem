@@ -89,8 +89,11 @@ function freshBookList(pageNumber) {
 	var paras = {}
 	paras['page'] = pageNumber;
 	paras['classify'] = "";
-	paras["type"] = 	$('#searchType').val();
-	paras["value"] = $('#searchValue')[0].value;
+	var globalSearchDataStr = localStorage.getItem("globalSearchData");
+	var globalSearchData = JSON.parse(globalSearchDataStr);
+	console.log(globalSearchDataStr);
+	paras["type"] = 	globalSearchData["searchType"];
+	paras["value"] = globalSearchData["searchValue"];
 	console.log(paras);
 	bookSearchAjax(paras);
 }
@@ -98,7 +101,10 @@ function freshBookList(pageNumber) {
 var globalParas = {}; //global param
 
 $(function() {	
-	freshBookList(1);
+	var currentUrl = window.location.href;
+	if (currentUrl.indexOf("book-search") != -1) {
+		freshBookList(1);
+	}
 	$('.pagination').on('click', 'span', function(event) {
 		event.preventDefault();
 		var page = parseInt($(this).text());
@@ -124,16 +130,36 @@ $(function() {
 	$('#searchBtn').on('click', function(event) {
 		event.preventDefault();
 		// clear the category of globalParas
-		globalParas["classify"] = "";
-		var paras = {};
-		paras["page"] = 1;
-		paras["type"] = 	$('#searchType').val();
-		paras["value"] = $('#searchValue')[0].value;
-		globalParas["type"] = paras["type"];
-		globalParas["value"] = paras["value"];
-		// console.log(paras);
-		bookSearchAjax(paras);
+		console.log( window.location.href);
+		var currentUrl = window.location.href;
+		currentUrl.indexOf("book-search")
+		// console.log(currentUrl.indexOf("book-search"));
+		if (currentUrl.indexOf("book-search") != -1) {
+			globalParas["classify"] = "";
+			var paras = {};
+			paras["page"] = 1;
+			paras["type"] = 	$('#searchType').val();
+			paras["value"] = $('#searchValue')[0].value;
+			globalParas["type"] = paras["type"];
+			globalParas["value"] = paras["value"];
+			// console.log(paras);
+			bookSearchAjax(paras);
+		}  else {
+			console.log("reload");
+			var globalSearchData = {};
+			globalSearchData["searchType"] = $('#searchType').val();;
+			globalSearchData["searchValue"] = $('#searchValue')[0].value;
+			var globalSearchDataStr = JSON.stringify(globalSearchData);
+			localStorage.setItem("globalSearchData", globalSearchDataStr);
+			window.location.href = "/book-search/";
+		}
 	});
+	$("#searchForm").keydown(function(event) {
+		if (event.keyCode == 13) {
+			$("#searchForm #searchBtn").click();
+		}
+	});
+	
 });
 /**
  * Created by superpig on 15/5/17.

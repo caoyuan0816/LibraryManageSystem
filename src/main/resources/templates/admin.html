@@ -5,83 +5,68 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <div th:substituteby="main::head"></div>
 
 <body>
-    <div th:substituteby="main::nav-and-modals"></div>
-<!-- <section id="main-content">
-    <div >
-    	<h2 th:inline="text">username:[[${#httpServletRequest.remoteUser}]]</h2>
-        <button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">Modify Password</button>
-        <button class='btn btn-default' onclick="window.location.href='/upload-book/';" style='margin-left: 20px; visibility: hidden;' id="add-book-button">Add Book</button>
-    </div> 
-</section> -->
-<section id="manage-content">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3 col-md-2" id="manageSidebar">
-				<ul class="nav nav-sidebar">
-					<li><a href="" class="index">Add book</a></li>
-					<li><a href="" class="current">Current borrow</a></li>
-					<li><a href="" class="history">Borrow records</a></li>
-					<li><a href="" class="fine">Book fine</a></li>
-				</ul>
-			</div>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
-				<div class="person-inf">
-					<h3>Personal information</h3>
-					<section>
-						<table  class="table table-bordered">
-							<tr>
-								<td rowspan="3" style="text-align: center;"><img src="/static/dist/images/head.png" alt=""/></td>
-								<td>Name: <span>baymax</span></td>
-								<td>Student id: <span>2012303497</span></td>
-								<td>Email: <span>940578704@qq.com</span></td>
-							</tr>
-							<tr>
-								<td>Reader category: <span>undergraduate</span></td>
-								<td>Academy: <span>software and microelectronics</span></td>
-								<td>Major: <span>software engineer</span></td>
-							</tr>
-							<tr>
-								<td>
-									<button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">modify password</button>
-								</td>
-								<td>
-									<button class="btn btn-default" >modify information</button>
-								</td>
-							</tr>
-						</table>
-					</section>
+	<div th:substituteby="main::nav-and-modals"></div>
+	<section id="manage-content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3 col-md-2" id="manageSidebar">
+					<ul class="nav nav-sidebar">
+						<li><a href="" class="index active">Add book</a></li>
+						<li><a href="" class="current">Manage book</a></li>
+					</ul>
 				</div>
-				<div class="read-intr">
-					<h3>Borrow description</h3>
-					<section>
-						<ul>
-							<li><a href="" class="can-borrow">Can Borrow:10</a></li>
-							<li><a href="" class="borrowed">Borrrowed: 4</a></li>
-							<li><a href="" class="overdue">Overdue: 1</a></li>
-							<li><a href="" class="accumlated">Accumlated: 100</a></li>
-						</ul>
-					</section>
-				</div>
-				<div class="read-cate">
-					<h3>Borrow category</h3>
-					<section>
-						<div id="pie-chart">	</div>
-					</section>
-				</div>
-				<div class="read-tendency">
-					<h3>Borrow tendency</h3>
-					<section>
-						<div id="line-chart"></div>
-					</section>
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
+					<div class="upload-content">
+						<form id="bookForm">
+						  <div class="form-group">
+						    <label for="bookName">Book Name</label>
+						    <input type="text" class="form-control" id="bookName" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="author">Author</label>
+						    <input type="text" class="form-control" id="author" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="publisher">Publisher</label>
+						    <input type="text" class="form-control" id="publisher" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="publishTime">Publish Time</label>
+						    <input type="date" class="form-control" id="publishTime" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="ISBN">ISBN</label>
+						    <input type="text" class="form-control" id="ISBN" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="translator">Current Storage</label>
+						    <input type="text" class="form-control" id="currentStorage" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="translator">Translator</label>
+						    <input type="text" class="form-control" id="translator" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="photoUrl">Photo Url</label>
+						    <input type="text" class="form-control" id="photoUrl" required="required"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="authorIntroduction">Author Introduction</label>
+						    <textarea id="authorIntroduction" class="form-control" rows="6" required="required"></textarea>
+						  </div>
+						  <div class="form-group">
+						    <label for="bookIntroduction">Book Introduction</label>
+						    <textarea id="bookIntroduction" class="form-control" rows="10" required="required"></textarea>
+						  </div>
+						  <div class="btn-center">
+						  	<button id="book-upload-button" type="button" class="btn btn-primary">Submit</button>
+						  </div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
-<!-- <script src="http://echarts.baidu.com/build/dist/echarts.js"></script> -->
-<div th:substituteby="main::footer-and-scripts"></div>
-<script th:if="${isAdmin}" type="text/javascript">
-    document.getElementById("add-book-button").style.visibility="visible";
-</script>
+	</section>
+	<div th:substituteby="main::footer-and-scripts"></div>
 </body>
 </html>
