@@ -51,37 +51,37 @@ function getUrlParam(name){
 function bookSearchAjax(paras) {
 	$.post('/api/book-search/', paras, function (data) {
 		// console.log(data);
-            	if (data.status) {
-            		$('.book-dis').empty();
-	              	for (var i =0 ; i < data.book_list.length; i++) {
-	              		var bookDom = '<li>'
-						               	+'<a href="/book-detail/?bookid=' +data.book_list[i].id +'">'
-						               	+'<img src="' + data.book_list[i].photoURL +'" alt=""/>'
-						               	+'<p>' +data.book_list[i].bookName+'</p>'
-						                	+'</a>'
-					              		+ '</li>';
+		if (data.status) {
+			$('.book-dis').empty();
+			for (var i =0 ; i < data.book_list.length; i++) {
+				var bookDom = '<li>'
+				+'<a href="/book-detail/?bookid=' +data.book_list[i].id +'">'
+				+'<img src="' + data.book_list[i].photoURL +'" alt=""/>'
+				+'<p>' +data.book_list[i].bookName+'</p>'
+				+'</a>'
+				+ '</li>';
 				$('.book-dis').append(bookDom); 
-             		}
-	             	var booksPerPage = 8;
-	             	var all_number = data.all_number;
-	             	var pages = all_number / booksPerPage;
-	             	if (all_number % booksPerPage != 0) {
-	             		pages ++;
-	             	}
-	             	$('.pagination').empty();
-	             	for (var i = 1; i <= pages; i++) {
-	             		var pgDom = '<li>'
-	             						+'<span>' + i + '</span>'
-	             					+'</li>';
-	             		$('.pagination').append(pgDom);
-	             	}
-            } else {
-               alertFun("not found book!");
-               setTimeout(function () {
-                    $('#alertModal').modal("hide");
-                }, 1200);
-            }
-        });
+			}
+			var booksPerPage = 8;
+			var all_number = data.all_number;
+			var pages = all_number / booksPerPage;
+			if (all_number % booksPerPage != 0) {
+				pages ++;
+			}
+			$('.pagination').empty();
+			for (var i = 1; i <= pages; i++) {
+				var pgDom = '<li>'
+				+'<span>' + i + '</span>'
+				+'</li>';
+				$('.pagination').append(pgDom);
+			}
+		} else {
+			alertFun("not found book!");
+			setTimeout(function () {
+				$('#alertModal').modal("hide");
+			}, 1200);
+		}
+	});
 } 
 
 //fresh boolk list
@@ -94,7 +94,7 @@ function freshBookList(pageNumber) {
 	console.log(globalSearchDataStr);
 	paras["type"] = 	globalSearchData["searchType"];
 	paras["value"] = globalSearchData["searchValue"];
-	console.log(paras);
+	//console.log(paras);
 	bookSearchAjax(paras);
 }
 
@@ -130,11 +130,12 @@ $(function() {
 	$('#searchBtn').on('click', function(event) {
 		event.preventDefault();
 		// clear the category of globalParas
-		console.log( window.location.href);
+		//console.log( window.location.href);
 		var currentUrl = window.location.href;
 		currentUrl.indexOf("book-search")
-		// console.log(currentUrl.indexOf("book-search"));
+		console.log(currentUrl.indexOf("book-search"));
 		if (currentUrl.indexOf("book-search") != -1) {
+			console.log('ajax');
 			globalParas["classify"] = "";
 			var paras = {};
 			paras["page"] = 1;
@@ -154,9 +155,10 @@ $(function() {
 			window.location.href = "/book-search/";
 		}
 	});
-	$("#searchForm").keydown(function(event) {
+	$("#searchForm .form-group").keydown(function(event) {
 		if (event.keyCode == 13) {
-			$("#searchForm #searchBtn").click();
+			$("#searchBtn").click();
+		
 		}
 	});
 	

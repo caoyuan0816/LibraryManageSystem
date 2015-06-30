@@ -18,10 +18,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		<div class="row">
 			<div class="col-sm-3 col-md-2" id="manageSidebar">
 				<ul class="nav nav-sidebar">
-					<li><a href="" class="index active">My index</a></li>
-					<li><a href="" class="current">Current borrow</a></li>
-					<li><a href="" class="history">Borrow records</a></li>
-					<li><a href="" class="fine">Book fine</a></li>
+					<li><a th:href="@{'/user?username='+${#httpServletRequest.remoteUser}}" th:inline="text" class="index active">My index</a></li>
+					<li><a href="/current-records/" class="current">Current borrow</a></li>
+					<li><a href="/history-records/" class="history">Borrow records</a></li>
+					<li><a href="/user-fine/" class="fine">Book fine</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
