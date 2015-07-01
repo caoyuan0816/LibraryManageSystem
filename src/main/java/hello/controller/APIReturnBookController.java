@@ -32,14 +32,14 @@ public class APIReturnBookController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "isbn", defaultValue = "") String isbn) {
+    Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "book-id", defaultValue = "") String bookID) {
 
-        if (username.equals("") || isbn.equals("")) {
+        if (username.equals("") || bookID.equals("")) {
             return new Status(false, "Paras error!");
         }
 
         Account account = accountRepository.findByUsername(username);
-        Book book = bookRepository.findByIsbn(isbn);
+        Book book = bookRepository.findOne(bookID);
         Record record = recordRepository.findByUseridAndBookid(account.getId(), book.getId());
 
         //Find username in database
@@ -56,7 +56,7 @@ public class APIReturnBookController {
             account.setBorrownum(account.getBorrownum() + 1);
             accountRepository.save(account);
 
-            book.setCurrentStorage(book.getCurrentStorage() + 1);
+            book.setBorrowed(false);
             bookRepository.save(book);
 
         } else {

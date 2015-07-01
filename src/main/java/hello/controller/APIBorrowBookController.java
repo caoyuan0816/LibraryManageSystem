@@ -32,21 +32,21 @@ public class APIBorrowBookController {
     @RequestMapping(method = RequestMethod.POST)
     public
     @ResponseBody
-    Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "isbn", defaultValue = "") String isbn) {
+    Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "book-id", defaultValue = "") String bookID) {
 
-        if (username.equals("") || isbn.equals("")){
+        if (username.equals("") || bookID.equals("")){
             return new Status(false, "Paras error!");
         }
 
         Account account = accountRepository.findByUsername(username);
-        Book book = bookRepository.findByIsbn(isbn);
+        Book book = bookRepository.findOne(bookID);
 
         //Find username in database
         //Find isbn in database
         if(account != null && book != null){
 
             //Check numbers
-            if (account.getBorrownum() < MAX_BORROW_NUM && book.getCurrentStorage() >= 1){
+            if (account.getBorrownum() < MAX_BORROW_NUM && !book.isBorrowed()){
 
                 long current_time = System.currentTimeMillis();
                 //Default borrow 7 days, current_time + 604800000
@@ -56,7 +56,7 @@ public class APIBorrowBookController {
                 account.setBorrownum(account.getBorrownum()+1);
                 accountRepository.save(account);
 
-                book.setCurrentStorage(book.getCurrentStorage()-1);
+                book.setBorrowed(true);
                 bookRepository.save(book);
 
             }else{

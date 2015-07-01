@@ -46,7 +46,7 @@ public class APIBookDetailController {
     BookDetailStatus post(@RequestParam(value = "bookid", defaultValue = "") String bookId){
 
         if (bookId.equals("")){
-            return new BookDetailStatus(false, new Book("","","","","",-1,"","","","",-1));
+            return new BookDetailStatus(false, new Book("","","","","","","","","",-1));
         }
 
         return new BookDetailStatus(true, bookRepository.findOne(bookId));

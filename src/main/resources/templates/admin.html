@@ -5,6 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <div th:substituteby="main::head"></div>
 
 <body>
+<<<<<<< Updated upstream
 	<div th:substituteby="main::nav-and-modals"></div>
 	<section id="manage-content">
 		<div class="container-fluid">
@@ -68,5 +69,31 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		</div>
 	</section>
 	<div th:substituteby="main::footer-and-scripts"></div>
+=======
+    <div th:substituteby="main::nav-and-modals"></div>
+<!-- <section id="main-content">
+    <div >
+    	<h2 th:inline="text">username:[[${#httpServletRequest.remoteUser}]]</h2>
+        <button class="btn btn-default" data-toggle="modal" data-target="#modifyModal">Modify Password</button>
+        <button class='btn btn-default' onclick="window.location.href='/upload-book/';" style='margin-left: 20px; visibility: hidden;' id="add-book-button">Add Book</button>
+    </div> 
+</section> -->
+<section id="manage-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2" id="manageSidebar">
+				<ul class="nav nav-sidebar">
+					<li><a href="/add-book/" class="index">Add book</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- <script src="http://echarts.baidu.com/build/dist/echarts.js"></script> -->
+<div th:substituteby="main::footer-and-scripts"></div>
+<!--<script th:if="${isAdmin}" type="text/javascript">-->
+    <!--document.getElementById("add-book-button").style.visibility="visible";-->
+<!--</script>-->
+>>>>>>> Stashed changes
 </body>
 </html>

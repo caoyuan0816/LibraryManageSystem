@@ -15,11 +15,13 @@ public class Book {
     private String publisher;
     private String publishTime;
     private String isbn;
-    private int currentStorage;
+//    private int currentStorage;
     private String translator;
     private String photoURL;
     private String authorIntroduction;
     private String bookIntroduction;
+
+    private boolean borrowed;
 
     private int classify;
 
@@ -31,18 +33,19 @@ public class Book {
         this.classify = classify;
     }
 
-    public Book(String bookName, String author, String publisher, String publishTime, String isbn, int currentStorage, String translator, String photoURL, String authorIntroduction, String bookIntroduction, int classify) {
+    public Book(String bookName, String author, String publisher, String publishTime, String isbn, String translator, String photoURL, String authorIntroduction, String bookIntroduction, int classify) {
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.publishTime = publishTime;
         this.isbn = isbn;
-        this.currentStorage = currentStorage;
+//        this.currentStorage = currentStorage;
         this.translator = translator;
         this.photoURL = photoURL;
         this.authorIntroduction = authorIntroduction;
         this.bookIntroduction = bookIntroduction;
         this.classify = classify;
+        this.borrowed = false;
     }
 
     public boolean equals(Book book) {
@@ -97,14 +100,6 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public int getCurrentStorage() {
-        return currentStorage;
-    }
-
-    public void setCurrentStorage(int currentStorage) {
-        this.currentStorage = currentStorage;
-    }
-
     public String getTranslator() {
         return translator;
     }
@@ -135,6 +130,14 @@ public class Book {
 
     public void setBookIntroduction(String bookIntroduction) {
         this.bookIntroduction = bookIntroduction;
+    }
+
+    public boolean isBorrowed() {
+        return borrowed;
+    }
+
+    public void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
     }
 
     @Override

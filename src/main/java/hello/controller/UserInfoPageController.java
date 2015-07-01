@@ -34,13 +34,24 @@ public class UserInfoPageController {
             return "redirect:/";
         }
 
+        boolean is_Admin = false;
+        boolean is_Staff = false;
+
         for(GrantedAuthority s : userDetails.getAuthorities()){
             if (s.getAuthority().equals("ROLE_ADMIN")){
-                return "admin";
+                is_Admin = true;
             }
             if (s.getAuthority().equals("ROLE_STAFF")){
-                return "staffBorrowBook";
+                is_Staff = true;
             }
+        }
+
+        if (is_Admin){
+            return "adminAddBook";
+        }
+
+        if(is_Staff){
+            return "staffBorrowBook";
         }
 
         return "user";

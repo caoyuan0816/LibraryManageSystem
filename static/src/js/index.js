@@ -285,7 +285,6 @@ $(function () {
         paras['publisher']=$('#publisher').val();
         paras['publishtime']=$('#publishTime').val();
         paras['isbn']=$('#ISBN').val();
-        paras['currentstorage']=$('#currentStorage').val();
         paras['translator']=$('#translator').val();
         paras['photoURL']=$('#photoUrl').val();
         paras['authorintro']=$('#authorIntroduction').val();

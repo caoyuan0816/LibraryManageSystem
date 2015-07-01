@@ -4,7 +4,7 @@ $(function() {
 		event.preventDefault();
 		var borrowData = {};
 		borrowData["username"] = $('#borrowUsername')[0].value;
-		borrowData["isbn"] = $("#isbn")[0].value;
+		borrowData["book-id"] = $("#isbn")[0].value;
 		console.log(borrowData);
 		$.post('/api/borrow-book/', borrowData, function(data) {
 			alertWithClose(data.message);
@@ -21,7 +21,7 @@ $(function() {
 		/* Act on the event */
 		var returnData = {};
 		returnData["username"] = $('#returnUsername')[0].value;
-		returnData["isbn"] = $("#isbn")[0].value;
+		returnData["book-id"] = $("#isbn")[0].value;
 		console.log(returnData);
 		$.post('/api/borrow-book/', returnData, function(data) {
 			console.log(data);
