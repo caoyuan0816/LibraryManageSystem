@@ -19,7 +19,7 @@ import org.springframework.ui.Model;
  * @version 0.0.1
  */
 @Controller
-@RequestMapping("/current-records/")
+@RequestMapping("/current-records")
 public class UserCurrentRecordsController {
 
     /***

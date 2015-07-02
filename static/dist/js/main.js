@@ -7,7 +7,7 @@ function getUrlParam(name){
 }
 $(function(){
 	var bookid = getUrlParam('bookid');
-	console.log(bookid);
+	// console.log(bookid);
 	$.post('/api/book-detail/', {bookid: bookid}, function(data) {
 		/*optional stuff to do after success */
 		if (data.status) {
@@ -325,7 +325,7 @@ function alertWithClose(msg) {
 $(function () {
 
     // 判断用户的登陆信息是否存在cookie中
-    if ($.cookie('rmbUserFlag') == "true") {
+    if ($.cookie('rmbUserFlag') == 'true') {
         $("#rmbUser").attr("checked", true);
         $("#username").val($.cookie("username"));
         $("#password").val($.cookie("password"));
@@ -450,7 +450,6 @@ $(function () {
         paras['publisher']=$('#publisher').val();
         paras['publishtime']=$('#publishTime').val();
         paras['isbn']=$('#ISBN').val();
-        paras['currentstorage']=$('#currentStorage').val();
         paras['translator']=$('#translator').val();
         paras['photoURL']=$('#photoUrl').val();
         paras['authorintro']=$('#authorIntroduction').val();
@@ -511,7 +510,7 @@ $(function() {
 		event.preventDefault();
 		var borrowData = {};
 		borrowData["username"] = $('#borrowUsername')[0].value;
-		borrowData["isbn"] = $("#isbn")[0].value;
+		borrowData["book-id"] = $("#isbn")[0].value;
 		console.log(borrowData);
 		$.post('/api/borrow-book/', borrowData, function(data) {
 			alertWithClose(data.message);
@@ -528,7 +527,7 @@ $(function() {
 		/* Act on the event */
 		var returnData = {};
 		returnData["username"] = $('#returnUsername')[0].value;
-		returnData["isbn"] = $("#isbn")[0].value;
+		returnData["book-id"] = $("#isbn")[0].value;
 		console.log(returnData);
 		$.post('/api/borrow-book/', returnData, function(data) {
 			console.log(data);
@@ -540,4 +539,28 @@ $(function() {
 			$("#returnForm #returnBtn").click();
 		}	
 	});
+});
+//fresh current records
+function freshCurrentRecords() {
+	var para = {};
+	para['username'] = getUrlParam('username');
+	$.post('/api/current-records/', para, function(data) {
+		console.log(data);
+	});
+}
+//fresh history  records 
+function freshHistoryRecords() {
+	var para = {};
+	para['username'] = getUrlParam('username');
+	$.post('/api/history-record', para, function(data) {
+		console.log(data);
+	});
+}
+$(function(){
+	console.log('user.html');
+	var currentUrl = window.location.href;
+	if (currentUrl.indexOf('current-records') != -1) {
+		freshCurrentRecords();
+	}
+	if (currentUrl.indexOf('history-record'))
 });

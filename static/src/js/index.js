@@ -160,7 +160,7 @@ function alertWithClose(msg) {
 $(function () {
 
     // 判断用户的登陆信息是否存在cookie中
-    if ($.cookie('rmbUserFlag') == "true") {
+    if ($.cookie('rmbUserFlag') == 'true') {
         $("#rmbUser").attr("checked", true);
         $("#username").val($.cookie("username"));
         $("#password").val($.cookie("password"));

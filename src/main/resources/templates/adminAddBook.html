@@ -57,6 +57,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 						  <div class="btn-center">
 						  	<button id="book-upload-button" type="button" class="btn btn-primary">Submit</button>
 						  </div>
+						  <div class="btn-center" style="margin-top: 20px;">
+							<img id="barcode"/>
+						  </div>
 						</form>
 					</div>
 				</div>
@@ -64,5 +67,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		</div>
 	</section>
 	<div th:substituteby="main::footer-and-scripts"></div>
+	<script type="text/javascript" src="/static/dist/js/JsBarcode.all.min.js"></script>
+	<script type="text/javascript">
+		$("#barcode").JsBarcode("9780199532179",{format:"EAN",displayValue:true,fontSize:20});
+	</script>
 </body>
 </html>

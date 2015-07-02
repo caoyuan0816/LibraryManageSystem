@@ -7,7 +7,7 @@ function getUrlParam(name){
 }
 $(function(){
 	var bookid = getUrlParam('bookid');
-	console.log(bookid);
+	// console.log(bookid);
 	$.post('/api/book-detail/', {bookid: bookid}, function(data) {
 		/*optional stuff to do after success */
 		if (data.status) {

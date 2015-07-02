@@ -19,9 +19,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 			<div class="col-sm-3 col-md-2" id="manageSidebar">
 				<ul class="nav nav-sidebar">
 					<li><a th:href="@{'/user?username='+${#httpServletRequest.remoteUser}}" th:inline="text" class="index">My index</a></li>
-					<li><a href="/current-records/" class="current">Current borrow</a></li>
-					<li><a href="/history-records/" class="history">Borrow records</a></li>
-					<li><a href="/user-fine/" class="fine active">Book fine</a></li>
+					<li><a th:href="@{'/current-records?username='+${#httpServletRequest.remoteUser}}" th:inline="text" class="current">Current borrow</a></li>
+					<li><a  th:href="@{'/history-records?username='+${#httpServletRequest.remoteUser}}" th:inline="text" class="history">Borrow records</a></li>
+					<li><a th:href="@{'/user-fine?username='+${#httpServletRequest.remoteUser}}" th:inline="text" class="fine active">Book fine</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
@@ -58,11 +58,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		</div>
 	</div>
 </section>
-<!-- <script src="http://echarts.baidu.com/build/dist/echarts.js"></script> -->
-<script type="text/javascript" src="/static/dist/js/echarts.js"></script>
 <div th:substituteby="main::footer-and-scripts"></div>
-<script th:if="${isAdmin}" type="text/javascript">
-    document.getElementById("add-book-button").style.visibility="visible";
-</script>
 </body>
 </html>
