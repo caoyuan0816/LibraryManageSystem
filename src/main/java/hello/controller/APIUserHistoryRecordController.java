@@ -18,7 +18,7 @@ import java.util.List;
  * @modify 2015/7/21:18
  */
 @RestController
-@RequestMapping("/api/history-record")
+@RequestMapping("/api/history-record/")
 public class APIUserHistoryRecordController {
     @Autowired
     RecordRepository recordRepository;
