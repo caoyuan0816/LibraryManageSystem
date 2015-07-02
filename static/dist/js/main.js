@@ -545,6 +545,21 @@ function freshCurrentRecords() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/current-records/', para, function(data) {
+		if (data['status']) {
+			var currentRecords = $('#currentRecords');
+			for (var i = 0; i < data['records'].length; i++) {
+				var currentRecordsDom =  '<tr>'
+											+'<td>' + data['records'][i].bookid + '</td>'
+											+'<td>' + data['records'][i].bookName + '</td>'
+											+'<td>' + data['records'][i].author + '</td>'
+											+'<td>' + data['records'][i].borrowtime + '</td>'
+											+'<td>' + data['records'][i].actualreturntime  + '</td>'
+										      +'</tr>';
+				currentRecords.append(currentRecordsDom);						      	
+			}
+		} else {
+			alertWithClose('load error');
+		}
 		console.log(data);
 	});
 }
@@ -552,8 +567,23 @@ function freshCurrentRecords() {
 function freshHistoryRecords() {
 	var para = {};
 	para['username'] = getUrlParam('username');
-	$.post('/api/history-record', para, function(data) {
-		console.log(data);
+	$.post('/api/history-records/', para, function(data) {
+		if (data['status']) {
+			var historyRecords = $('#historyRecords');
+			console.log(data);
+			for (var i = 0; i < data['records'].length; i++) {
+				var historyRecordsDom =  '<tr>'
+											+'<td>' + data['records'][i].bookid + '</td>'
+											+'<td>' + data['records'][i].bookName + '</td>'
+											+'<td>' + data['records'][i].author + '</td>'
+											+'<td>' + data['records'][i].borrowtime + '</td>'
+											+'<td>' + data['records'][i].actualreturntime  + '</td>'
+										      +'</tr>';
+				historyRecords.append(historyRecordsDom);						      	
+			}
+		} else {
+			alertWithClose('load error');
+		}
 	});
 }
 $(function(){
@@ -562,5 +592,7 @@ $(function(){
 	if (currentUrl.indexOf('current-records') != -1) {
 		freshCurrentRecords();
 	}
-	if (currentUrl.indexOf('history-record'))
+	if (currentUrl.indexOf('history-records') != -1) {
+		freshHistoryRecords();
+	}
 });
