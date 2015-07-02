@@ -586,13 +586,30 @@ function freshHistoryRecords() {
 		}
 	});
 }
+
+//fresh user information page 
+function freshUserInformationPage() {
+	var para = {};
+	para['username'] = getUrlParam('username');
+	$.post('/api/user/', para, function(data) {
+		// console.log(data);
+		// console.log($('.read-intr .borrowed span'));
+		$('.read-intr .borrowed span').text(data['borrowed']);
+		$('.read-intr .overdue span').text(data['overdue']);
+		$('.read-intr .accumlated span').text(data['accumulated']);
+	});
+}
+
 $(function(){
-	console.log('user.html');
+	// console.log('user.html');
 	var currentUrl = window.location.href;
 	if (currentUrl.indexOf('current-records') != -1) {
 		freshCurrentRecords();
 	}
 	if (currentUrl.indexOf('history-records') != -1) {
 		freshHistoryRecords();
+	}
+	if(currentUrl.indexOf('user?') != -1) {
+		freshUserInformationPage();
 	}
 });

@@ -57,9 +57,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 					<section>
 						<ul>
 							<li><a href="" class="can-borrow">Can Borrow:10</a></li>
-							<li><a href="" class="borrowed">Borrrowed: 4</a></li>
-							<li><a href="" class="overdue">Overdue: 1</a></li>
-							<li><a href="" class="accumlated">Accumlated: 100</a></li>
+							<li><a href="" class="borrowed">Borrrowed: <span></span></a></li>
+							<li><a href="" class="overdue">Overdue: <span></span></a></li>
+							<li><a href="" class="accumlated">Accumlated: <span></span></a></li>
 						</ul>
 					</section>
 				</div>
@@ -82,12 +82,18 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <div th:substituteby="main::footer-and-scripts"></div>
 <script type="text/javascript" src="/static/dist/js/echarts.js"></script>
 <script type="text/javascript">
-	// 路径配置
+    // var bookCategory = {};
+    // var para = {};
+    // $(function(){
+      
+    // });
+    // console.log(bookCategory);
+   // 路径配置
     require.config({
      paths: {
          echarts: '/static/dist/js'
      }
- });
+    });
     // use pie
     require(
         [
@@ -97,7 +103,20 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         function (ec) {
             // 基于准备好的dom，初始化echarts图表
             var categoryChart = ec.init(document.getElementById('pie-chart')); 
-            option = {
+            var bookCategory = {};
+            var para = {};
+            para['username'] = getUrlParam('username');
+            console.log(para);
+            $.post('/api/user/', para, function(data) {
+               // console.log(data);
+               bookCategory['literature'] = data['numByClassify'][1];
+               bookCategory['popular'] = data['numByClassify'][2];
+               bookCategory['culture'] = data['numByClassify'][3];
+               bookCategory['life'] = data['numByClassify'][4];
+               bookCategory['economic'] = data['numByClassify'][5];
+               bookCategory['technology'] = data['numByClassify'][6];
+               bookCategory['education'] = data['numByClassify'][7];
+               option = {
                 title : {
                     text: 'Book Category Distribution',
                     x:'center'
@@ -109,7 +128,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
                 legend: {
                     orient : 'vertical',
                     x : 'left',
-                    data:['Literature','Culture','Life','Economic']
+                    data:['Literature','Popular','Culture','Technology','Education','Life','Economic']
                 },
                 toolbox: {
                     show : true,
@@ -140,16 +159,21 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
                     radius : '55%',
                     center: ['50%', '60%'],
                     data:[
-                    {value:20, name:'Literature'},
-                    {value:10, name:'Culture'},
-                    {value:5, name:'Life'},
-                    {value:1, name:'Economic'}
+                    {value: bookCategory['literature'] , name:'Literature'},
+                    {value: bookCategory['popular'], name:'Popular'},
+                    {value: bookCategory['culture'] , name:'Culture'},
+                    {value: bookCategory['technology'], name:'Technology'},
+                    {value: bookCategory['education'], name:'Education'},
+                    {value: bookCategory['life'], name:'Life'},
+                    {value: bookCategory['economic'], name:'Economic'}
                     ]
                 }
                 ]
             };
             // 为echarts对象加载数据 
             categoryChart.setOption(option); 
+            });
+            // console.log(bookCategory);
         }
         );
     // use line
