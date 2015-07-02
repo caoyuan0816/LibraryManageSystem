@@ -2,6 +2,9 @@ package hello.controller;
 
 import hello.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +35,23 @@ public class APIUserCurrentRecordController {
     @RequestMapping(method = RequestMethod.POST)
     public Recordlist post(@RequestParam(value="username",defaultValue="") String username){
         boolean status=false;
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!username.equals(userDetails.getUsername())) {
+            return new Recordlist(false,new ArrayList<Record>(),-1);
+        }
+        boolean is_User = false;
+
+        for(GrantedAuthority s : userDetails.getAuthorities()){
+            if (s.getAuthority().equals("ROLE_USER")) {
+                is_User = true;
+            }
+        }
+
+        if (!is_User){
+            return new Recordlist(false,new ArrayList<Record>(),-1);
+        }
         ArrayList<Record> recordlist= new ArrayList<Record>();
         int sizeoflist=0;
         if(username.equals(""))
