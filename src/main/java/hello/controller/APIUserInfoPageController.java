@@ -3,6 +3,9 @@ package hello.controller;
 import hello.model.*;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +34,23 @@ public class APIUserInfoPageController {
 
     @RequestMapping(method = RequestMethod.POST)
     public UserStatus post(@RequestParam(value="username",defaultValue = "")String username){
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!username.equals(userDetails.getUsername())) {
+            return new UserStatus(false,-1,-1,-1,new int[7]);
+        }
+        boolean is_User = false;
+
+        for(GrantedAuthority s : userDetails.getAuthorities()){
+            if (s.getAuthority().equals("ROLE_USER")) {
+                is_User = true;
+            }
+        }
+
+        if (!is_User){
+            return new UserStatus(false,-1,-1,-1,new int[7]);
+        }
         if(username.equals(""))
             return new UserStatus(false,-1,-1,-1,new int[7]);
         int borrowed=0;
