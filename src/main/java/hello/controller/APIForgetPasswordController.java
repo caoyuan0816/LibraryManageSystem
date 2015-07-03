@@ -5,6 +5,9 @@ import hello.model.AccountRepository;
 import hello.utils.EmailSender;
 import hello.utils.RandomGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,10 +47,18 @@ public class APIForgetPasswordController {
     public
     @ResponseBody
     Status post(@RequestParam(value = "email", defaultValue = "") String email){
-
         if (email.equals("")) {
             return new Status(false, "Invalid paras.");
         }
+
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!accountRepository.findByEmail(email).getEmail().equals(userDetails.getUsername())) {
+            return new Status(false,"You're not the right one");
+        }
+
+
 
         Account account = accountRepository.findByEmail(email);
         if (account == null) {

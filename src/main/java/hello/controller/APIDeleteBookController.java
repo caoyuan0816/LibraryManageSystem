@@ -3,6 +3,9 @@ package hello.controller;
 import hello.model.Book;
 import hello.model.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,6 +21,7 @@ public class APIDeleteBookController {
     private BookRepository bookRepository;
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody Status post(@RequestParam(value="book-id",defaultValue = "")String id){
+
         Book bookToDelete = bookRepository.findOne(id);
         if(bookToDelete.getId().equals("")){
             return new Status(false,"Can not find the book,delete failed!");

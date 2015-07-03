@@ -5,6 +5,9 @@ import hello.model.AccountRepository;
 import hello.model.BookRepository;
 import hello.model.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import hello.model.Book;
 import hello.model.Account;
@@ -33,7 +36,23 @@ public class APIBorrowBookController {
     public
     @ResponseBody
     Status post(@RequestParam(value = "username", defaultValue = "") String username, @RequestParam(value = "book-id", defaultValue = "") String bookID) {
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        if (!username.equals(userDetails.getUsername())) {
+            return new Status(false,"You're not the right one");
+        }
+        boolean is_Staff = false;
+
+        for(GrantedAuthority s : userDetails.getAuthorities()){
+            if (s.getAuthority().equals("ROLE_STAFF")) {
+                is_Staff = true;
+            }
+        }
+
+        if (!is_Staff){
+            return new Status(false,"You don't have the authority to view the page");
+        }
         if (username.equals("") || bookID.equals("")){
             return new Status(false, "Paras error!");
         }
