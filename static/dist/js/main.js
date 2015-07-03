@@ -15,7 +15,7 @@ function getBookList() {
 									+'<td class="bookid">' + data.book_list[i].id + '</td>'
 									+'<td>' + data.book_list[i].bookName + '</td>'
 									+'<td>' + data.book_list[i].author + '</td>'
-									+'<td><a class="modifyBook">modify</a><span> | </span><a class="deleteBook">delete</a></td>'
+									+'<td><a data-toggle="modal" data-target=".modify-modal" class="modifyBook">modify</a><span> | </span><a class="deleteBook">delete</a></td>'
 								 +'</tr>';
 				manageBook.append(bookDom);
 			}
@@ -42,24 +42,49 @@ $(function(){
 		var $target = $(this);
 		// console.log($(this).parent().siblings('.bookid').text());
 		var para = {};
-		para['bookId'] = $(this).parent().siblings('.bookid').text();
+		para['book-id'] = $(this).parent().siblings('.bookid').text();
 		if ($(this).attr('class') == 'modifyBook') {
 			// console.log('modify');
+			var paras = {};
+		        paras['bookname']=$('#bookName').val();
+		        paras['author']=$('#author').val();
+		        paras['publisher']=$('#publisher').val();
+		        paras['publishtime']=$('#publishTime').val();
+		        paras['isbn']=$('#ISBN').val();
+		        paras['translator']=$('#translator').val();
+		        paras['photoURL']=$('#photoUrl').val();
+		        paras['authorintro']=$('#authorIntroduction').val();
+		        paras['bookintro']=$('#bookIntroduction').val();
 
-
+		        $('#modifyBookBtn').on('click', function(event) {
+		        	event.preventDefault();
+		        	/* Act on the event */
+		        	$.post('/api/modify-book/',paras, function(data) {
+		        		/*optional stuff to do after success */
+			        	if (data.status) {
+			                 alertFun(data.message);
+			                 setTimeout(function () {
+			                    $('#alertModal').modal("hide");
+			                    location.reload();
+			                 }, 1200);
+			              } else {
+			                 alertWithClose(data.message);
+			              }
+		        	});
+		        });
 		} else {
 			var $confirm = confirm('Do you really want to delete the book?');
 			if ($confirm == true) {
 				// console.log(para);
-				// $.post('/path/to/file', para, function(data) {
-				// 	/*optional stuff to do after success */
-				// 	if (data.status) {
-				// 		$target.parent().parent().hide('400');
-				// 		alertWithClose('delete successfully')
-				// 	} else {
-				// 		alertWithClose('delete fail');
-				// 	}
-				// });
+				$.post('/api/delete-book/', para, function(data) {
+					/*optional stuff to do after success */
+					if (data.status) {
+						$target.parent().parent().hide('400');
+						alertWithClose('delete successfully')
+					} else {
+						alertWithClose('delete fail');
+					}
+				});
 			}
 		}
 	});
@@ -74,7 +99,7 @@ function getUrlParam(name){
 }
 $(function(){
 	var bookid = getUrlParam('bookid');
-	// console.log(bookid);
+	 console.log(bookid);
 	$.post('/api/book-detail/', {bookid: bookid}, function(data) {
 		/*optional stuff to do after success */
 		if (data.status) {
@@ -86,13 +111,13 @@ $(function(){
 		                +'</a>'
 		              +'</div>'
 		              +'<div class="col-sm-6 book-inf">'
-		                +'<p><span>书名：</span><span>'+ data["book"].bookName + '</span></p>'
+		                +'<p style="font-size: 22px;"><span>书名：</span><span>'+ data["book"].bookName + '</span></p>'
 		                +'<p><span>作者：</span><span>'+data["book"].author + '</span></p>'
 		                +'<p><span>出版社：</span><span>'+data["book"].publisher + '</span></p>'
 		                +'<p><span>出版时间：</span><span>'+data["book"].publishTime + '</span></p>'
 		                +'<p><span>ＩＳＢＮ码：</span><span>'+data["book"].isbn + '</span></p>'
 		                +'<p><span>译者：</span><span>'+data["book"].translator + '</span></p>'
-		                +'<p><span>现存量：</span><span>'+data["book"].currentStorage + '</span></p>'
+		                //+'<p><span>现存量：</span><span>'+data["book"].currentStorage + '</span></p>'
 		                +'<p>作者介绍：</p>'
 		                +'<p>'+data["book"].authorIntroduction + '</p>'
 		              +'</div>'
@@ -190,7 +215,28 @@ $(function() {
 		paras["page"] = 1;
 		globalParas["classify"] = paras["classify"];
 		// console.log(paras);
-		bookSearchAjax(paras);
+		if (currentUrl.indexOf("book-search") != -1) {
+			console.log('ajax');
+			globalParas["classify"] = "";
+			var paras = {};
+			paras["page"] = 1;
+			paras["type"] = 	$('#searchType').val();
+			paras["value"] = $('#searchValue')[0].value;
+			globalParas["type"] = paras["type"];
+			globalParas["value"] = paras["value"];
+			// console.log(paras);
+			bookSearchAjax(paras);
+		}  else {
+			console.log("reload");
+			var globalSearchData = {};
+			globalSearchData["searchType"] = $('#searchType').val();;
+			globalSearchData["searchValue"] = $('#searchValue')[0].value;
+			var globalSearchDataStr = JSON.stringify(globalSearchData);
+			localStorage.setItem("globalSearchData", globalSearchDataStr);
+			window.location.href = "/book-search/";
+		}
+		
+		// bookSearchAjax(paras);
 	});
 	
 	// click the search button
@@ -537,6 +583,7 @@ $(function () {
 });
 
 function OnclickLogout() {
+    console.log("Fuck");b
     $.post('/api/logout', function (data) {
         var abc = "'";
         var re = new RegExp(abc, 'g');
@@ -596,7 +643,7 @@ $(function() {
 		returnData["username"] = $('#returnUsername')[0].value;
 		returnData["book-id"] = $("#isbn")[0].value;
 		console.log(returnData);
-		$.post('/api/borrow-book/', returnData, function(data) {
+		$.post('/api/return-book/', returnData, function(data) {
 			console.log(data);
 			alertWithClose(data.message);
 		});
@@ -612,6 +659,7 @@ function freshCurrentRecords() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/current-records/', para, function(data) {
+		console.log(data);
 		if (data['status']) {
 			var currentRecords = $('#currentRecords');
 			for (var i = 0; i < data['records'].length; i++) {
@@ -666,6 +714,29 @@ function freshUserInformationPage() {
 		$('.read-intr .accumlated span').text(data['accumulated']);
 	});
 }
+function feshUserFine() {
+	var para = {};
+	para['username'] = getUrlParam('username');
+	$.post('/api/user-fine/', para, function(data) {
+		if (data['status']) {
+			var userFine = $('#userFine');
+			console.log(data);
+			for (var i = 0; i < data['records'].length; i++) {
+				var userFineDom =  '<tr>'
+										+'<td>' + data['records'][i].bookid + '</td>'
+										+'<td>' + data['records'][i].bookName + '</td>'
+										+'<td>' + data['records'][i].author + '</td>'
+										+'<td>' + data['records'][i].borrowtime + '</td>'
+										+'<td>' + data['records'][i].actualreturntime  + '</td>'
+										+'<td>' + data['fines'][i] + '</td>'
+									      +'</tr>';
+				userFine.append(userFineDom);						      	
+			}
+		} else {
+			alertWithClose('load error');
+		}
+	});
+}
 
 $(function(){
 	// console.log('user.html');
@@ -679,4 +750,8 @@ $(function(){
 	if(currentUrl.indexOf('user?') != -1) {
 		freshUserInformationPage();
 	}
+	if(currentUrl.indexOf('user-fine') != -1) {
+		feshUserFine();
+	}
+
 });

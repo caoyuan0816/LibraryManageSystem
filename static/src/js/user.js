@@ -3,6 +3,7 @@ function freshCurrentRecords() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/current-records/', para, function(data) {
+		console.log(data);
 		if (data['status']) {
 			var currentRecords = $('#currentRecords');
 			for (var i = 0; i < data['records'].length; i++) {
@@ -57,6 +58,29 @@ function freshUserInformationPage() {
 		$('.read-intr .accumlated span').text(data['accumulated']);
 	});
 }
+function feshUserFine() {
+	var para = {};
+	para['username'] = getUrlParam('username');
+	$.post('/api/user-fine/', para, function(data) {
+		if (data['status']) {
+			var userFine = $('#userFine');
+			console.log(data);
+			for (var i = 0; i < data['records'].length; i++) {
+				var userFineDom =  '<tr>'
+										+'<td>' + data['records'][i].bookid + '</td>'
+										+'<td>' + data['records'][i].bookName + '</td>'
+										+'<td>' + data['records'][i].author + '</td>'
+										+'<td>' + data['records'][i].borrowtime + '</td>'
+										+'<td>' + data['records'][i].actualreturntime  + '</td>'
+										+'<td>' + data['fines'][i] + '</td>'
+									      +'</tr>';
+				userFine.append(userFineDom);						      	
+			}
+		} else {
+			alertWithClose('load error');
+		}
+	});
+}
 
 $(function(){
 	// console.log('user.html');
@@ -70,4 +94,8 @@ $(function(){
 	if(currentUrl.indexOf('user?') != -1) {
 		freshUserInformationPage();
 	}
+	if(currentUrl.indexOf('user-fine') != -1) {
+		feshUserFine();
+	}
+
 });

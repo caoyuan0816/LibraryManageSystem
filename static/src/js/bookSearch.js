@@ -82,7 +82,28 @@ $(function() {
 		paras["page"] = 1;
 		globalParas["classify"] = paras["classify"];
 		// console.log(paras);
-		bookSearchAjax(paras);
+		if (currentUrl.indexOf("book-search") != -1) {
+			console.log('ajax');
+			globalParas["classify"] = "";
+			var paras = {};
+			paras["page"] = 1;
+			paras["type"] = 	$('#searchType').val();
+			paras["value"] = $('#searchValue')[0].value;
+			globalParas["type"] = paras["type"];
+			globalParas["value"] = paras["value"];
+			// console.log(paras);
+			bookSearchAjax(paras);
+		}  else {
+			console.log("reload");
+			var globalSearchData = {};
+			globalSearchData["searchType"] = $('#searchType').val();;
+			globalSearchData["searchValue"] = $('#searchValue')[0].value;
+			var globalSearchDataStr = JSON.stringify(globalSearchData);
+			localStorage.setItem("globalSearchData", globalSearchDataStr);
+			window.location.href = "/book-search/";
+		}
+		
+		// bookSearchAjax(paras);
 	});
 	
 	// click the search button
