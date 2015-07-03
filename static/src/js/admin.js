@@ -4,6 +4,7 @@ function getBookList() {
 	paras['classify'] = "";
 	paras['type'] = "";
 	paras['value'] = "";
+	paras['all'] = "true";
 	$.post('/api/book-search/', paras, function(data) {
 		/*optional stuff to do after success */
 		if (data.status) {
