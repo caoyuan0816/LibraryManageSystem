@@ -99,11 +99,20 @@ function getUrlParam(name){
 }
 $(function(){
 	var bookid = getUrlParam('bookid');
-	 console.log(bookid);
+	 
 	$.post('/api/book-detail/', {bookid: bookid}, function(data) {
 		/*optional stuff to do after success */
+		// console.log(data);
 		if (data.status) {
 			$('.book-content').empty();
+			// var borrowDom = "";
+			var borrowFlag = "";
+			if(data["book"].borrowed){
+				borrowFlag = '<button type="button" class="btn btn-danger" style="margin-left: 30px;" disabled>' + 'can not  borrow' + '</button>';
+			}else{
+				borrowFlag = '<button type="button" class="btn btn-success" style="margin-left: 30px;" disabled>' + 'can borrow' +'</button>';
+			}
+
 			var bookDetailDom = '<div class="row">'
 		              +'<div class="col-sm-6 book-pho">'
 		                +'<a href="' + data["book"].photoURL + '">'
@@ -111,7 +120,7 @@ $(function(){
 		                +'</a>'
 		              +'</div>'
 		              +'<div class="col-sm-6 book-inf">'
-		                +'<p style="font-size: 22px;"><span>书名：</span><span>'+ data["book"].bookName + '</span></p>'
+		                +'<p style="font-size: 22px;"><span>书名：</span><span>'+ data["book"].bookName + '</span>' +borrowFlag+'</p>'
 		                +'<p><span>作者：</span><span>'+data["book"].author + '</span></p>'
 		                +'<p><span>出版社：</span><span>'+data["book"].publisher + '</span></p>'
 		                +'<p><span>出版时间：</span><span>'+data["book"].publishTime + '</span></p>'
@@ -638,6 +647,32 @@ $(function() {
 			$("#borrowForm #borrowBtn").click();
 		}	
 	});
+
+	$('#returnForm #isbn').on('blur',  function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		console.log('blur');
+		var returnData = {};
+		returnData["username"] = $('#returnUsername')[0].value;
+		returnData["book-id"] = $("#isbn")[0].value;
+		console.log(returnData);
+		$.post('/api/single-fine/', returnData, function(data) {
+			/*optional stuff to do after success */
+				console.log(data);
+				if (data == -1) {
+					alertWithClose('please input data');
+				} 
+				if (data >= 0.0) {
+					var $confirm = confirm('Need to pay ' + data + '$');
+					if ($confirm) {
+						console.log('true');
+						$('#returnForm #returnBtn').css({
+							display: 'inline'
+						});
+					} 
+				}
+		});
+	});
 	//submit return form 
 	$('#returnForm #returnBtn').on('click',  function(event) {
 		event.preventDefault();
@@ -657,6 +692,21 @@ $(function() {
 		}	
 	});
 });
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 //fresh current records
 function freshCurrentRecords() {
 	var para = {};
@@ -666,12 +716,15 @@ function freshCurrentRecords() {
 		if (data['status']) {
 			var currentRecords = $('#currentRecords');
 			for (var i = 0; i < data['records'].length; i++) {
+				var borrowTime = new Date(data['records'][i].borrowdate);
+				var returnTime = new Date(data['records'][i].returndate);
+				console.log(borrowTime);
 				var currentRecordsDom =  '<tr>'
 											+'<td>' + data['records'][i].bookid + '</td>'
-											+'<td>' + data['records'][i].bookName + '</td>'
+											+'<td>' + data['records'][i].bookname + '</td>'
 											+'<td>' + data['records'][i].author + '</td>'
-											+'<td>' + data['records'][i].borrowtime + '</td>'
-											+'<td>' + data['records'][i].actualreturntime  + '</td>'
+											+'<td>' + borrowTime.Format("yyyy-MM-dd hh:mm:ss") + '</td>'
+											+'<td>' + returnTime.Format("yyyy-MM-dd hh:mm:ss")  + '</td>'
 										      +'</tr>';
 				currentRecords.append(currentRecordsDom);						      	
 			}
@@ -688,14 +741,25 @@ function freshHistoryRecords() {
 	$.post('/api/history-records/', para, function(data) {
 		if (data['status']) {
 			var historyRecords = $('#historyRecords');
-			console.log(data);
+			// console.log(data);
 			for (var i = 0; i < data['records'].length; i++) {
+				var borrowTime = new Date(data['records'][i].borrowdate);
+				var returnTime = new Date(data['records'][i].returndate);
+				var actualReturnTime = "";
+				if (data['records'][i].actualreturndate == -1) {
+					actualReturnTime = '--';
+				} else {
+					actualReturnTime = new Date(data['records'][i].actualreturndate).Format("yyyy-MM-dd hh:mm:ss");
+				}
+				
+				// console.log(borrowTime);
 				var historyRecordsDom =  '<tr>'
 											+'<td>' + data['records'][i].bookid + '</td>'
-											+'<td>' + data['records'][i].bookName + '</td>'
+											+'<td>' + data['records'][i].bookname + '</td>'
 											+'<td>' + data['records'][i].author + '</td>'
-											+'<td>' + data['records'][i].borrowtime + '</td>'
-											+'<td>' + data['records'][i].actualreturntime  + '</td>'
+											+'<td>' + borrowTime.Format("yyyy-MM-dd hh:mm:ss") + '</td>'
+											+'<td>' + returnTime.Format("yyyy-MM-dd hh:mm:ss")  + '</td>'
+											+'<td>' + actualReturnTime + '</td>'
 										      +'</tr>';
 				historyRecords.append(historyRecordsDom);						      	
 			}
