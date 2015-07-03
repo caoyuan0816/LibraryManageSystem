@@ -37,7 +37,7 @@ public class APIUserHistoryRecordController {
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!username.equals(userDetails.getUsername())) {
-            return new Recordlist(false,new ArrayList<Record>(),-1);
+            return new Recordlist(false,new ArrayList<BorrowRecord>(),-1);
         }
         boolean is_User = false;
 
@@ -48,18 +48,20 @@ public class APIUserHistoryRecordController {
         }
 
         if (!is_User){
-            return new Recordlist(false,new ArrayList<Record>(),-1);
+            return new Recordlist(false,new ArrayList<BorrowRecord>(),-1);
         }
-        ArrayList<Record> recordlist= new ArrayList<Record>();
+        ArrayList<BorrowRecord> recordlist= new ArrayList<BorrowRecord>();
         int sizeoflist=0;
         if(username.equals(""))
-            return new Recordlist(status,new ArrayList<Record>(),-1);
+            return new Recordlist(status,new ArrayList<BorrowRecord>(),-1);
         Account account = accountRepository.findByUsername(username);
         List<Record> RecordToSearch = recordRepository.findByUserid(account.getId());
         Iterator<Record> it;
         it = RecordToSearch.iterator();
         while(it.hasNext()){
-            recordlist.add(it.next());
+            Record tempRecord = it.next();
+
+            //recordlist.add();
         }
         status=true;
         sizeoflist=recordlist.size();
