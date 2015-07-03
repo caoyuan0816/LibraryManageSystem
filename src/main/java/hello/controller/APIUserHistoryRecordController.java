@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,12 +57,23 @@ public class APIUserHistoryRecordController {
             return new Recordlist(status,new ArrayList<BorrowRecord>(),-1);
         Account account = accountRepository.findByUsername(username);
         List<Record> RecordToSearch = recordRepository.findByUserid(account.getId());
+        String bookid;
+        String bookname;
+        String author;
+        Date returndate;
+        Date borrowdate;
+        Date actualreturndate;
         Iterator<Record> it;
         it = RecordToSearch.iterator();
         while(it.hasNext()){
             Record tempRecord = it.next();
-
-            //recordlist.add();
+            bookid=tempRecord.getBookid();
+            bookname=bookRepository.findOne(bookid).getBookName();
+            author=bookRepository.findOne(bookid).getAuthor();
+            returndate = new Date(tempRecord.getReturntime());
+            borrowdate = new Date(tempRecord.getBorrowtime());
+            actualreturndate = new Date(tempRecord.getActualreturntime());
+            recordlist.add(new BorrowRecord(bookid,bookname,author,borrowdate,returndate,actualreturndate));
         }
         status=true;
         sizeoflist=recordlist.size();
