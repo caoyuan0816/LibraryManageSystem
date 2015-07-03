@@ -35,8 +35,9 @@ public class APISingleFineController {
     @RequestMapping(method = RequestMethod.POST)
     public double post(@RequestParam(value="username",defaultValue = "")String username,
                        @RequestParam(value="book-id",defaultValue = "")String bookid){
-        if(username.equals(""))
-            return -1;
+        if(username.equals("") || bookid.equals(""))
+            return -1.0;
+
         double fine = -1;
         Account accout = accountRepository.findByUsername(username);
         Record record = recordRepository.findByUseridAndBookid(accout.getId(), bookid);
@@ -44,6 +45,7 @@ public class APISingleFineController {
         if(currenttime>record.getReturntime()&&record.getActualreturntime()==-1){
             fine = ((int)((currenttime-record.getReturntime())/(1000*60*60*24)))*0.5;
         }
+        
         return fine;
     }
 }
