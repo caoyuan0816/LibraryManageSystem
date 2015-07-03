@@ -11,8 +11,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 			<div class="row">
 				<div class="col-sm-3 col-md-2" id="manageSidebar">
 					<ul class="nav nav-sidebar">
-						<li><a href="" class="index active">Add book</a></li>
-						<li><a href="" class="current">Manage book</a></li>
+						<li><a href="/add-book/" class="index active">Add book</a></li>
+						<li><a href="/manage-book/" class="current">Manage book</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
@@ -69,7 +69,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<div th:substituteby="main::footer-and-scripts"></div>
 	<script type="text/javascript" src="/static/dist/js/JsBarcode.all.min.js"></script>
 	<script type="text/javascript">
-		$("#barcode").JsBarcode("9780199532179",{format:"EAN",displayValue:true,fontSize:20});
+		$("#barcode").JsBarcode("556889e5e4b02de9c3e735ce",{format:"CODE128",displayValue:true,fontSize:20});
 	</script>
 </body>
 </html>

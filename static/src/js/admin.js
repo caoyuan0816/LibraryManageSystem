@@ -1,0 +1,67 @@
+function getBookList() {
+	var paras = {};
+	paras['page'] = 1;
+	paras['classify'] = "";
+	paras['type'] = "";
+	paras['value'] = "";
+	$.post('/api/book-search/', paras, function(data) {
+		/*optional stuff to do after success */
+		if (data.status) {
+			// console.log(data);
+			var manageBook = $('#manageBook');
+			for (var i = 0; i < data.book_list.length; i++) {
+				var bookDom ='<tr>'
+									+'<td><img class="bookBarcode" id="'+data.book_list[i].id+'"/></td>'
+									+'<td class="bookid">' + data.book_list[i].id + '</td>'
+									+'<td>' + data.book_list[i].bookName + '</td>'
+									+'<td>' + data.book_list[i].author + '</td>'
+									+'<td><a class="modifyBook">modify</a><span> | </span><a class="deleteBook">delete</a></td>'
+								 +'</tr>';
+				manageBook.append(bookDom);
+			}
+			// getBookBarcode();
+		}
+	});
+}
+function getBookBarcode() {
+	var $imgList = $('.bookBarcode');
+	console.log($imgList);
+	for (var i = 0; i < $imgList.length; i++) {
+		// $imgElem = $imgList[i]);
+		console.log($imgList[i].attributes('id').value);
+		// var $bookId = $imgElem.siblings('.bookid').text();
+		// $imgElem.JsBarcode($bookId,{format:"CODE128",displayValue:true,fontSize:20});
+	}
+}
+$(function(){
+	getBookList();
+	// getBookBarcode();
+	$('#manageBook').on('click', 'a' , function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		var $target = $(this);
+		// console.log($(this).parent().siblings('.bookid').text());
+		var para = {};
+		para['bookId'] = $(this).parent().siblings('.bookid').text();
+		if ($(this).attr('class') == 'modifyBook') {
+			// console.log('modify');
+
+
+		} else {
+			var $confirm = confirm('Do you really want to delete the book?');
+			if ($confirm == true) {
+				// console.log(para);
+				// $.post('/path/to/file', para, function(data) {
+				// 	/*optional stuff to do after success */
+				// 	if (data.status) {
+				// 		$target.parent().parent().hide('400');
+				// 		alertWithClose('delete successfully')
+				// 	} else {
+				// 		alertWithClose('delete fail');
+				// 	}
+				// });
+			}
+		}
+	});
+
+});
