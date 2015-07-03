@@ -1,9 +1,6 @@
 package hello.controller;
 
-import hello.model.Account;
-import hello.model.AccountRepository;
-import hello.model.Record;
-import hello.model.RecordRepository;
+import hello.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,13 +31,16 @@ public class APIUserFineController {
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    BookRepository bookRepository;
+
     @RequestMapping(method = RequestMethod.POST)
     public fineList post(@RequestParam(value="username",defaultValue = "")String username){
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!username.equals(userDetails.getUsername())) {
-            return new fineList(false ,new ArrayList<Record>(),new ArrayList<Double>(),-1);
+            return new fineList(false ,new ArrayList<BorrowRecord>(),new ArrayList<Double>(),-1);
         }
         boolean is_User = false;
 
@@ -50,13 +51,19 @@ public class APIUserFineController {
         }
 
         if (!is_User){
-            return new fineList(false ,new ArrayList<Record>(),new ArrayList<Double>(),-1);
+            return new fineList(false ,new ArrayList<BorrowRecord>(),new ArrayList<Double>(),-1);
         }
         if(username.equals(""))
-            return new fineList(false ,new ArrayList<Record>(),new ArrayList<Double>(),-1);
+            return new fineList(false ,new ArrayList<BorrowRecord>(),new ArrayList<Double>(),-1);
         double fine;
         ArrayList<Double> fineRecords = new ArrayList<Double>();
-        ArrayList<Record> records = new ArrayList<Record>();
+        ArrayList<BorrowRecord> records = new ArrayList<BorrowRecord>();
+        String bookid;
+        String bookname;
+        String author;
+        Date returndate;
+        Date borrowdate;
+        Date actualreturndate;
         Account accout = accountRepository.findByUsername(username);
         List<Record> listToSearch = recordRepository.findByUserid(accout.getId());
         long currenttime = System.currentTimeMillis();
@@ -64,8 +71,14 @@ public class APIUserFineController {
         while(it.hasNext()){
             Record temp = it.next();
             if(currenttime>temp.getReturntime()&&temp.getActualreturntime()==-1){
+                bookid=temp.getBookid();
+                bookname=bookRepository.findOne(bookid).getBookName();
+                author=bookRepository.findOne(bookid).getAuthor();
+                returndate = new Date(temp.getReturntime());
+                borrowdate = new Date(temp.getBorrowtime());
+                actualreturndate = new Date(temp.getActualreturntime());
                 fineRecords.add(((int)((currenttime-temp.getReturntime())/(1000*60*60*24)))*0.5);
-                records.add(temp);
+                records.add(new BorrowRecord(bookid,bookname,author,returndate,borrowdate,actualreturndate));
             }
         }
         return new fineList(true,records,fineRecords,records.size());
@@ -75,13 +88,13 @@ public class APIUserFineController {
 class fineList{
     private boolean status;
 
-    private ArrayList<Record> records;
+    private ArrayList<BorrowRecord> records;
 
     private ArrayList<Double> fines;
 
     private int num;
 
-    public fineList(boolean status, ArrayList<Record> records, ArrayList<Double> fines, int num) {
+    public fineList(boolean status, ArrayList<BorrowRecord> records, ArrayList<Double> fines, int num) {
         this.status = status;
         this.records = records;
         this.fines = fines;
@@ -92,7 +105,7 @@ class fineList{
         return status;
     }
 
-    public ArrayList<Record> getRecords() {
+    public ArrayList<BorrowRecord> getRecords() {
         return records;
     }
 
