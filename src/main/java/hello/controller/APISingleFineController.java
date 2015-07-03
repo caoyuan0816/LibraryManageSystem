@@ -35,23 +35,6 @@ public class APISingleFineController {
     @RequestMapping(method = RequestMethod.POST)
     public double post(@RequestParam(value="username",defaultValue = "")String username,
                        @RequestParam(value="book-id",defaultValue = "")String bookid){
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (!username.equals(userDetails.getUsername())) {
-            return -1;
-        }
-        boolean is_Staff = false;
-
-        for(GrantedAuthority s : userDetails.getAuthorities()){
-            if (s.getAuthority().equals("ROLE_STAFF")) {
-                is_Staff = true;
-            }
-        }
-
-        if (!is_Staff){
-            return -1;
-        }
         if(username.equals(""))
             return -1;
         double fine = -1;
