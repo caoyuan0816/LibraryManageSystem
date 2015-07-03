@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.plaf.synth.SynthEditorPaneUI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -58,12 +59,12 @@ public class APIUserFineController {
         ArrayList<Record> records = new ArrayList<Record>();
         Account accout = accountRepository.findByUsername(username);
         List<Record> listToSearch = recordRepository.findByUserid(accout.getId());
+        long currenttime = System.currentTimeMillis();
         Iterator<Record> it = listToSearch.iterator();
         while(it.hasNext()){
             Record temp = it.next();
-
-            if(System.currentTimeMillis()>temp.getReturntime()&&temp.getActualreturntime()==-1){
-                fineRecords.add((Double)((System.currentTimeMillis()-temp.getReturntime())/(1000*60*60*24)*0.5));
+            if(currenttime>temp.getReturntime()&&temp.getActualreturntime()==-1){
+                fineRecords.add(((int)((currenttime-temp.getReturntime())/(1000*60*60*24)))*0.5);
                 records.add(temp);
             }
         }

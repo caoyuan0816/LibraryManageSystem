@@ -35,31 +35,17 @@ public class APISingleFineController {
     @RequestMapping(method = RequestMethod.POST)
     public double post(@RequestParam(value="username",defaultValue = "")String username,
                        @RequestParam(value="book-id",defaultValue = "")String bookid){
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(username.equals("") || bookid.equals(""))
+            return -1.0;
 
-        if (!username.equals(userDetails.getUsername())) {
-            return -1;
-        }
-        boolean is_Staff = false;
-
-        for(GrantedAuthority s : userDetails.getAuthorities()){
-            if (s.getAuthority().equals("ROLE_STAFF")) {
-                is_Staff = true;
-            }
-        }
-
-        if (!is_Staff){
-            return -1;
-        }
-        if(username.equals(""))
-            return -1;
         double fine = -1;
         Account accout = accountRepository.findByUsername(username);
         Record record = recordRepository.findByUseridAndBookid(accout.getId(), bookid);
-        if(System.currentTimeMillis()>record.getReturntime()&&record.getActualreturntime()==-1){
-            fine = (System.currentTimeMillis()-record.getReturntime())/(1000*60*60*24)*0.5;
+        long currenttime = System.currentTimeMillis();
+        if(currenttime>record.getReturntime()&&record.getActualreturntime()==-1){
+            fine = ((int)((currenttime-record.getReturntime())/(1000*60*60*24)))*0.5;
         }
+        
         return fine;
     }
 }
