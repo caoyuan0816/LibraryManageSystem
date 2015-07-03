@@ -229,13 +229,14 @@ $(function() {
 		}  else {
 			console.log("reload");
 			var globalSearchData = {};
+			
 			globalSearchData["searchType"] = $('#searchType').val();;
 			globalSearchData["searchValue"] = $('#searchValue')[0].value;
 			var globalSearchDataStr = JSON.stringify(globalSearchData);
 			localStorage.setItem("globalSearchData", globalSearchDataStr);
 			window.location.href = "/book-search/";
 		}
-		
+
 		// bookSearchAjax(paras);
 	});
 	
@@ -583,7 +584,7 @@ $(function () {
 });
 
 function OnclickLogout() {
-    console.log("Fuck");b
+    // console.log("Fuck");b
     $.post('/api/logout', function (data) {
         var abc = "'";
         var re = new RegExp(abc, 'g');
