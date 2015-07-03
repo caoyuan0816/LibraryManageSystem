@@ -61,16 +61,18 @@ public class APIUserInfoPageController {
         List<Record> borrowRecord = recordRepository.findByUserid(account.getId());
         accumulated = borrowRecord.size();
         Iterator<Record> it = borrowRecord.iterator();
+        for(int i=0;i<=7;i++){
+            num[i]=0;
+        }
         while(it.hasNext()){
             Record temp = it.next();
             if(temp.getActualreturntime()==-1)
                 borrowed++;
             if(temp.getReturntime()<System.currentTimeMillis())
                 overdue++;
-        }
-        for(int i=1;i<=7;i++){
-           List<Book> tempList=bookRepository.findByClassify(i);
-            num[i]=tempList.size();
+            Book book = bookRepository.findOne(temp.getBookid());
+            int tempnum = num[book.getClassify()];
+            num[book.getClassify()]=tempnum+1;
         }
         return new UserStatus(true,borrowed,overdue,accumulated,num);
     }
