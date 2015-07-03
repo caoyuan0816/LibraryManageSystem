@@ -11,58 +11,27 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 			<div class="row">
 				<div class="col-sm-3 col-md-2" id="manageSidebar">
 					<ul class="nav nav-sidebar">
-						<li><a href="" class="index active">Add book</a></li>
-						<li><a href="" class="current">Manage book</a></li>
+						<li><a href="/add-book/" class="index">Add book</a></li>
+						<li><a href="/manage-book/" class="current active">Manage book</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" id="main-cnt">
-					<div class="upload-content">
-						<form id="bookForm">
-						  <div class="form-group">
-						    <label for="bookName">Book Name</label>
-						    <input type="text" class="form-control" id="bookName" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="author">Author</label>
-						    <input type="text" class="form-control" id="author" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="publisher">Publisher</label>
-						    <input type="text" class="form-control" id="publisher" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="publishTime">Publish Time</label>
-						    <input type="date" class="form-control" id="publishTime" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="ISBN">ISBN</label>
-						    <input type="text" class="form-control" id="ISBN" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="translator">Current Storage</label>
-						    <input type="text" class="form-control" id="currentStorage" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="translator">Translator</label>
-						    <input type="text" class="form-control" id="translator" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="photoUrl">Photo Url</label>
-						    <input type="text" class="form-control" id="photoUrl" required="required"/>
-						  </div>
-						  <div class="form-group">
-						    <label for="authorIntroduction">Author Introduction</label>
-						    <textarea id="authorIntroduction" class="form-control" rows="6" required="required"></textarea>
-						  </div>
-						  <div class="form-group">
-						    <label for="bookIntroduction">Book Introduction</label>
-						    <textarea id="bookIntroduction" class="form-control" rows="10" required="required"></textarea>
-						  </div>
-						  <div class="btn-center">
-						  	<button id="book-upload-button" type="button" class="btn btn-primary">Submit</button>
-						  </div>
-						</form>
-					</div>
+					<section class="book-table">
+						<table class="table table-striped table-bordered">
+						  	<thead>
+						  		<tr>
+						  			<th>Book Barcode</th>
+						  			<th>Book Id</th>
+						  			<th>Book Name</th>
+						  			<th>Author</th>
+						  			<th>Operation</th>
+						  		</tr>
+						  	</thead>
+						  	<tbody id="manageBook">
+						  	
+						  	</tbody>
+						</table>
+					</section>
 				</div>
 			</div>
 		</div>

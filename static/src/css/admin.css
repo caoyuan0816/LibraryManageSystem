@@ -4,3 +4,7 @@
   background: #fff;
   border: 1px  dashed #ddd;
   margin: 50px auto; }
+
+#main-cnt .book-table a {
+  color: #337ab7;
+  cursor: pointer; }

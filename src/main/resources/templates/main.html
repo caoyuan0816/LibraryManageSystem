@@ -145,6 +145,63 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modify-modal" id="modifyBook" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">Modify Book</h5>
+            </div>
+            <div class="modal-body">
+                <form id="modifyBookForm">
+                          <div class="form-group">
+                            <label for="bookName">Book Name</label>
+                            <input type="text" class="form-control" id="bookName" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="author">Author</label>
+                            <input type="text" class="form-control" id="author" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="publisher">Publisher</label>
+                            <input type="text" class="form-control" id="publisher" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="publishTime">Publish Time</label>
+                            <input type="date" class="form-control" id="publishTime" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="ISBN">ISBN</label>
+                            <input type="text" class="form-control" id="ISBN" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="translator">Translator</label>
+                            <input type="text" class="form-control" id="translator" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="photoUrl">Photo Url</label>
+                            <input type="text" class="form-control" id="photoUrl" required="required"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="authorIntroduction">Author Introduction</label>
+                            <textarea id="authorIntroduction" class="form-control" rows="6" required="required"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="bookIntroduction">Book Introduction</label>
+                            <textarea id="bookIntroduction" class="form-control" rows="10" required="required"></textarea>
+                          </div>
+                          <div class="btn-center">
+                            <button id="modifyBookBtn" type="button" class="btn btn-primary">Modify</button>
+                          </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm">
