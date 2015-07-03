@@ -1,6 +1,7 @@
 package hello.controller;
 
 import hello.model.*;
+import org.omg.CORBA.DATA_CONVERSION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class APIUserCurrentRecordController {
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!username.equals(userDetails.getUsername())) {
-            return new Recordlist(false,new ArrayList<Record>(),-1);
+            return new Recordlist(false,new ArrayList<BorrowRecord>(),-1);
         }
         boolean is_User = false;
 
@@ -49,20 +51,32 @@ public class APIUserCurrentRecordController {
         }
 
         if (!is_User){
-            return new Recordlist(false,new ArrayList<Record>(),-1);
+            return new Recordlist(false,new ArrayList<BorrowRecord>(),-1);
         }
-        ArrayList<Record> recordlist= new ArrayList<Record>();
+        ArrayList<BorrowRecord> recordlist= new ArrayList<BorrowRecord>();
         int sizeoflist=0;
         if(username.equals(""))
-            return new Recordlist(status,new ArrayList<Record>(),-1);
+            return new Recordlist(status,new ArrayList<BorrowRecord>(),-1);
         Account account = accountRepository.findByUsername(username);
         List<Record> RecordToSearch = recordRepository.findByUserid(account.getId());
+        String bookid;
+        String bookname;
+        String author;
+        Date returndate;
+        Date borrowdate;
+        Date actualreturndate;
         Iterator<Record> it;
         it = RecordToSearch.iterator();
         while(it.hasNext()){
-                Record tempRecord = it.next();
+            Record tempRecord = it.next();
+            bookid=tempRecord.getBookid();
+            bookname=bookRepository.findOne(bookid).getBookName();
+            author=bookRepository.findOne(bookid).getAuthor();
+            returndate = new Date(tempRecord.getReturntime());
+            borrowdate = new Date(tempRecord.getBorrowtime());
+            actualreturndate = new Date(tempRecord.getActualreturntime());
             if(tempRecord.getActualreturntime()==-1)
-                recordlist.add(tempRecord);
+                recordlist.add(new BorrowRecord(bookid,bookname,author,returndate,borrowdate,actualreturndate));
         }
         status=true;
         sizeoflist=recordlist.size();
@@ -72,14 +86,14 @@ public class APIUserCurrentRecordController {
 
 class Recordlist{
     private boolean status;
-    private final ArrayList<Record> records;
+    private final ArrayList<BorrowRecord> records;
     private int size;
 
     public int getSize() {
         return size;
     }
 
-    public Recordlist(boolean status, ArrayList<Record> records,int size) {
+    public Recordlist(boolean status, ArrayList<BorrowRecord> records,int size) {
         this.status = status;
         this.records = records;
         this.size=size;
@@ -89,7 +103,49 @@ class Recordlist{
         return status;
     }
 
-    public ArrayList<Record> getRecords() {
+    public ArrayList<BorrowRecord> getRecords() {
         return records;
+    }
+}
+
+class BorrowRecord{
+    String bookid;
+    String bookname;
+    String author;
+    Date returndate;
+    Date borrowdate;
+    Date actualreturndate;
+
+    public BorrowRecord(String bookid, String bookname, String author, Date returndate, Date borrowdate, Date actualreturndate) {
+        this.bookid = bookid;
+        this.bookname = bookname;
+        this.author = author;
+        this.returndate = returndate;
+        this.borrowdate = borrowdate;
+        this.actualreturndate = actualreturndate;
+    }
+
+    public String getBookid() {
+        return bookid;
+    }
+
+    public String getBookname() {
+        return bookname;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public Date getReturndate() {
+        return returndate;
+    }
+
+    public Date getBorrowdate() {
+        return borrowdate;
+    }
+
+    public Date getActualreturndate() {
+        return actualreturndate;
     }
 }
