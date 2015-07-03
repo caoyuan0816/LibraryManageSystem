@@ -38,7 +38,7 @@ public class APIUserFineController {
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (!username.equals(userDetails.getUsername())) {
-            return new fineList(false ,new ArrayList<Record>(),new ArrayList<fineRecord>(),-1);
+            return new fineList(false ,new ArrayList<Record>(),new ArrayList<Double>(),-1);
         }
         boolean is_User = false;
 
@@ -49,12 +49,12 @@ public class APIUserFineController {
         }
 
         if (!is_User){
-            return new fineList(false ,new ArrayList<Record>(),new ArrayList<fineRecord>(),-1);
+            return new fineList(false ,new ArrayList<Record>(),new ArrayList<Double>(),-1);
         }
         if(username.equals(""))
-            return new fineList(false ,new ArrayList<Record>(),new ArrayList<fineRecord>(),-1);
+            return new fineList(false ,new ArrayList<Record>(),new ArrayList<Double>(),-1);
         double fine;
-        ArrayList<fineRecord> fineRecords = new ArrayList<fineRecord>();
+        ArrayList<Double> fineRecords = new ArrayList<Double>();
         ArrayList<Record> records = new ArrayList<Record>();
         Account accout = accountRepository.findByUsername(username);
         List<Record> listToSearch = recordRepository.findByUserid(accout.getId());
@@ -62,11 +62,8 @@ public class APIUserFineController {
         while(it.hasNext()){
             Record temp = it.next();
 
-            if(System.currentTimeMillis()>temp.getReturntime()||temp.getActualreturntime()>temp.getReturntime()){
-                if(temp.getActualreturntime()==-1)
-                    fineRecords.add(new fineRecord(false,(System.currentTimeMillis()-temp.getReturntime())/(1000*60*60*24)*0.5));
-                else
-                    fineRecords.add(new fineRecord(false,(temp.getActualreturntime()-temp.getReturntime())/(1000*60*60*24)*0.5));
+            if(System.currentTimeMillis()>temp.getReturntime()&&temp.getActualreturntime()==-1){
+                fineRecords.add((Double)((System.currentTimeMillis()-temp.getReturntime())/(1000*60*60*24)*0.5));
                 records.add(temp);
             }
         }
@@ -79,11 +76,11 @@ class fineList{
 
     private ArrayList<Record> records;
 
-    private ArrayList<fineRecord> fines;
+    private ArrayList<Double> fines;
 
     private int num;
 
-    public fineList(boolean status, ArrayList<Record> records, ArrayList<fineRecord> fines, int num) {
+    public fineList(boolean status, ArrayList<Record> records, ArrayList<Double> fines, int num) {
         this.status = status;
         this.records = records;
         this.fines = fines;
@@ -98,29 +95,11 @@ class fineList{
         return records;
     }
 
-    public ArrayList<fineRecord> getFines() {
+    public ArrayList<Double> getFines() {
         return fines;
     }
 
     public int getNum() {
         return num;
-    }
-}
-
-class fineRecord{
-    private boolean status;
-    private double fine;
-
-    public fineRecord(boolean status, double fine) {
-        this.status = status;
-        this.fine = fine;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public double getFine() {
-        return fine;
     }
 }
