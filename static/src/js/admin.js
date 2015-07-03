@@ -15,7 +15,7 @@ function getBookList() {
 									+'<td class="bookid">' + data.book_list[i].id + '</td>'
 									+'<td>' + data.book_list[i].bookName + '</td>'
 									+'<td>' + data.book_list[i].author + '</td>'
-									+'<td><a class="modifyBook">modify</a><span> | </span><a class="deleteBook">delete</a></td>'
+									+'<td><a data-toggle="modal" data-target=".modify-modal" class="modifyBook">modify</a><span> | </span><a class="deleteBook">delete</a></td>'
 								 +'</tr>';
 				manageBook.append(bookDom);
 			}
@@ -42,24 +42,49 @@ $(function(){
 		var $target = $(this);
 		// console.log($(this).parent().siblings('.bookid').text());
 		var para = {};
-		para['bookId'] = $(this).parent().siblings('.bookid').text();
+		para['book-id'] = $(this).parent().siblings('.bookid').text();
 		if ($(this).attr('class') == 'modifyBook') {
 			// console.log('modify');
+			var paras = {};
+		        paras['bookname']=$('#bookName').val();
+		        paras['author']=$('#author').val();
+		        paras['publisher']=$('#publisher').val();
+		        paras['publishtime']=$('#publishTime').val();
+		        paras['isbn']=$('#ISBN').val();
+		        paras['translator']=$('#translator').val();
+		        paras['photoURL']=$('#photoUrl').val();
+		        paras['authorintro']=$('#authorIntroduction').val();
+		        paras['bookintro']=$('#bookIntroduction').val();
 
-
+		        $('#modifyBookBtn').on('click', function(event) {
+		        	event.preventDefault();
+		        	/* Act on the event */
+		        	$.post('/api/modify-book/',paras, function(data) {
+		        		/*optional stuff to do after success */
+			        	if (data.status) {
+			                 alertFun(data.message);
+			                 setTimeout(function () {
+			                    $('#alertModal').modal("hide");
+			                    location.reload();
+			                 }, 1200);
+			              } else {
+			                 alertWithClose(data.message);
+			              }
+		        	});
+		        });
 		} else {
 			var $confirm = confirm('Do you really want to delete the book?');
 			if ($confirm == true) {
 				// console.log(para);
-				// $.post('/path/to/file', para, function(data) {
-				// 	/*optional stuff to do after success */
-				// 	if (data.status) {
-				// 		$target.parent().parent().hide('400');
-				// 		alertWithClose('delete successfully')
-				// 	} else {
-				// 		alertWithClose('delete fail');
-				// 	}
-				// });
+				$.post('/api/delete-book/', para, function(data) {
+					/*optional stuff to do after success */
+					if (data.status) {
+						$target.parent().parent().hide('400');
+						alertWithClose('delete successfully')
+					} else {
+						alertWithClose('delete fail');
+					}
+				});
 			}
 		}
 	});

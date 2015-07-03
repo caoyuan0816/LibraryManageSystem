@@ -69,7 +69,7 @@ public class APIBookSearchController {
         }
 
         if(isAll.equals("true")){
-                return new Booklist(true, books.size(),result);
+                return new Booklist(true, result.size(),result);
         }
 
         if (page.equals("")){
@@ -106,12 +106,14 @@ public class APIBookSearchController {
             }
         }
 
+        books.add(bookRepository.findOne(value));
         for (int i = 1; i <= books.size(); i++){
             if (i > (page_num-1)*len && i <= page_num*len){
                 result.add(books.get(i-1));
             }
         }
-        return new Booklist(true, books.size(), result);
+
+        return new Booklist(true, result.size(), result);
     }
 
 }
