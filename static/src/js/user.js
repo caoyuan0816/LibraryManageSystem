@@ -3,6 +3,7 @@ function freshCurrentRecords() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/current-records/', para, function(data) {
+		console.log(data);
 		if (data['status']) {
 			var currentRecords = $('#currentRecords');
 			for (var i = 0; i < data['records'].length; i++) {

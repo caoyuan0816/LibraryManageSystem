@@ -23,7 +23,7 @@ $(function() {
 		returnData["username"] = $('#returnUsername')[0].value;
 		returnData["book-id"] = $("#isbn")[0].value;
 		console.log(returnData);
-		$.post('/api/borrow-book/', returnData, function(data) {
+		$.post('/api/return-book/', returnData, function(data) {
 			console.log(data);
 			alertWithClose(data.message);
 		});

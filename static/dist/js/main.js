@@ -215,7 +215,28 @@ $(function() {
 		paras["page"] = 1;
 		globalParas["classify"] = paras["classify"];
 		// console.log(paras);
-		bookSearchAjax(paras);
+		if (currentUrl.indexOf("book-search") != -1) {
+			console.log('ajax');
+			globalParas["classify"] = "";
+			var paras = {};
+			paras["page"] = 1;
+			paras["type"] = 	$('#searchType').val();
+			paras["value"] = $('#searchValue')[0].value;
+			globalParas["type"] = paras["type"];
+			globalParas["value"] = paras["value"];
+			// console.log(paras);
+			bookSearchAjax(paras);
+		}  else {
+			console.log("reload");
+			var globalSearchData = {};
+			globalSearchData["searchType"] = $('#searchType').val();;
+			globalSearchData["searchValue"] = $('#searchValue')[0].value;
+			var globalSearchDataStr = JSON.stringify(globalSearchData);
+			localStorage.setItem("globalSearchData", globalSearchDataStr);
+			window.location.href = "/book-search/";
+		}
+		
+		// bookSearchAjax(paras);
 	});
 	
 	// click the search button
@@ -622,7 +643,7 @@ $(function() {
 		returnData["username"] = $('#returnUsername')[0].value;
 		returnData["book-id"] = $("#isbn")[0].value;
 		console.log(returnData);
-		$.post('/api/borrow-book/', returnData, function(data) {
+		$.post('/api/return-book/', returnData, function(data) {
 			console.log(data);
 			alertWithClose(data.message);
 		});
@@ -638,6 +659,7 @@ function freshCurrentRecords() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/current-records/', para, function(data) {
+		console.log(data);
 		if (data['status']) {
 			var currentRecords = $('#currentRecords');
 			for (var i = 0; i < data['records'].length; i++) {
