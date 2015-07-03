@@ -56,7 +56,21 @@ public class APIBookSearchController {
     Booklist post(@RequestParam(value = "classify", defaultValue = "") String cls,
                   @RequestParam(value = "page", defaultValue = "")String page,
                   @RequestParam(value = "type", defaultValue = "")String type,
-                  @RequestParam(value = "value", defaultValue = "")String value){
+                  @RequestParam(value = "value", defaultValue = "")String value,
+                  @RequestParam(value = "all", defaultValue = "false")String isAll){
+
+        List<Book> books;
+        ArrayList<Book> result = new ArrayList<Book>();
+
+        books = bookRepository.findAll();
+
+        for (int i = 1; i <= books.size(); i++){
+                result.add(books.get(i-1));
+        }
+
+        if(isAll.equals("true")){
+                return new Booklist(true, books.size(),result);
+        }
 
         if (page.equals("")){
             return new Booklist(false,-1,new ArrayList<Book>());
@@ -64,7 +78,7 @@ public class APIBookSearchController {
 
         int page_num = Integer.parseInt(page);
 
-        List<Book> books;
+        
         //classify is not null
         if (!cls.equals("")){
             books = bookRepository.findByClassify(Integer.parseInt(cls));
@@ -91,8 +105,6 @@ public class APIBookSearchController {
                 }
             }
         }
-
-        ArrayList<Book> result = new ArrayList<Book>();
 
         for (int i = 1; i <= books.size(); i++){
             if (i > (page_num-1)*len && i <= page_num*len){

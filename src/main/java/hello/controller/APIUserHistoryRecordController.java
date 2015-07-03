@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +29,9 @@ public class APIUserHistoryRecordController {
     @Autowired
     AccountRepository accountRepository;
     @RequestMapping(method = RequestMethod.POST)
-    public Recordlist post(@RequestParam(value="username",defaultValue="") String username){
+    public
+    @ResponseBody
+    Recordlist post(@RequestParam(value="username",defaultValue="") String username){
         boolean status=false;
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
