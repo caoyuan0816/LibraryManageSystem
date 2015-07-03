@@ -40,8 +40,9 @@ public class APISingleFineController {
         double fine = -1;
         Account accout = accountRepository.findByUsername(username);
         Record record = recordRepository.findByUseridAndBookid(accout.getId(), bookid);
-        if(System.currentTimeMillis()>record.getReturntime()&&record.getActualreturntime()==-1){
-            fine = (System.currentTimeMillis()-record.getReturntime())/(1000*60*60*24)*0.5;
+        long currenttime = System.currentTimeMillis();
+        if(currenttime>record.getReturntime()&&record.getActualreturntime()==-1){
+            fine = ((int)((currenttime-record.getReturntime())/(1000*60*60*24)))*0.5;
         }
         return fine;
     }
