@@ -47,7 +47,7 @@ public class UserInfoPageController {
         }
 
         if (is_Admin){
-            return "adminAddBook";
+            return "redirect:/add-book/";
         }
 
         if(is_Staff){
