@@ -38,14 +38,15 @@ public class APISingleFineController {
         if(username.equals("") || bookid.equals(""))
             return -1.0;
 
-        double fine = -1;
+        double fine = 0.0;
         Account accout = accountRepository.findByUsername(username);
         Record record = recordRepository.findByUseridAndBookid(accout.getId(), bookid);
+
         long currenttime = System.currentTimeMillis();
-        if(currenttime>record.getReturntime()&&record.getActualreturntime()==-1){
+        if(currenttime > record.getReturntime() && record.getActualreturntime() == -1){
             fine = ((int)((currenttime-record.getReturntime())/(1000*60*60*24)))*0.5;
         }
-        
+
         return fine;
     }
 }
