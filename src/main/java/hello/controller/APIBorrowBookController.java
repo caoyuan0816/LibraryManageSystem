@@ -38,20 +38,6 @@ public class APIBorrowBookController {
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (!username.equals(userDetails.getUsername())) {
-            return new Status(false,"You're not the right one");
-        }
-        boolean is_Staff = false;
-
-        for(GrantedAuthority s : userDetails.getAuthorities()){
-            if (s.getAuthority().equals("ROLE_STAFF")) {
-                is_Staff = true;
-            }
-        }
-
-        if (!is_Staff){
-            return new Status(false,"You don't have the authority to view the page");
-        }
         if (username.equals("") || bookID.equals("")){
             return new Status(false, "Paras error!");
         }
@@ -78,7 +64,7 @@ public class APIBorrowBookController {
                 bookRepository.save(book);
 
             }else{
-                if(account.getBorrownum() < MAX_BORROW_NUM) {
+                if(account.getBorrownum() >= MAX_BORROW_NUM) {
                     return new Status(false, "You can not borrow more books!");
                 }else{
                     return new Status(false, "No more this book can borrow!");

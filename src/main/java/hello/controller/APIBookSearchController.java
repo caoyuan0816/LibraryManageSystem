@@ -62,14 +62,14 @@ public class APIBookSearchController {
         List<Book> books;
         ArrayList<Book> result = new ArrayList<Book>();
 
-        books = bookRepository.findAll();
-
-        for (int i = 1; i <= books.size(); i++){
-                result.add(books.get(i-1));
-        }
-
         if(isAll.equals("true")){
-                return new Booklist(true, result.size(),result);
+            books = bookRepository.findAll();
+
+            for (int i = 1; i <= books.size(); i++){
+                result.add(books.get(i-1));
+            }
+
+            return new Booklist(true, result.size(),result);
         }
 
         if (page.equals("")){
@@ -113,7 +113,7 @@ public class APIBookSearchController {
             }
         }
 
-        return new Booklist(true, result.size(), result);
+        return new Booklist(true, books.size(), result);
     }
 
 }
