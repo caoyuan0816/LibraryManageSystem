@@ -7,11 +7,20 @@ function getUrlParam(name){
 }
 $(function(){
 	var bookid = getUrlParam('bookid');
-	 console.log(bookid);
+	 
 	$.post('/api/book-detail/', {bookid: bookid}, function(data) {
 		/*optional stuff to do after success */
+		// console.log(data);
 		if (data.status) {
 			$('.book-content').empty();
+			// var borrowDom = "";
+			var borrowFlag = "";
+			if(data["book"].borrowed){
+				borrowFlag = '<button type="button" class="btn btn-danger" style="margin-left: 30px;" disabled>' + 'can not  borrow' + '</button>';
+			}else{
+				borrowFlag = '<button type="button" class="btn btn-success" style="margin-left: 30px;" disabled>' + 'can borrow' +'</button>';
+			}
+
 			var bookDetailDom = '<div class="row">'
 		              +'<div class="col-sm-6 book-pho">'
 		                +'<a href="' + data["book"].photoURL + '">'
@@ -19,7 +28,7 @@ $(function(){
 		                +'</a>'
 		              +'</div>'
 		              +'<div class="col-sm-6 book-inf">'
-		                +'<p style="font-size: 22px;"><span>书名：</span><span>'+ data["book"].bookName + '</span></p>'
+		                +'<p style="font-size: 22px;"><span>书名：</span><span>'+ data["book"].bookName + '</span>' +borrowFlag+'</p>'
 		                +'<p><span>作者：</span><span>'+data["book"].author + '</span></p>'
 		                +'<p><span>出版社：</span><span>'+data["book"].publisher + '</span></p>'
 		                +'<p><span>出版时间：</span><span>'+data["book"].publishTime + '</span></p>'

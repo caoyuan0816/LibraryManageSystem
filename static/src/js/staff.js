@@ -15,6 +15,32 @@ $(function() {
 			$("#borrowForm #borrowBtn").click();
 		}	
 	});
+
+	$('#returnForm #isbn').on('blur',  function(event) {
+		event.preventDefault();
+		/* Act on the event */
+		console.log('blur');
+		var returnData = {};
+		returnData["username"] = $('#returnUsername')[0].value;
+		returnData["book-id"] = $("#isbn")[0].value;
+		console.log(returnData);
+		$.post('/api/single-fine/', returnData, function(data) {
+			/*optional stuff to do after success */
+				console.log(data);
+				if (data == -1) {
+					alertWithClose('please input data');
+				} 
+				if (data >= 0.0) {
+					var $confirm = confirm('Need to pay ' + data + '$');
+					if ($confirm) {
+						console.log('true');
+						$('#returnForm #returnBtn').css({
+							display: 'inline'
+						});
+					} 
+				}
+		});
+	});
 	//submit return form 
 	$('#returnForm #returnBtn').on('click',  function(event) {
 		event.preventDefault();
