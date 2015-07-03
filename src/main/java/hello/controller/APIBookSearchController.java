@@ -106,7 +106,11 @@ public class APIBookSearchController {
             }
         }
 
-        books.add(bookRepository.findOne(value));
+        Book byID = bookRepository.findOne(value);
+        if(byID != null){
+            books.add(bookRepository.findOne(value));
+        }
+        
         for (int i = 1; i <= books.size(); i++){
             if (i > (page_num-1)*len && i <= page_num*len){
                 result.add(books.get(i-1));
