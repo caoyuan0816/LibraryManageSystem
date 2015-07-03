@@ -7,7 +7,7 @@ function getUrlParam(name){
 }
 $(function(){
 	var bookid = getUrlParam('bookid');
-	// console.log(bookid);
+	 console.log(bookid);
 	$.post('/api/book-detail/', {bookid: bookid}, function(data) {
 		/*optional stuff to do after success */
 		if (data.status) {
@@ -19,13 +19,13 @@ $(function(){
 		                +'</a>'
 		              +'</div>'
 		              +'<div class="col-sm-6 book-inf">'
-		                +'<p><span>书名：</span><span>'+ data["book"].bookName + '</span></p>'
+		                +'<p style="font-size: 22px;"><span>书名：</span><span>'+ data["book"].bookName + '</span></p>'
 		                +'<p><span>作者：</span><span>'+data["book"].author + '</span></p>'
 		                +'<p><span>出版社：</span><span>'+data["book"].publisher + '</span></p>'
 		                +'<p><span>出版时间：</span><span>'+data["book"].publishTime + '</span></p>'
 		                +'<p><span>ＩＳＢＮ码：</span><span>'+data["book"].isbn + '</span></p>'
 		                +'<p><span>译者：</span><span>'+data["book"].translator + '</span></p>'
-		                +'<p><span>现存量：</span><span>'+data["book"].currentStorage + '</span></p>'
+		                //+'<p><span>现存量：</span><span>'+data["book"].currentStorage + '</span></p>'
 		                +'<p>作者介绍：</p>'
 		                +'<p>'+data["book"].authorIntroduction + '</p>'
 		              +'</div>'

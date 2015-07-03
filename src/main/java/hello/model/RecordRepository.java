@@ -2,7 +2,6 @@ package hello.model;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import javax.swing.text.rtf.RTFEditorKit;
 import java.util.List;
 
 /**
