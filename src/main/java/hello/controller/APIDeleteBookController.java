@@ -17,12 +17,12 @@ public class APIDeleteBookController {
     @Autowired
     private BookRepository bookRepository;
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Status post(@RequestParam(value="isbn",defaultValue = "")String ISBN){
-        Book bookToDelete = bookRepository.findByIsbn(ISBN);
-        if(bookToDelete.getIsbn().equals("")){
+    public @ResponseBody Status post(@RequestParam(value="book-id",defaultValue = "")String id){
+        Book bookToDelete = bookRepository.findOne(id);
+        if(bookToDelete.getId().equals("")){
             return new Status(false,"Can not find the book,delete failed!");
         }else{
-            if(bookToDelete.getIsbn().equals(ISBN)){
+            if(bookToDelete.getId().equals(id)){
                 bookRepository.delete(bookToDelete);
                 return new Status(true,"The book has been deleted!");
             }
