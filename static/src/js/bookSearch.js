@@ -96,13 +96,14 @@ $(function() {
 		}  else {
 			console.log("reload");
 			var globalSearchData = {};
+			
 			globalSearchData["searchType"] = $('#searchType').val();;
 			globalSearchData["searchValue"] = $('#searchValue')[0].value;
 			var globalSearchDataStr = JSON.stringify(globalSearchData);
 			localStorage.setItem("globalSearchData", globalSearchDataStr);
 			window.location.href = "/book-search/";
 		}
-		
+
 		// bookSearchAjax(paras);
 	});
 	

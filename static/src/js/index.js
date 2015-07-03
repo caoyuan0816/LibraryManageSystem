@@ -305,7 +305,7 @@ $(function () {
 });
 
 function OnclickLogout() {
-    console.log("Fuck");b
+    // console.log("Fuck");b
     $.post('/api/logout', function (data) {
         var abc = "'";
         var re = new RegExp(abc, 'g');
