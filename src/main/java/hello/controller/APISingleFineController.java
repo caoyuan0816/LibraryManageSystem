@@ -34,7 +34,7 @@ public class APISingleFineController {
 
     @RequestMapping(method = RequestMethod.POST)
     public double post(@RequestParam(value="username",defaultValue = "")String username,
-                       @RequestParam(value="id",defaultValue = "")String bookid){
+                       @RequestParam(value="book-id",defaultValue = "")String bookid){
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

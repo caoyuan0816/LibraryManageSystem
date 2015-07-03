@@ -17,7 +17,7 @@ public class APIDeleteBookController {
     @Autowired
     private BookRepository bookRepository;
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Status post(@RequestParam(value="id",defaultValue = "")String id){
+    public @ResponseBody Status post(@RequestParam(value="book-id",defaultValue = "")String id){
         Book bookToDelete = bookRepository.findOne(id);
         if(bookToDelete.getId().equals("")){
             return new Status(false,"Can not find the book,delete failed!");
