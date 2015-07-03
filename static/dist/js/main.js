@@ -142,9 +142,10 @@ function getUrlParam(name){
 // book search ajax
 function bookSearchAjax(paras) {
 	$.post('/api/book-search/', paras, function (data) {
-		// console.log(data);
+		console.log(data);
 		if (data.status) {
 			$('.book-dis').empty();
+			// console.log(data.book_list.length);
 			for (var i =0 ; i < data.book_list.length; i++) {
 				var bookDom = '<li>'
 				+'<a href="/book-detail/?bookid=' +data.book_list[i].id +'">'
@@ -180,12 +181,13 @@ function bookSearchAjax(paras) {
 function freshBookList(pageNumber) {
 	var paras = {}
 	paras['page'] = pageNumber;
-	paras['classify'] = "";
+	// paras['classify'] = "";
 	var globalSearchDataStr = localStorage.getItem("globalSearchData");
 	var globalSearchData = JSON.parse(globalSearchDataStr);
 	console.log(globalSearchDataStr);
 	paras["type"] = 	globalSearchData["searchType"];
 	paras["value"] = globalSearchData["searchValue"];
+	paras["classify"] = globalSearchData['classify'];
 	//console.log(paras);
 	bookSearchAjax(paras);
 }
@@ -216,22 +218,22 @@ $(function() {
 		globalParas["classify"] = paras["classify"];
 		// console.log(paras);
 		if (currentUrl.indexOf("book-search") != -1) {
-			console.log('ajax');
-			globalParas["classify"] = "";
-			var paras = {};
-			paras["page"] = 1;
-			paras["type"] = 	$('#searchType').val();
-			paras["value"] = $('#searchValue')[0].value;
-			globalParas["type"] = paras["type"];
-			globalParas["value"] = paras["value"];
+			// console.log('ajax');
+			// globalParas["classify"] = "";
+			// var paras = {};
+			// paras["page"] = 1;
+			// paras["type"] = 	$('#searchType').val();
+			// paras["value"] = $('#searchValue')[0].value;
+			// globalParas["type"] = paras["type"];
+			// globalParas["value"] = paras["value"];
 			// console.log(paras);
 			bookSearchAjax(paras);
 		}  else {
-			console.log("reload");
+			// console.log("reload");
 			var globalSearchData = {};
-			
-			globalSearchData["searchType"] = $('#searchType').val();;
-			globalSearchData["searchValue"] = $('#searchValue')[0].value;
+			globalSearchData["classify"] = paras['classify'];
+			globalSearchData["searchType"] = "";
+			globalSearchData["searchValue"] = "";
 			var globalSearchDataStr = JSON.stringify(globalSearchData);
 			localStorage.setItem("globalSearchData", globalSearchDataStr);
 			window.location.href = "/book-search/";
