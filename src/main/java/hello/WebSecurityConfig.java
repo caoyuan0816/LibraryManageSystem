@@ -31,7 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/modify-book/").hasRole("ADMIN")
                 .antMatchers("/api/return-book/").hasRole("STAFF")
                 .antMatchers("/api/single-fine/").hasRole("STAFF")
-                .antMatchers("/api/single-fine/").hasRole("STAFF")
                 .antMatchers("/borrow-book/").hasRole("STAFF")
                 .antMatchers("/return-book/").hasRole("STAFF")
 //                .anyRequest().authenticated()
