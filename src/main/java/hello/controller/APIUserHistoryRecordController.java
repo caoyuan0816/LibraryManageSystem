@@ -73,7 +73,7 @@ public class APIUserHistoryRecordController {
             returndate = new Date(tempRecord.getReturntime());
             borrowdate = new Date(tempRecord.getBorrowtime());
             actualreturndate = new Date(tempRecord.getActualreturntime());
-            recordlist.add(new BorrowRecord(bookid,bookname,author,borrowdate,returndate,actualreturndate));
+            recordlist.add(new BorrowRecord(bookid,bookname,author,returndate,borrowdate,actualreturndate));
         }
         status=true;
         sizeoflist=recordlist.size();
