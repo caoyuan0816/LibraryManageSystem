@@ -280,22 +280,26 @@ $(function () {
 
     $('#book-upload-button').on('click', function(event){
         var paras = {};
-        paras['bookname']=$('#bookName').val();
-        paras['author']=$('#author').val();
-        paras['publisher']=$('#publisher').val();
-        paras['publishtime']=$('#publishTime').val();
-        paras['isbn']=$('#ISBN').val();
-        paras['translator']=$('#translator').val();
-        paras['photoURL']=$('#photoUrl').val();
-        paras['authorintro']=$('#authorIntroduction').val();
-        paras['bookintro']=$('#bookIntroduction').val();
-
+        console.log($('#bookName'));
+        paras['bookname']=$('#fbookName')[0].value;
+        paras['author']=$('#fauthor').val();
+        paras['publisher']=$('#fpublisher').val();
+        paras['publishtime']=$('#fpublishTime').val();
+        paras['isbn']=$('#fISBN').val();
+        paras['translator']=$('#ftranslator').val();
+        paras['photoURL']=$('#fphotoUrl').val();
+        paras['authorintro']=$('#fauthorIntroduction').val();
+        paras['bookintro']=$('#fbookIntroduction').val();
+        paras['classify'] = $('#fclassify').val();
+        console.log(paras);
         $.post('/api/book-upload/', paras, function (data) {
+            // console.log(data);
             if (data.status) {
                 alertFun(data.message);
+                JsBarcode($("#barcode"),data['bookID'],{format:"CODE128",displayValue:true,fontSize:20});
                 setTimeout(function () {
                     $('#alertModal').modal("hide");
-                    location.reload();
+                    // location.reload();
                 }, 1200);
             } else {
                 alertWithClose(data.message);
@@ -315,7 +319,7 @@ function OnclickLogout() {
         var res = JSON.parse(data);
         if (res.status == "true") {
             alertFun("Logout Success!");
-            setTimeout("javascript:location.reload()", 1500);
+            setTimeout("javascript:location.href='../'", 1500);
         } else {
             alertFun("Logout defeat!");
             setTimeout("javascript:location.reload()", 1500);

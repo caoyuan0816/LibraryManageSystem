@@ -80,7 +80,7 @@ function freshUserInformationPage() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/user/', para, function(data) {
-		// console.log(data);
+		console.log(data);
 		// console.log($('.read-intr .borrowed span'));
 		$('.read-intr .borrowed span').text(data['borrowed']);
 		$('.read-intr .overdue span').text(data['overdue']);
@@ -95,12 +95,20 @@ function feshUserFine() {
 			var userFine = $('#userFine');
 			console.log(data);
 			for (var i = 0; i < data['records'].length; i++) {
+				var borrowTime = new Date(data['records'][i].borrowdate);
+				var returnTime = new Date(data['records'][i].returndate);
+				var actualReturnTime = "";
+				if (data['records'][i].actualreturndate== -1) {
+					actualReturnTime = '--';
+				} else {
+					actualReturnTime = new Date(data['records'][i].actualreturndate).Format("yyyy-MM-dd hh:mm:ss");
+				}
 				var userFineDom =  '<tr>'
 										+'<td>' + data['records'][i].bookid + '</td>'
-										+'<td>' + data['records'][i].bookName + '</td>'
-										+'<td>' + data['records'][i].author + '</td>'
-										+'<td>' + data['records'][i].borrowtime + '</td>'
-										+'<td>' + data['records'][i].actualreturntime  + '</td>'
+										+'<td>' + data['records'][i].bookname + '</td>'
+										+'<td>' + borrowTime.Format("yyyy-MM-dd hh:mm:ss") + '</td>'
+										+'<td>' + returnTime.Format("yyyy-MM-dd hh:mm:ss")  + '</td>'
+										+'<td>' + actualReturnTime + '</td>'
 										+'<td>' + data['fines'][i] + '</td>'
 									      +'</tr>';
 				userFine.append(userFineDom);						      	

@@ -11,7 +11,7 @@ function getBookList() {
 			var manageBook = $('#manageBook');
 			for (var i = 0; i < data.book_list.length; i++) {
 				var bookDom ='<tr>'
-									+'<td><img class="bookBarcode" id="'+data.book_list[i].id+'"/></td>'
+									+'<td><img class="bookBarcode" id="'+data.book_list[i].id+'" style="width:400px;" /></td>'
 									+'<td class="bookid">' + data.book_list[i].id + '</td>'
 									+'<td>' + data.book_list[i].bookName + '</td>'
 									+'<td>' + data.book_list[i].author + '</td>'
@@ -19,7 +19,7 @@ function getBookList() {
 								 +'</tr>';
 				manageBook.append(bookDom);
 			}
-			// getBookBarcode();
+			getBookBarcode();
 		}
 	});
 }
@@ -27,10 +27,12 @@ function getBookBarcode() {
 	var $imgList = $('.bookBarcode');
 	console.log($imgList);
 	for (var i = 0; i < $imgList.length; i++) {
-		// $imgElem = $imgList[i]);
-		console.log($imgList[i].attributes('id').value);
+		$imgElem = $imgList[i];
+		var bookId = $imgList[i].id;
+		// console.log($imgList[i].id);
 		// var $bookId = $imgElem.siblings('.bookid').text();
-		// $imgElem.JsBarcode($bookId,{format:"CODE128",displayValue:true,fontSize:20});
+		console.log(typeof $('#'+bookId).JsBarcode);
+		JsBarcode($imgElem,bookId,{format:"CODE128",displayValue:true,fontSize:20});
 	}
 }
 $(function(){
@@ -570,22 +572,26 @@ $(function () {
 
     $('#book-upload-button').on('click', function(event){
         var paras = {};
-        paras['bookname']=$('#bookName').val();
-        paras['author']=$('#author').val();
-        paras['publisher']=$('#publisher').val();
-        paras['publishtime']=$('#publishTime').val();
-        paras['isbn']=$('#ISBN').val();
-        paras['translator']=$('#translator').val();
-        paras['photoURL']=$('#photoUrl').val();
-        paras['authorintro']=$('#authorIntroduction').val();
-        paras['bookintro']=$('#bookIntroduction').val();
-
+        console.log($('#bookName'));
+        paras['bookname']=$('#fbookName')[0].value;
+        paras['author']=$('#fauthor').val();
+        paras['publisher']=$('#fpublisher').val();
+        paras['publishtime']=$('#fpublishTime').val();
+        paras['isbn']=$('#fISBN').val();
+        paras['translator']=$('#ftranslator').val();
+        paras['photoURL']=$('#fphotoUrl').val();
+        paras['authorintro']=$('#fauthorIntroduction').val();
+        paras['bookintro']=$('#fbookIntroduction').val();
+        paras['classify'] = $('#fclassify').val();
+        console.log(paras);
         $.post('/api/book-upload/', paras, function (data) {
+            // console.log(data);
             if (data.status) {
                 alertFun(data.message);
+                JsBarcode($("#barcode"),data['bookID'],{format:"CODE128",displayValue:true,fontSize:20});
                 setTimeout(function () {
                     $('#alertModal').modal("hide");
-                    location.reload();
+                    // location.reload();
                 }, 1200);
             } else {
                 alertWithClose(data.message);
@@ -605,7 +611,7 @@ function OnclickLogout() {
         var res = JSON.parse(data);
         if (res.status == "true") {
             alertFun("Logout Success!");
-            setTimeout("javascript:location.reload()", 1500);
+            setTimeout("javascript:location.href='../'", 1500);
         } else {
             alertFun("Logout defeat!");
             setTimeout("javascript:location.reload()", 1500);
@@ -774,7 +780,7 @@ function freshUserInformationPage() {
 	var para = {};
 	para['username'] = getUrlParam('username');
 	$.post('/api/user/', para, function(data) {
-		// console.log(data);
+		console.log(data);
 		// console.log($('.read-intr .borrowed span'));
 		$('.read-intr .borrowed span').text(data['borrowed']);
 		$('.read-intr .overdue span').text(data['overdue']);
@@ -789,12 +795,20 @@ function feshUserFine() {
 			var userFine = $('#userFine');
 			console.log(data);
 			for (var i = 0; i < data['records'].length; i++) {
+				var borrowTime = new Date(data['records'][i].borrowdate);
+				var returnTime = new Date(data['records'][i].returndate);
+				var actualReturnTime = "";
+				if (data['records'][i].actualreturndate== -1) {
+					actualReturnTime = '--';
+				} else {
+					actualReturnTime = new Date(data['records'][i].actualreturndate).Format("yyyy-MM-dd hh:mm:ss");
+				}
 				var userFineDom =  '<tr>'
 										+'<td>' + data['records'][i].bookid + '</td>'
-										+'<td>' + data['records'][i].bookName + '</td>'
-										+'<td>' + data['records'][i].author + '</td>'
-										+'<td>' + data['records'][i].borrowtime + '</td>'
-										+'<td>' + data['records'][i].actualreturntime  + '</td>'
+										+'<td>' + data['records'][i].bookname + '</td>'
+										+'<td>' + borrowTime.Format("yyyy-MM-dd hh:mm:ss") + '</td>'
+										+'<td>' + returnTime.Format("yyyy-MM-dd hh:mm:ss")  + '</td>'
+										+'<td>' + actualReturnTime + '</td>'
 										+'<td>' + data['fines'][i] + '</td>'
 									      +'</tr>';
 				userFine.append(userFineDom);						      	
