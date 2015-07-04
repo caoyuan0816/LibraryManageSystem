@@ -19,40 +19,44 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 					<div class="upload-content">
 						<form id="bookForm">
 						  <div class="form-group">
-						    <label for="bookName">Book Name</label>
-						    <input type="text" class="form-control" id="bookName" required="required"/>
+						    <label for="fbookName">Book Name</label>
+						    <input type="text" class="form-control" id="fbookName" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="author">Author</label>
-						    <input type="text" class="form-control" id="author" required="required"/>
+						    <label for="fauthor">Author</label>
+						    <input type="text" class="form-control" id="fauthor" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="publisher">Publisher</label>
-						    <input type="text" class="form-control" id="publisher" required="required"/>
+						    <label for="fpublisher">Publisher</label>
+						    <input type="text" class="form-control" id="fpublisher" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="publishTime">Publish Time</label>
-						    <input type="date" class="form-control" id="publishTime" required="required"/>
+						    <label for="fpublishTime">Publish Time</label>
+						    <input type="date" class="form-control" id="fpublishTime" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="ISBN">ISBN</label>
-						    <input type="text" class="form-control" id="ISBN" required="required"/>
+						    <label for="fISBN">ISBN</label>
+						    <input type="text" class="form-control" id="fISBN" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="translator">Translator</label>
-						    <input type="text" class="form-control" id="translator" required="required"/>
+						    <label for="ftranslator">Translator</label>
+						    <input type="text" class="form-control" id="ftranslator" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="photoUrl">Photo Url</label>
-						    <input type="text" class="form-control" id="photoUrl" required="required"/>
+						    <label for="fphotoUrl">Photo Url</label>
+						    <input type="text" class="form-control" id="fphotoUrl" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="authorIntroduction">Author Introduction</label>
-						    <textarea id="authorIntroduction" class="form-control" rows="6" required="required"></textarea>
+						    <label for="fclassify">Classify</label>
+						    <input type="text" class="form-control" id="fclassify" required="required"/>
 						  </div>
 						  <div class="form-group">
-						    <label for="bookIntroduction">Book Introduction</label>
-						    <textarea id="bookIntroduction" class="form-control" rows="10" required="required"></textarea>
+						    <label for="fauthorIntroduction">Author Introduction</label>
+						    <textarea id="fauthorIntroduction" class="form-control" rows="6" required="required"></textarea>
+						  </div>
+						  <div class="form-group">
+						    <label for="fbookIntroduction">Book Introduction</label>
+						    <textarea id="fbookIntroduction" class="form-control" rows="10" required="required"></textarea>
 						  </div>
 						  <div class="btn-center">
 						  	<button id="book-upload-button" type="button" class="btn btn-primary">Submit</button>
@@ -68,8 +72,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	</section>
 	<div th:substituteby="main::footer-and-scripts"></div>
 	<script type="text/javascript" src="/static/dist/js/JsBarcode.all.min.js"></script>
-	<script type="text/javascript">
-		$("#barcode").JsBarcode("556889e5e4b02de9c3e735ce",{format:"CODE128",displayValue:true,fontSize:20});
-	</script>
+	// <script type="text/javascript">
+	// 	$("#barcode").JsBarcode("556889e5e4b02de9c3e735ce",{format:"CODE128",displayValue:true,fontSize:20});
+	// </script>
 </body>
 </html>

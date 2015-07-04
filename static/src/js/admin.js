@@ -4,6 +4,7 @@ function getBookList() {
 	paras['classify'] = "";
 	paras['type'] = "";
 	paras['value'] = "";
+	paras['all'] = "true";
 	$.post('/api/book-search/', paras, function(data) {
 		/*optional stuff to do after success */
 		if (data.status) {
@@ -11,7 +12,7 @@ function getBookList() {
 			var manageBook = $('#manageBook');
 			for (var i = 0; i < data.book_list.length; i++) {
 				var bookDom ='<tr>'
-									+'<td><img class="bookBarcode" id="'+data.book_list[i].id+'"/></td>'
+									+'<td><img class="bookBarcode" id="'+data.book_list[i].id+'" style="width:400px;" /></td>'
 									+'<td class="bookid">' + data.book_list[i].id + '</td>'
 									+'<td>' + data.book_list[i].bookName + '</td>'
 									+'<td>' + data.book_list[i].author + '</td>'
@@ -19,7 +20,7 @@ function getBookList() {
 								 +'</tr>';
 				manageBook.append(bookDom);
 			}
-			// getBookBarcode();
+			getBookBarcode();
 		}
 	});
 }
@@ -27,10 +28,12 @@ function getBookBarcode() {
 	var $imgList = $('.bookBarcode');
 	console.log($imgList);
 	for (var i = 0; i < $imgList.length; i++) {
-		// $imgElem = $imgList[i]);
-		console.log($imgList[i].attributes('id').value);
+		$imgElem = $imgList[i];
+		var bookId = $imgList[i].id;
+		// console.log($imgList[i].id);
 		// var $bookId = $imgElem.siblings('.bookid').text();
-		// $imgElem.JsBarcode($bookId,{format:"CODE128",displayValue:true,fontSize:20});
+		console.log(typeof $('#'+bookId).JsBarcode);
+		JsBarcode($imgElem,bookId,{format:"CODE128",displayValue:true,fontSize:20});
 	}
 }
 $(function(){
