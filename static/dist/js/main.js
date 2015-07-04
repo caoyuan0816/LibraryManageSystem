@@ -533,7 +533,7 @@ $(function () {
         var modifyData = {};
         modifyData['password'] = $('#oldPassword')[0].value;
         modifyData['newpassword'] = $('#newPassword')[0].value;
-        modifyData['username'] = __username;
+        modifyData['username'] = getUrlParam('username');
         console.log(modifyData);
         $.post('/api/reset-password/', modifyData, function (data) {
             if (data.status) {
