@@ -27,10 +27,10 @@ public class APIModifyBookController {
                                      @RequestParam(value = "authorintro", defaultValue = "") String authorintro,
                                      @RequestParam(value = "bookintro", defaultValue = "") String bookintro,
                                      @RequestParam(value = "classify", defaultValue = "") String classify){
-        Book bookToModify = bookRepository.findByIsbn(ISBN);
         if(bookname.equals("") || author.equals("") || publisher.equals("") || ISBN.equals("") || translator.equals("") || photoURL.equals("") || authorintro.equals("") || bookintro.equals("") || classify.equals("")){
             return new Status(false,"Can not find the book,modify failed!");
         }else{
+            Book bookToModify = bookRepository.findByIsbn(ISBN);
             if(bookToModify.getIsbn().equals(ISBN)){
                 Book modifiedBook = new Book(bookname,author,publisher,publisher,ISBN,translator,photoURL,authorintro,bookintro,Integer.parseInt(classify));
                 bookToModify = modifiedBook;
